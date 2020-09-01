@@ -10,6 +10,7 @@
 /vendor/etc/camera/whyred_s5k5e8_ofilm_global_i_chromatix\.xml u:object_r:vendor_configs_file:s0
 /vendor/etc/camera/whyred_s5k5e8_qtech_cn_ii_chromatix\.xml u:object_r:vendor_configs_file:s0
 /vendor/etc/camera/whyred_s5k5e8_qtech_global_ii_chromatix\.xml u:object_r:vendor_configs_file:s0
+/vendor/lib/libMiWatermark\.so u:object_r:vendor_file:s0
 /vendor/lib/libactuator_whyred_imx486_ofilm_global_i_dw9714v\.so u:object_r:vendor_file:s0
 /vendor/lib/libactuator_whyred_imx486_qtech_global_ii_dw9714v\.so u:object_r:vendor_file:s0
 /vendor/lib/libactuator_whyred_s5k2l7_ofilm_cn_i_ak7374\.so u:object_r:vendor_file:s0
