@@ -411,6 +411,7 @@ vendor/lib/libchromatix_whyred_s5k5e8_qtech_global_ii_snapshot.so 0 0 0644
 vendor/lib/libchromatix_whyred_s5k5e8_qtech_global_ii_video_full.so 0 0 0644
 vendor/lib/libchromatix_whyred_s5k5e8_qtech_global_ii_zsl_preview.so 0 0 0644
 vendor/lib/libchromatix_whyred_s5k5e8_qtech_global_ii_zsl_video.so 0 0 0644
+vendor/lib/libdng_sdk.so 0 0 0644
 vendor/lib/libmmcamera_whyred_imx376_ofilm_global_i.so 0 0 0644
 vendor/lib/libmmcamera_whyred_imx376_ofilm_global_i_eeprom.so 0 0 0644
 vendor/lib/libmmcamera_whyred_imx376_sunny_global_ii.so 0 0 0644
@@ -431,3 +432,4 @@ vendor/lib/libmmcamera_whyred_s5k5e8_ofilm_i.so 0 0 0644
 vendor/lib/libmmcamera_whyred_s5k5e8_ofilm_i_eeprom.so 0 0 0644
 vendor/lib/libmmcamera_whyred_s5k5e8_qtech_ii.so 0 0 0644
 vendor/lib/libmmcamera_whyred_s5k5e8_qtech_ii_eeprom.so 0 0 0644
+vendor/lib/libuq.so 0 0 0644
