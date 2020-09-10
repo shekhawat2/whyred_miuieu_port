@@ -7,3 +7,4 @@ vendor/etc/acdbdata/Forte/Forte_Hdmi_cal.acdb 0 0 0644
 vendor/etc/acdbdata/Forte/Forte_Headset_cal.acdb 0 0 0644
 vendor/etc/acdbdata/Forte/Forte_Speaker_cal.acdb 0 0 0644
 vendor/etc/acdbdata/Forte/Forte_workspaceFile.qwsp 0 0 0644
+vendor/firmware/tas2557_uCDSP.bin 0 0 0644
