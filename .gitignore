@@ -1,0 +1,9 @@
+in
+out
+system.img
+vendor.img
+*.zip
+*.new.dat
+*.new.dat.br
+*.transfer.list
+*.patch.dat
