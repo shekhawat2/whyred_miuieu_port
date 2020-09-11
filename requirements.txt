@@ -1,0 +1,3 @@
+Telethon==1.11.3
+aiohttp[speedups]
+
