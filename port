@@ -1,0 +1,202 @@
+#!/usr/bin/env bash
+LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+echo $LOCALDIR
+TOOLS=$LOCALDIR/tools
+SDAT2IMG=$TOOLS/sdat2img.py
+IMG2SDAT=$TOOLS/img2sdat.py
+IMGEXTRACT=$TOOLS/imgextractor.py
+MKUSERIMG=$TOOLS/mkuserimg_mke2fs.sh
+URL=$(cat url)
+OUTDIR=$LOCALDIR/out
+INDIR=$LOCALDIR/in
+WORKDIR=$LOCALDIR/work
+date=`date +%Y%m%d%H%M%S`
+ZIPNAME=$(echo $URL | cut -d / -f 10)
+NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/HMNote7/HMNote5Pro/g' <<< $ZIPNAME)))
+COMMITHASH=$(git log -1 --pretty=%H)
+mkdir -p $WORKDIR
+mkdir -p $INDIR
+rm -rf $OUTDIR
+mkdir -p $OUTDIR
+
+rm -rf $LOCALDIR/flashable/system.*
+rm -rf $LOCALDIR/flashable/vendor.*
+
+OLDZIPNAME=$(git describe)
+EUDATE=$(echo $ZIPNAME | cut -d _ -f 4)
+OLDEUDATE=$(echo $OLDZIPNAME | cut -d _ -f 4)
+
+if [[ $(git cat-file -p $OLDZIPNAME | tail -n +6) == $COMMITHASH && $EUDATE == $OLDEUDATE ]]; then
+    echo "$ZIPNAME already done!"
+    exit 0
+fi
+
+# Download and Unzip
+echo "Downloading $ZIPNAME"
+aria2c -x16 -j$(nproc) -q -d "$INDIR" -o "$ZIPNAME" ${URL}
+echo "Extracting $ZIPNAME to $INDIR"
+unzip -o -d $INDIR $INDIR/$ZIPNAME > /dev/null
+
+brotli -df $INDIR/system.new.dat.br
+$SDAT2IMG $INDIR/system.transfer.list $INDIR/system.new.dat $INDIR/system.img > /dev/null
+python3 $IMGEXTRACT $INDIR/system.img .
+
+brotli -df $INDIR/vendor.new.dat.br
+$SDAT2IMG $INDIR/vendor.transfer.list $INDIR/vendor.new.dat $INDIR/vendor.img > /dev/null
+python3 $IMGEXTRACT $INDIR/vendor.img .
+
+#rm -rf $INDIR
+
+echo "Patching system and vendor"
+rm $LOCALDIR/vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
+rm $LOCALDIR/vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
+rm -rf $LOCALDIR/system/system/priv-app/Updater
+
+rsync -ra $LOCALDIR/whyred/audio/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/camera/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/fingerprint/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/keymaster/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/sensors/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/wifi/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/app/vendor/ $LOCALDIR/vendor
+
+rsync -ra $LOCALDIR/whyred/app/system/ $LOCALDIR/system
+
+#fstab
+sed -i "s/forceencrypt/encryptable/g" $LOCALDIR/vendor/etc/fstab.qcom
+sed -i "/\/dev\/block\/bootdevice\/by-name\/system/d" $LOCALDIR/vendor/etc/fstab.qcom
+sed -i "\/dev\/block\/bootdevice\/by-name\/userdata/a /dev/block/bootdevice/by-name/cust       /cust                  ext4   ro,nosuid,nodev,barrier=1                        wait,check" $LOCALDIR/vendor/etc/fstab.qcom
+
+# manifest
+sed -i "/<name>android.hardware.keymaster<\/name>/!b;n;n;c\ \ \ \ \ \ \  <version>3.0</version>" $LOCALDIR/vendor/etc/vintf/manifest.xml
+sed -i "/<fqname>@4.0::IKeymasterDevice\/default<\/fqname>/!b;c\ \ \ \ \ \ \ \ <fqname>@3.0::IKeymasterDevice/default</fqname>" $LOCALDIR/vendor/etc/vintf/manifest.xml
+
+# postboot
+sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" $LOCALDIR/vendor/bin/init.qcom.post_boot.sh
+
+# build.prop
+sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" $LOCALDIR/vendor/build.prop
+sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" $LOCALDIR/vendor/build.prop
+sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" $LOCALDIR/vendor/build.prop
+
+sed -i "s/ro.product.system.name=lavender/ro.product.system.name=whyred/g" $LOCALDIR/system/system/build.prop
+sed -i "s/ro.product.system.device=lavender/ro.product.system.device=whyred/g" $LOCALDIR/system/system/build.prop
+sed -i "s/ro.product.system.model=Redmi Note 7/ro.product.system.model=Redmi Note 5/g" $LOCALDIR/system/system/build.prop
+
+sed -i "s/persist.miui.density_v2=440/persist.miui.density_v2=375/g" $LOCALDIR/system/system/build.prop
+sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system/build.prop
+
+# vendor_file_contexts
+echo "Patching file_contexts"
+cat $LOCALDIR/whyred/app/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+cat $LOCALDIR/whyred/audio/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+cat $LOCALDIR/whyred/camera/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+cat $LOCALDIR/whyred/fingerprint/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+cat $LOCALDIR/whyred/keymaster/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+
+# vendor_fs_config
+echo "Patching fs_config"
+cat $LOCALDIR/whyred/app/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+cat $LOCALDIR/whyred/audio/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+cat $LOCALDIR/whyred/camera/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+cat $LOCALDIR/whyred/fingerprint/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+cat $LOCALDIR/whyred/keymaster/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+
+bytesToHuman() {
+    b=${1:-0}; d=''; s=0; S=(Bytes {K,M,G,T,P,E,Z,Y}iB)
+    while ((b > 1024)); do
+        d="$(printf ".%02d" $((b % 1024 * 100 / 1024)))"
+        b=$((b / 1024))
+        let s++
+    done
+    echo "$b$d ${S[$s]}"
+}
+
+# mk img
+mk_img() {
+vdir=$LOCALDIR/vendor
+sdir=$LOCALDIR/system
+ssize=3221225472
+vsize=2147483648
+pvsize=`du -sk $vdir | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+pssize=`du -sk $sdir | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+sout=$OUTDIR/system.img
+vout=$OUTDIR/vendor.img
+vfsconfig=$LOCALDIR/config/vendor_fs_config
+sfsconfig=$LOCALDIR/config/system_fs_config
+vfcontexts=$LOCALDIR/config/vendor_file_contexts
+sfcontexts=$LOCALDIR/config/system_file_contexts
+
+echo "Creating system.img"
+$MKUSERIMG -s "$sdir" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null
+echo "system.img size: $(bytesToHuman $pssize)"
+
+echo "Creating vendor.img"
+$MKUSERIMG -s "$vdir" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null
+echo "vendor.img size: $(bytesToHuman $pvsize)"
+
+rm -rf $LOCALDIR/config
+rm -rf $LOCALDIR/system
+rm -rf $LOCALDIR/vendor
+}
+
+mk_zip() {
+    echo "Creating $NEWZIP"
+    $IMG2SDAT $vout -o flashable -v 4 -p vendor > /dev/null
+    $IMG2SDAT $sout -o flashable -v 4 -p system > /dev/null
+    cd flashable
+
+    echo "Compressing system.new.dat"
+    brotli -7 system.new.dat
+    echo "Conpressing vendor.new.dat"
+    brotli -7 vendor.new.dat
+
+    rm system.new.dat || exit 1
+    rm vendor.new.dat || exit 1
+
+    rm -rf ../$NEWZIP
+    zip -rv9 ../$NEWZIP *
+    cd ..
+}
+
+urlencode() {
+    echo "$*" | sed 's:%:%25:g;s: :%20:g;s:<:%3C:g;s:>:%3E:g;s:#:%23:g;s:{:%7B:g;s:}:%7D:g;s:|:%7C:g;s:\\:%5C:g;s:\^:%5E:g;s:~:%7E:g;s:\[:%5B:g;s:\]:%5D:g;s:`:%60:g;s:;:%3B:g;s:/:%2F:g;s:?:%3F:g;s^:^%3A^g;s:@:%40:g;s:=:%3D:g;s:&:%26:g;s:\$:%24:g;s:\!:%21:g;s:\*:%2A:g'
+}
+
+tg_send() {
+    if [[ -z ${BOT_TOKEN} ]]; then
+        echo "tg_msg() was called but there was no token!"
+        return 1
+    fi
+
+    if [[ -z ${CHAT_ID} ]]; then
+        echo "tg_msg() was called but there was no chat ID!"
+        return 1
+    fi
+
+    BOTURL="https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
+    TEXT="$1"
+    until [ $(echo -n "$TEXT" | wc -m) -eq 0 ]; do
+    res=$(curl -s "$BOTURL" -d "chat_id=$CHAT_ID" -d "text=$(urlencode "${TEXT:0:4096}")" -d "parse_mode=Markdown" -d "disable_web_page_preview=true")
+    TEXT="${TEXT:4096}"
+    done
+}
+
+mk_img
+mk_zip
+rm -rf $OUTDIR
+
+if [ -f $LOCALDIR/$NEWZIP ]; then
+    git remote add up https://${GH_TOKEN}@github.com/shekhawat2/whyred_miuieu_port.git
+    git tag $NEWZIP -m $COMMITHASH
+    git push up --tags
+
+    NEWURL="https://github.com/shekhawat2/whyred_miuieu_port/releases/download/$NEWZIP/$NEWZIP"
+    zsize=`du -sk $NEWZIP | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+    MSG="[$NEWZIP]($NEWURL) \n"
+    MSG="${MSG}Size: $(bytesToHuman $zsize)"
+    printf "${MSG}" >> "$LOCALDIR/info.txt"
+    tg_send "$(cat $LOCALDIR/info.txt)"
+else
+    exit 0
+fi
