@@ -51,6 +51,9 @@ echo "Patching system and vendor"
 rm $LOCALDIR/vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
 rm $LOCALDIR/vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
 rm -rf $LOCALDIR/system/system/priv-app/Updater
+rm -rf $LOCALDIR/vendor/app/NotchOverlay
+rm -rf $LOCALDIR/vendor/overlay/DevicesOverlay.apk
+rm -rf $LOCALDIR/vendor/overlay/DevicesAndroidOverlay.apk
 
 rsync -ra $LOCALDIR/whyred/audio/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/camera/vendor/ $LOCALDIR/vendor
@@ -85,6 +88,8 @@ sed -i "s/ro.product.system.model=Redmi Note 7/ro.product.system.model=Redmi Not
 
 sed -i "s/persist.miui.density_v2=440/persist.miui.density_v2=375/g" $LOCALDIR/system/system/build.prop
 sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system/build.prop
+
+sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
 
 # vendor_file_contexts
 echo "Patching file_contexts"
