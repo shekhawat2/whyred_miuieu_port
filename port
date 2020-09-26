@@ -91,8 +91,13 @@ sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system
 
 sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
 
+# device_features
+find $LOCALDIR/system/system/etc/device_features/*.xml -type f -exec sed -i "/<\/features>/i\ \ \ \ <bool name=\"support_aod\">true<\/bool>\n    <bool name=\"support_aod_notification_animate\">true<\/bool>\n    <bool name=\"aod_support_keycode_goto_dismiss\">true<\/bool>" {} \;
+find $LOCALDIR/vendor/etc/device_features/*.xml -type f -exec sed -i "/<\/features>/i\ \ \ \ <bool name=\"support_aod\">true<\/bool>\n    <bool name=\"support_aod_notification_animate\">true<\/bool>\n    <bool name=\"aod_support_keycode_goto_dismiss\">true<\/bool>" {} \;
+
 # vendor_file_contexts
 echo "Patching file_contexts"
+cat $LOCALDIR/whyred/app/config/system_file_contexts >> $LOCALDIR/config/system_file_contexts
 cat $LOCALDIR/whyred/app/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/audio/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/camera/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
@@ -101,6 +106,7 @@ cat $LOCALDIR/whyred/keymaster/config/vendor_file_contexts >> $LOCALDIR/config/v
 
 # vendor_fs_config
 echo "Patching fs_config"
+cat $LOCALDIR/whyred/app/config/system_fs_config >> $LOCALDIR/config/system_fs_config
 cat $LOCALDIR/whyred/app/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/audio/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/camera/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
