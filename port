@@ -81,10 +81,22 @@ sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" $LOCALDIR/vendor/bin
 sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" $LOCALDIR/vendor/build.prop
 sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" $LOCALDIR/vendor/build.prop
 sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" $LOCALDIR/vendor/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/build.prop
 
 sed -i "s/ro.product.system.name=lavender/ro.product.system.name=whyred/g" $LOCALDIR/system/system/build.prop
 sed -i "s/ro.product.system.device=lavender/ro.product.system.device=whyred/g" $LOCALDIR/system/system/build.prop
 sed -i "s/ro.product.system.model=Redmi Note 7/ro.product.system.model=Redmi Note 5/g" $LOCALDIR/system/system/build.prop
+sed -i "s/persist.vendor.camera.model=Redmi Note 7/persist.vendor.camera.model=Redmi Note 5/g" $LOCALDIR/system/system/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/system/system/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/system/system/build.prop
+
+sed -i "s/ro.product.odm.name=lavender/ro.product.odm.name=whyred/g" $LOCALDIR/vendor/odm/etc/build.prop
+sed -i "s/ro.product.odm.device=lavender/ro.product.odm.device=whyred/g" $LOCALDIR/vendor/odm/etc/build.prop
+sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=Redmi Note 5/g" $LOCALDIR/vendor/odm/etc/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
+
 
 sed -i "s/persist.miui.density_v2=440/persist.miui.density_v2=375/g" $LOCALDIR/system/system/build.prop
 sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system/build.prop
@@ -92,6 +104,8 @@ sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system
 sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
 
 # device_features
+mv $LOCALDIR/system/system/etc/device_features/lavender.xml $LOCALDIR/system/system/etc/device_features/whyred.xml
+mv $LOCALDIR/vendor/etc/device_features/lavender.xml $LOCALDIR/vendor/etc/device_features/whyred.xml
 find $LOCALDIR/system/system/etc/device_features/*.xml -type f -exec sed -i "/<\/features>/i\ \ \ \ <bool name=\"support_aod\">true<\/bool>\n    <bool name=\"support_aod_notification_animate\">true<\/bool>\n    <bool name=\"aod_support_keycode_goto_dismiss\">true<\/bool>" {} \;
 find $LOCALDIR/vendor/etc/device_features/*.xml -type f -exec sed -i "/<\/features>/i\ \ \ \ <bool name=\"support_aod\">true<\/bool>\n    <bool name=\"support_aod_notification_animate\">true<\/bool>\n    <bool name=\"aod_support_keycode_goto_dismiss\">true<\/bool>" {} \;
 
