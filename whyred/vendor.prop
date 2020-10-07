@@ -1,0 +1,11 @@
+persist.vendor.flash.low.lux=390
+persist.vendor.flash.light.lux=340
+persist.vendor.imx376_ofilm.low.lux=310
+persist.vendor.imx376_ofilm.light.lux=280
+persist.vendor.imx376_sunny.low.lux=310
+persist.vendor.imx376_sunny.light.lux=280
+persist.vendor.ov13855_sunny.low.lux=385
+persist.vendor.ov13855_sunny.light.lux=370
+persist.vendor.s5k3l8_ofilm.low.lux=379
+persist.vendor.s5k3l8_ofilm.light.lux=367
+persist.vendor.camera.ltm.overlap=13

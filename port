@@ -105,6 +105,8 @@ sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system
 
 sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
 
+cat $LOCALDIR/whyred/vendor.prop >> $LOCALDIR/vendor/build.prop
+
 # device_features
 mv $LOCALDIR/system/system/etc/device_features/lavender.xml $LOCALDIR/system/system/etc/device_features/whyred.xml
 mv $LOCALDIR/vendor/etc/device_features/lavender.xml $LOCALDIR/vendor/etc/device_features/whyred.xml
