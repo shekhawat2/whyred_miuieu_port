@@ -50,6 +50,7 @@ python3 $IMGEXTRACT $INDIR/vendor.img .
 echo "Patching system and vendor"
 rm $LOCALDIR/vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
 rm $LOCALDIR/vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
+rm -rf $LOCALDIR/system/system/app/Email
 rm -rf $LOCALDIR/system/system/priv-app/Browser
 rm -rf $LOCALDIR/system/system/priv-app/Updater
 rm -rf $LOCALDIR/vendor/app/NotchOverlay
