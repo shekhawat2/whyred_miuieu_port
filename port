@@ -59,6 +59,7 @@ rm -rf $LOCALDIR/vendor/overlay/DevicesAndroidOverlay.apk
 
 rsync -ra $LOCALDIR/whyred/audio/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/camera/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/display/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/fingerprint/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/keymaster/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/sensors/vendor/ $LOCALDIR/vendor
@@ -104,7 +105,9 @@ sed -i "s/persist.miui.density_v2=440/persist.miui.density_v2=375/g" $LOCALDIR/s
 sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system/build.prop
 
 sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
+sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" $LOCALDIR/system/system/build.prop
 
+cat $LOCALDIR/whyred/system.prop >> $LOCALDIR/system/system/build.prop
 cat $LOCALDIR/whyred/vendor.prop >> $LOCALDIR/vendor/build.prop
 
 # device_features
@@ -119,6 +122,7 @@ cat $LOCALDIR/whyred/app/config/system_file_contexts >> $LOCALDIR/config/system_
 cat $LOCALDIR/whyred/app/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/audio/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/camera/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+cat $LOCALDIR/whyred/display/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/fingerprint/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/keymaster/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 
@@ -128,6 +132,7 @@ cat $LOCALDIR/whyred/app/config/system_fs_config >> $LOCALDIR/config/system_fs_c
 cat $LOCALDIR/whyred/app/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/audio/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/camera/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+cat $LOCALDIR/whyred/display/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/fingerprint/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/keymaster/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 

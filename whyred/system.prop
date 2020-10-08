@@ -1,0 +1,9 @@
+# add for reading mode
+sys.tianma_td4310_offset=5
+sys.tianma_td4310_length=55
+sys.shenchao_td4310_offset=-2
+sys.shenchao_td4310_length=45
+sys.tianma_nt36672_offset=2
+sys.tianma_nt36672_length=45
+sys.huaxing_nt36672_offset=2
+sys.huaxing_nt36672_length=44
