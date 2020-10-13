@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 echo $LOCALDIR
-TOOLS=$LOCALDIR/tools
+export TOOLS=$LOCALDIR/tools
 SDAT2IMG=$TOOLS/sdat2img.py
 IMG2SDAT=$TOOLS/img2sdat.py
 IMGEXTRACT=$TOOLS/imgextractor.py
@@ -115,6 +115,9 @@ mv $LOCALDIR/system/system/etc/device_features/lavender.xml $LOCALDIR/system/sys
 mv $LOCALDIR/vendor/etc/device_features/lavender.xml $LOCALDIR/vendor/etc/device_features/whyred.xml
 find $LOCALDIR/system/system/etc/device_features/*.xml -type f -exec sed -i "/<\/features>/i\ \ \ \ <bool name=\"support_aod\">true<\/bool>\n    <bool name=\"support_aod_notification_animate\">true<\/bool>\n    <bool name=\"aod_support_keycode_goto_dismiss\">true<\/bool>" {} \;
 find $LOCALDIR/vendor/etc/device_features/*.xml -type f -exec sed -i "/<\/features>/i\ \ \ \ <bool name=\"support_aod\">true<\/bool>\n    <bool name=\"support_aod_notification_animate\">true<\/bool>\n    <bool name=\"aod_support_keycode_goto_dismiss\">true<\/bool>" {} \;
+
+# Patch blobs
+bash $LOCALDIR/whyred/patch/services_jar.sh
 
 # vendor_file_contexts
 echo "Patching file_contexts"
