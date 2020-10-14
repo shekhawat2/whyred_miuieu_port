@@ -63,6 +63,7 @@ rsync -ra $LOCALDIR/whyred/display/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/fingerprint/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/keymaster/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/sensors/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/thermal/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/wifi/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/app/vendor/ $LOCALDIR/vendor
 
