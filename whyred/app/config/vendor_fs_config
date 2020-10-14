@@ -1,3 +1,7 @@
 vendor/etc/device_features/whyred.xml 0 0 0644
+vendor/etc/MIUI_DualCamera_watermark.png 0 0 0644
+vendor/etc/MIUI_DualCamera_watermark_in.png 0 0 0644
+vendor/etc/MIUI_Time.ttf 0 0 0644
+vendor/etc/Miui-Light.ttf 0 0 0644
 vendor/overlay/overlay-systemui-whyred.apk 0 0 0644
 vendor/overlay/overlay-android-whyred.apk 0 0 0644

@@ -1,4 +1,6 @@
 system/system/etc/device_features/whyred.xml 0 0 0644
+system/system/etc/dualcamera.png 0 0 0644
+system/system/etc/dualcamera_in.png 0 0 0644
 system/system/priv-app/MiuiAod 0 0 0755
 system/system/priv-app/MiuiAod/MiuiAod.apk 0 0 0644
 system/system/product/app/Chrome 0 0 0755
