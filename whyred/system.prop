@@ -7,3 +7,6 @@ sys.tianma_nt36672_offset=2
 sys.tianma_nt36672_length=45
 sys.huaxing_nt36672_offset=2
 sys.huaxing_nt36672_length=44
+
+ro.miui.fpstool_enabled=true
+ro.media.recorder-max-base-layer-fps=60
