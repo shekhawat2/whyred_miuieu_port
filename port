@@ -217,6 +217,15 @@ tg_send() {
     done
 }
 
+sf_upload() {
+/usr/bin/expect << EOD
+spawn scp ${2} shekhawat2@frs.sourceforge.net:/home/frs/project/${1}
+expect "Password:"
+send ${SSHPASS}\n;
+interact
+EOD
+}
+
 mk_img
 mk_zip
 rm -rf $OUTDIR
@@ -226,7 +235,11 @@ if [ -f $LOCALDIR/$NEWZIP ]; then
     git tag $NEWZIP -m $COMMITHASH
     git push up --tags
 
-    NEWURL="https://github.com/shekhawat2/whyred_miuieu_port/releases/download/$NEWZIP/$NEWZIP"
+    ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
+    SF_PROJECT=whyred-xiaomi-eu
+#    sf_upload ${SF_PROJECT} ${NEWZIP}
+    sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}
+    NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${NEWZIP}/download"
     zsize=`du -sk $NEWZIP | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
     MSG="[$NEWZIP]($NEWURL) \n"
     MSG="${MSG}Size: $(bytesToHuman $zsize)"
