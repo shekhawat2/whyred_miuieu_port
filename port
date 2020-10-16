@@ -102,10 +102,6 @@ sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=Redmi Note 5/g"
 sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
 sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
 
-
-sed -i "s/persist.miui.density_v2=440/persist.miui.density_v2=375/g" $LOCALDIR/system/system/build.prop
-sed -i "s/ro.sf.lcd_density=440/ro.sf.lcd_density=375/g" $LOCALDIR/system/system/build.prop
-
 sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
 sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" $LOCALDIR/system/system/build.prop
 
