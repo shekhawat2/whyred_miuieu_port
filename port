@@ -32,6 +32,7 @@ if [[ $(git cat-file -p $OLDZIPNAME | tail -n +6) == $COMMITHASH && $EUDATE == $
     exit 0
 fi
 
+NEWZIP=AbhiX_ROG_Edition_WhyRed_${EUDATE}_${date}.zip
 # Download and Unzip
 echo "Downloading $ZIPNAME"
 aria2c -x16 -j$(nproc) -q -d "$INDIR" -o "$ZIPNAME" ${URL}
