@@ -1,0 +1,27 @@
+{
+    "title": "Abstract",
+    "titleResId": "wallpaper_group_geometric_title",
+    "subtitle":"Sandeep kandula",
+    "subtitleResId":"wallpaper_group_geometric_subtitle",
+    "cardType": 1,
+    "count": 4,
+    "slideCount": 4,
+    "randomOrder": false,
+    "wallpapers": [{
+        "thumbPath": "./Geometry01.png",
+        "originPath": "./Geometry01.png",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./Geometry02.png",
+        "originPath": "./Geometry02.png",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./Geometry03.jpg",
+        "originPath": "./Geometry03.jpg",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./Geometry04.png",
+        "originPath": "./Geometry04.png",
+        "type": "wallpaper"
+    }]
+}

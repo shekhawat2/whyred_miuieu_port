@@ -1,0 +1,45 @@
+{
+    "title": "ROG",
+    "titleResId": "Rog team",
+    "cardType": 2,
+    "count": 9,
+    "slideCount": 9,
+    "randomOrder": false,
+    "wallpapers": [{
+        "thumbPath": "./MinimalistScenery00.jpg",
+        "originPath": "./MinimalistScenery00.jpg",
+        "type": "wallpaper"
+    },{
+        "thumbPath": "./MinimalistScenery01.jpg",
+        "originPath": "./MinimalistScenery01.jpg",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./MinimalistScenery02.jpg",
+        "originPath": "./MinimalistScenery02.jpg",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./MinimalistScenery03.jpg",
+        "originPath": "./MinimalistScenery03.jpg",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./MinimalistScenery04.jpg",
+        "originPath": "./MinimalistScenery04.jpg",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./MinimalistScenery05.jpg",
+        "originPath": "./MinimalistScenery05.jpg",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./MinimalistScenery06.jpg",
+        "originPath": "./MinimalistScenery06.jpg",
+        "type": "wallpaper"
+    }, {
+        "thumbPath": "./MinimalistScenery07.jpg",
+        "originPath": "./MinimalistScenery07.jpg",
+        "type": "wallpaper"
+    },{
+        "thumbPath": "./MinimalistScenery08.jpg",
+        "originPath": "./MinimalistScenery08.jpg",
+        "type": "wallpaper"
+    }]
+}

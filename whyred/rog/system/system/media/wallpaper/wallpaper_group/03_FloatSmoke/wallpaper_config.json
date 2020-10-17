@@ -1,0 +1,66 @@
+{
+	"title": "Rog Dyanamic",
+	"titleResId": "wallpaper_group_dynamic_float_smoke_title",
+	"subtitle": "By sandeepkandula",
+	"subtitleResId": "wallpaper_group_dynamic_float_smoke_subtitle",
+	"cardType": 1,
+	"count": 4,
+	"slideCount": 4,
+	"mixed":true,
+        "randomOrder": false,
+	"wallpapers": [{
+        "thumbPath": "./Circle_1.webp",
+        "originPath": "",
+        "type": "videowallpaper",
+        "previewPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Circle.mp4",
+        "downloadPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Circle.mp4",
+        "fileSizeInKB": "28247247",
+        "productUuid": "2c1fb464-4d3c-4af7-9256-5f2cab5b2dee",
+        "onlineId": "4355ad77-9fec-40dc-931a-c459527fbb12"
+	}, {
+        "thumbPath": "./GunLive_2.webp",
+        "originPath": "",
+        "type": "videowallpaper",
+        "previewPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Gun%20Live.mp4",
+        "downloadPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Gun%20Live.mp4",
+        "fileSizeInKB": "32818898",
+        "productUuid": "a5827933-d0d5-4140-ae06-32b1b9fd4651",
+        "onlineId": "d1eef8fa-fb3d-4134-ad73-e8572121df41"
+	}, {
+        "thumbPath": "./Open_3.webp",
+        "originPath": "",
+        "type": "videowallpaper",
+        "previewPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Open.mp4",
+        "downloadPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Open.mp4",
+        "fileSizeInKB": "35986285",
+        "productUuid": "b859f29b-5fad-4344-92f5-6981e87531d2",
+        "onlineId": "88d79528-df5d-4e17-966f-0ee5759117d2"
+	}, {
+        "thumbPath": "./Shield_4.webp",
+        "originPath": "",
+        "type": "videowallpaper",
+        "previewPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Shield.mp4",
+        "downloadPath": "https://strictlymovies.rella19.workers.dev/RAFAEL/Live.Wallpaper/Shield.mp4",
+        "fileSizeInKB": "33583211",
+        "productUuid": "b859f18b-8fad-4844-92f5-6981e87531d2",
+        "onlineId": "88d79528-df5d-4e27-857f-1ee5759117d2"
+	}, {
+        "thumbPath": "./float_smoke_5.webp",
+        "originPath": "",
+        "type": "videowallpaper",
+        "previewPath": "http://mia3.amir-soland.ir/miui_wallpaper/15_FloatSmoke/float_smoke_5.mp4",
+        "downloadPath": "http://mia3.amir-soland.ir/miui_wallpaper/15_FloatSmoke/float_smoke_5.mp4",
+        "fileSizeInKB": "18458534",
+        "productUuid": "b759f28b-8fad-4333-92f5-6981e87531d2",
+        "onlineId": "96d79428-df6d-4e27-847f-0ee5759117d2"
+	}, {
+        "thumbPath": "./float_smoke_6.webp",
+        "originPath": "",
+        "type": "videowallpaper",
+        "previewPath": "http://mia3.amir-soland.ir/miui_wallpaper/15_FloatSmoke/float_smoke_6.mp4",
+        "downloadPath": "http://mia3.amir-soland.ir/miui_wallpaper/15_FloatSmoke/float_smoke_6.mp4",
+        "fileSizeInKB": "17346434",
+        "productUuid": "b869f18b-8fad-4344-92f5-6981e87531d2",
+        "onlineId": "98d79529-df6d-4e27-957f-0ee5759117d2"
+	}]
+}
