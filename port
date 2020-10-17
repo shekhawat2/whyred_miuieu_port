@@ -65,6 +65,8 @@ rm -rf $LOCALDIR/vendor/app/NotchOverlay
 rm -rf $LOCALDIR/vendor/overlay/DevicesOverlay.apk
 rm -rf $LOCALDIR/vendor/overlay/DevicesAndroidOverlay.apk
 
+rm -rf $LOCALDIR/system/system/media/theme
+
 rsync -ra $LOCALDIR/whyred/audio/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/camera/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/display/vendor/ $LOCALDIR/vendor
@@ -74,8 +76,10 @@ rsync -ra $LOCALDIR/whyred/sensors/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/thermal/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/wifi/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/app/vendor/ $LOCALDIR/vendor
+rsync -ra $LOCALDIR/whyred/rog/vendor/ $LOCALDIR/vendor
 
 rsync -ra $LOCALDIR/whyred/app/system/ $LOCALDIR/system
+rsync -ra $LOCALDIR/whyred/rog/system/ $LOCALDIR/system
 
 #fstab
 sed -i "s/forceencrypt/encryptable/g" $LOCALDIR/vendor/etc/fstab.qcom
@@ -133,6 +137,7 @@ cat $LOCALDIR/whyred/camera/config/vendor_file_contexts >> $LOCALDIR/config/vend
 cat $LOCALDIR/whyred/display/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/fingerprint/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 cat $LOCALDIR/whyred/keymaster/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+cat $LOCALDIR/whyred/rog/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
 
 # vendor_fs_config
 echo "Patching fs_config"
@@ -143,6 +148,7 @@ cat $LOCALDIR/whyred/camera/config/vendor_fs_config >> $LOCALDIR/config/vendor_f
 cat $LOCALDIR/whyred/display/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/fingerprint/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 cat $LOCALDIR/whyred/keymaster/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+cat $LOCALDIR/whyred/rog/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
 
 bytesToHuman() {
     b=${1:-0}; d=''; s=0; S=(Bytes {K,M,G,T,P,E,Z,Y}iB)
