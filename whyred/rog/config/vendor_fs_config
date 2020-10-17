@@ -1,0 +1,7 @@
+vendor/etc/powerhint.json 0 0 0644
+vendor/etc/perf/perfconfigstore.xml 0 0 0644
+vendor/etc/perf/targetresourceconfigs.xml 0 0 0644
+vendor/etc/perf/perfboostsconfig.xml 0 0 0644
+vendor/etc/perf/commonresourceconfigs.xml 0 0 0644
+vendor/etc/perf/targetconfig.xml 0 0 0644
+vendor/etc/msm_irqbalance.conf 0 0 0644
