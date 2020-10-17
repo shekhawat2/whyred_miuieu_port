@@ -1,0 +1,7 @@
+/vendor/etc/msm_irqbalance\.conf u:object_r:vendor_configs_file:s0
+/vendor/etc/perf/commonresourceconfigs\.xml u:object_r:vendor_configs_file:s0
+/vendor/etc/perf/perfboostsconfig\.xml u:object_r:vendor_configs_file:s0
+/vendor/etc/perf/perfconfigstore\.xml u:object_r:vendor_configs_file:s0
+/vendor/etc/perf/targetconfig\.xml u:object_r:vendor_configs_file:s0
+/vendor/etc/perf/targetresourceconfigs\.xml u:object_r:vendor_configs_file:s0
+/vendor/etc/powerhint\.json u:object_r:vendor_configs_file:s0
