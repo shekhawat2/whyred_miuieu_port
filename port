@@ -6,6 +6,7 @@ SDAT2IMG=$TOOLS/sdat2img.py
 IMG2SDAT=$TOOLS/img2sdat.py
 IMGEXTRACT=$TOOLS/imgextractor.py
 MKUSERIMG=$TOOLS/mkuserimg_mke2fs.sh
+export APKTOOL=$TOOLS/apktool
 URL=$(cat url)
 OUTDIR=$LOCALDIR/out
 INDIR=$LOCALDIR/in
@@ -44,6 +45,12 @@ python3 $IMGEXTRACT $INDIR/system.img .
 brotli -df $INDIR/vendor.new.dat.br
 $SDAT2IMG $INDIR/vendor.transfer.list $INDIR/vendor.new.dat $INDIR/vendor.img > /dev/null
 python3 $IMGEXTRACT $INDIR/vendor.img .
+
+# import apktool framework
+$APKTOOL if $LOCALDIR/system/system/framework/framework-res.apk
+$APKTOOL if $LOCALDIR/system/system/framework/framework-ext-res/framework-ext-res.apk
+$APKTOOL if $LOCALDIR/system/system/app/miui/miui.apk
+$APKTOOL if $LOCALDIR/system/system/miuisystem/miuisystem.apk
 
 #rm -rf $INDIR
 
