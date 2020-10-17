@@ -119,7 +119,7 @@ sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/system/system/b
 
 sed -i "s/ro.product.odm.name=lavender/ro.product.odm.name=whyred/g" $LOCALDIR/vendor/odm/etc/build.prop
 sed -i "s/ro.product.odm.device=lavender/ro.product.odm.device=whyred/g" $LOCALDIR/vendor/odm/etc/build.prop
-sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=Redmi Note 5/g" $LOCALDIR/vendor/odm/etc/build.prop
+sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=IN2013/g" $LOCALDIR/vendor/odm/etc/build.prop
 sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
 sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
 
