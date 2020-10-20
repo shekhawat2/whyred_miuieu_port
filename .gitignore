@@ -1,5 +1,6 @@
 in
 out
+url
 system.img
 vendor.img
 *.zip

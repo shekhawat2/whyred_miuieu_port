@@ -2,22 +2,39 @@
 export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 echo $LOCALDIR
 export TOOLS=$LOCALDIR/tools
+TYPE=EU
+VERSIONS=(BETA)
 SDAT2IMG=$TOOLS/sdat2img.py
 IMG2SDAT=$TOOLS/img2sdat.py
 IMGEXTRACT=$TOOLS/imgextractor.py
 MKUSERIMG=$TOOLS/mkuserimg_mke2fs.sh
-URL=$(cat url)
 OUTDIR=$LOCALDIR/out
 INDIR=$LOCALDIR/in
-WORKDIR=$LOCALDIR/work
 date=`date +%Y%m%d%H%M%S`
-ZIPNAME=$(echo $URL | cut -d / -f 10)
-NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/HMNote7/HMNote5Pro/g' <<< $ZIPNAME)))
+for VERSION in ${VERSIONS[@]}; do
+if [ "${TYPE}" = "GLOBAL" ]; then
+    python3 ${LOCALDIR}/${TYPE}.py ${VERSION}
+    URL=$(cat ${LOCALDIR}/url)
+    ZIPNAME=$(echo $URL | cut -d / -f 5)
+    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/LAVENDER/WHYRED/g' <<< $ZIPNAME)))
+elif [ "${TYPE}" = "MMX" ]; then
+    python3 ${LOCALDIR}/${TYPE}.py ${VERSION}
+    URL=$(cat ${LOCALDIR}/url)
+    ZIPNAME=$(echo $URL | cut -d / -f 9)
+    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/lavender/whyred/g' <<< $ZIPNAME)))
+elif [ "${TYPE}" = "EU" ]; then
+    python3 ${LOCALDIR}/${TYPE}.py ${VERSION}
+    URL=$(cat ${LOCALDIR}/url)
+    ZIPNAME=$(echo $URL | cut -d / -f 10)
+    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/HMNote7/HMNote5Pro/g' <<< $ZIPNAME)))
+else
+    echo "Specify TYPE"
+fi
+rm -rf ${LOCALDIR}/url
 COMMITHASH=$(git log -1 --pretty=%H)
-mkdir -p $WORKDIR
-mkdir -p $INDIR
-rm -rf $OUTDIR
-mkdir -p $OUTDIR
+rm -rf ${INDIR} ${OUTDIR}
+mkdir -p ${INDIR}
+mkdir -p ${OUTDIR}
 
 rm -rf $LOCALDIR/flashable/system.*
 rm -rf $LOCALDIR/flashable/vendor.*
@@ -44,8 +61,6 @@ python3 $IMGEXTRACT $INDIR/system.img .
 brotli -df $INDIR/vendor.new.dat.br
 $SDAT2IMG $INDIR/vendor.transfer.list $INDIR/vendor.new.dat $INDIR/vendor.img > /dev/null
 python3 $IMGEXTRACT $INDIR/vendor.img .
-
-#rm -rf $INDIR
 
 echo "Patching system and vendor"
 rm $LOCALDIR/vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
@@ -164,11 +179,11 @@ vfcontexts=$LOCALDIR/config/vendor_file_contexts
 sfcontexts=$LOCALDIR/config/system_file_contexts
 
 echo "Creating system.img"
-$MKUSERIMG -s "$sdir" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null
+$MKUSERIMG -s "$sdir" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null || exit 1
 echo "system.img size: $(bytesToHuman $pssize)"
 
 echo "Creating vendor.img"
-$MKUSERIMG -s "$vdir" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null
+$MKUSERIMG -s "$vdir" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null || exit 1
 echo "vendor.img size: $(bytesToHuman $pvsize)"
 
 rm -rf $LOCALDIR/config
@@ -227,9 +242,10 @@ interact
 EOD
 }
 
-mk_img
+mk_img || continue
 mk_zip
-rm -rf $OUTDIR
+
+rm -rf $INDIR $OUTDIR
 
 if [ -f $LOCALDIR/$NEWZIP ]; then
     git remote add up https://${GH_TOKEN}@github.com/shekhawat2/whyred_miuieu_port.git
@@ -237,15 +253,15 @@ if [ -f $LOCALDIR/$NEWZIP ]; then
     git push up --tags
 
     ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
-    SF_PROJECT=whyred-xiaomi-eu
+    SF_PROJECT=whyred-miui
 #    sf_upload ${SF_PROJECT} ${NEWZIP}
-    sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}
-    NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${NEWZIP}/download"
+    sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/${TYPE}/${VERSION}
+    NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${TYPE}/${VERSION}/${NEWZIP}/download"
     zsize=`du -sk $NEWZIP | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
-    MSG="[$NEWZIP]($NEWURL) \n"
-    MSG="${MSG}Size: $(bytesToHuman $zsize)"
-    printf "${MSG}" >> "$LOCALDIR/info.txt"
+    printf "[$NEWZIP]($NEWURL)\n" > "$LOCALDIR/info.txt"
+    printf "Size: $(bytesToHuman $zsize)" >> "$LOCALDIR/info.txt"
     tg_send "$(cat $LOCALDIR/info.txt)"
 else
     exit 0
 fi
+done

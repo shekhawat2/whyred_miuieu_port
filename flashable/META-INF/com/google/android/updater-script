@@ -5,8 +5,8 @@ show_progress(0.200000, 10);
 ui_print(" ");
 ui_print("##########################################");
 ui_print("#                                        #");
-ui_print("#          EU Port For Whyred            #");
-ui_print("#            By: Shekhawat2              #");
+ui_print("#  Ports For Whyred                      #");
+ui_print("#                  By: Shekhawat2        #");
 ui_print("#                                        #");
 ui_print("##########################################");
 
