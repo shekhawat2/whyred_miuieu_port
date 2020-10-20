@@ -17,10 +17,10 @@ async def load_eu_data():
     """
     load Xiaomi.eu devices downloads
     """
-    eu_url = "https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/rss?path=/xiaomi.eu"
+    eu_url = "https://sourceforge.net/projects/miuimix/rss?path=/"
     async with ClientSession() as session:
-        stable = eT.fromstring(await fetch(session, f'{eu_url}/MIUI-STABLE-RELEASES'))
-        weekly = eT.fromstring(await fetch(session, f'{eu_url}/MIUI-WEEKLY-RELEASES'))
+        stable = eT.fromstring(await fetch(session, f'{eu_url}/weekly'))
+        weekly = eT.fromstring(await fetch(session, f'{eu_url}/stable'))
         stable_links = [i.find('link').text for i in stable[0].findall('item')]
         weekly_links = [i.find('link').text for i in weekly[0].findall('item')]
         return [*stable_links, *weekly_links]
@@ -43,7 +43,7 @@ async def get_eu(codename, eu_data, devices):
     """
     stable_link = ""
     weekly_link = ""
-    device = devices[codename][1]
+    device = sys.argv[1]
     try:
         stable_link = [i for i in eu_data if re.search(f"{device}_", i)
                        and re.search(f'{device}_V', i)][0]
@@ -60,7 +60,7 @@ async def get_eu(codename, eu_data, devices):
 
 eu_data = asyncio.run(load_eu_data())
 devices = asyncio.run(load_eu_codenames())
-device = sys.argv[1]
+device = "lavender"
 url = asyncio.run(get_eu(device, eu_data, devices))
 stable_link = url[0]
 weekly_link = url[1]
