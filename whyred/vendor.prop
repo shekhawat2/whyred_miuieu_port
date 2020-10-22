@@ -45,7 +45,7 @@ ro.vendor.audio.surround.support=true
 ro.vendor.audio.scenario.support=true
 ro.vendor.audio.vocal.support=true
 vendor.audio.mic.status=off
-ro.vendor.audio.voice.volume.boost=none
+#ro.vendor.audio.voice.volume.boost=none
 
 ro.adreno.android=Android Q
 ro.adreno.sdk=29
