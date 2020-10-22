@@ -69,6 +69,7 @@ rsync -ra $LOCALDIR/whyred/wifi/vendor/ $LOCALDIR/vendor
 rsync -ra $LOCALDIR/whyred/app/vendor/ $LOCALDIR/vendor
 
 rsync -ra $LOCALDIR/whyred/app/system/ $LOCALDIR/system
+rsync -ra $LOCALDIR/customizations/system/ $LOCALDIR/system
 
 #fstab
 sed -i "s/forceencrypt/encryptable/g" $LOCALDIR/vendor/etc/fstab.qcom
