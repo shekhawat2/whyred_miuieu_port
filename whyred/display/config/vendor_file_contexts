@@ -2,12 +2,3 @@
 /vendor/etc/qdcm_calib_data_shenchao_td4310_fhd_video_mode_dsi_panel\.xml u:object_r:vendor_configs_file:s0
 /vendor/etc/qdcm_calib_data_tianma_nt36672_fhd_video_mode_dsi_panel\.xml u:object_r:vendor_configs_file:s0
 /vendor/etc/qdcm_calib_data_tianma_td4310_fhd_video_mode_dsi_panel\.xml u:object_r:vendor_configs_file:s0
-/vendor/lib64/eglSubDriverAndroid.so u:object_r:same_process_hal_file:s0
-/vendor/lib64/libGLESv1_CM_adreno.so u:object_r:same_process_hal_file:s0
-/vendor/lib64/libGLESv2_adreno.so u:object_r:same_process_hal_file:s0
-/vendor/lib64/libq3dtools_esx.so u:object_r:same_process_hal_file:s0
-/vendor/lib/eglSubDriverAndroid.so u:object_r:same_process_hal_file:s0
-/vendor/lib/libeglc2d.so u:object_r:same_process_hal_file:s0
-/vendor/lib/libGLESv1_CM_adreno.so u:object_r:same_process_hal_file:s0
-/vendor/lib/libGLESv2_adreno.so u:object_r:same_process_hal_file:s0
-/vendor/lib/libq3dtools_esx.so u:object_r:same_process_hal_file:s0

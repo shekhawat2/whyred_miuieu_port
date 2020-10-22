@@ -84,7 +84,6 @@ sed -i "/<fqname>@4.0::IKeymasterDevice\/default<\/fqname>/!b;c\ \ \ \ \ \ \ \ <
 sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" $LOCALDIR/vendor/bin/init.qcom.post_boot.sh
 
 # build.prop
-sed -i "s/ro.product.board=sdm660/ro.product.board=sdm636/g" $LOCALDIR/vendor/build.prop
 sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" $LOCALDIR/vendor/build.prop
 sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" $LOCALDIR/vendor/build.prop
 sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" $LOCALDIR/vendor/build.prop

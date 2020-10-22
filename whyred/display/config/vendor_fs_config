@@ -2,12 +2,3 @@ vendor/etc/qdcm_calib_data_huaxing_nt36672_fhd_video_mode_dsi_panel.xml 0 0 0644
 vendor/etc/qdcm_calib_data_shenchao_td4310_fhd_video_mode_dsi_panel.xml 0 0 0644
 vendor/etc/qdcm_calib_data_tianma_nt36672_fhd_video_mode_dsi_panel.xml 0 0 0644
 vendor/etc/qdcm_calib_data_tianma_td4310_fhd_video_mode_dsi_panel.xml 0 0 0644
-vendor/lib64/eglSubDriverAndroid.so 0 0 0644
-vendor/lib64/libGLESv1_CM_adreno.so 0 0 0644
-vendor/lib64/libGLESv2_adreno.so 0 0 0644
-vendor/lib64/libq3dtools_esx.so 0 0 0644
-vendor/lib/eglSubDriverAndroid.so 0 0 0644
-vendor/lib/libeglc2d.so 0 0 0644
-vendor/lib/libGLESv1_CM_adreno.so 0 0 0644
-vendor/lib/libGLESv2_adreno.so 0 0 0644
-vendor/lib/libq3dtools_esx.so 0 0 0644

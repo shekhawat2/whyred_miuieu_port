@@ -46,13 +46,3 @@ ro.vendor.audio.scenario.support=true
 ro.vendor.audio.vocal.support=true
 vendor.audio.mic.status=off
 #ro.vendor.audio.voice.volume.boost=none
-
-ro.adreno.android=Android Q
-ro.adreno.sdk=29
-ro.adreno.arch=arm64
-ro.adreno.soc=sdm660
-ro.adreno.series=500
-ro.adreno.edition=OpenGL and Vulkan
-ro.adreno.version=4.5
-ro.adreno.opengl=V@0472.0
-ro.adreno.vulkan=1.1.128
