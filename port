@@ -65,10 +65,25 @@ python3 $IMGEXTRACT $INDIR/vendor.img .
 echo "Patching system and vendor"
 rm $LOCALDIR/vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
 rm $LOCALDIR/vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
+# app
 rm -rf $LOCALDIR/system/system/app/Email
 rm -rf $LOCALDIR/system/system/app/MiuiVideoGlobal
+rm -rf $LOCALDIR/system/system/app/Updater
+# priv-app
 rm -rf $LOCALDIR/system/system/priv-app/Browser
+rm -rf $LOCALDIR/system/system/priv-app/MiBrowserGlobal
+rm -rf $LOCALDIR/system/system/priv-app/MiuiBrowserGlobal
+rm -rf $LOCALDIR/system/system/priv-app/MiDrop
+rm -rf $LOCALDIR/system/system/priv-app/MiuiCamera
 rm -rf $LOCALDIR/system/system/priv-app/Updater
+# data-app
+rm -rf $LOCALDIR/system/system/data-app/PeelMiRemote
+rm -rf $LOCALDIR/system/system/data-app/XMRemoteController
+# product/app
+rm -rf $LOCALDIR/system/system/product/app/YouTube
+rm -rf $LOCALDIR/system/system/product/app/Maps
+rm -rf $LOCALDIR/system/system/product/app/Gmail2
+# vendor/overlay
 rm -rf $LOCALDIR/vendor/app/NotchOverlay
 rm -rf $LOCALDIR/vendor/overlay/DevicesOverlay.apk
 rm -rf $LOCALDIR/vendor/overlay/DevicesAndroidOverlay.apk
