@@ -2,7 +2,7 @@
 export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 echo $LOCALDIR
 export TOOLS=$LOCALDIR/tools
-TYPE=GLOBAL
+TYPE=EU
 VERSIONS=(BETA STABLE)
 SDAT2IMG=$TOOLS/sdat2img.py
 IMG2SDAT=$TOOLS/img2sdat.py
