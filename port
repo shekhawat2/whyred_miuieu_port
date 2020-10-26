@@ -194,12 +194,12 @@ vfcontexts=$LOCALDIR/config/vendor_file_contexts
 sfcontexts=$LOCALDIR/config/system_file_contexts
 
 echo "Creating system.img"
-$MKUSERIMG -s "$sdir" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null || exit 1
 echo "system.img size: $(bytesToHuman $pssize)"
+$MKUSERIMG -s "$sdir" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null || exit 1
 
 echo "Creating vendor.img"
-$MKUSERIMG -s "$vdir" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null || exit 1
 echo "vendor.img size: $(bytesToHuman $pvsize)"
+$MKUSERIMG -s "$vdir" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null || exit 1
 
 rm -rf $LOCALDIR/config
 rm -rf $LOCALDIR/system
