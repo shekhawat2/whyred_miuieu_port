@@ -69,6 +69,8 @@ rm $LOCALDIR/vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
 # app
 rm -rf $LOCALDIR/system/system/app/Email
 rm -rf $LOCALDIR/system/system/app/MiuiVideoGlobal
+rm -rf $LOCALDIR/system/system/app/MiPicks
+rm -rf $LOCALDIR/system/system/app/InMipay
 rm -rf $LOCALDIR/system/system/app/Updater
 # priv-app
 rm -rf $LOCALDIR/system/system/priv-app/Browser
