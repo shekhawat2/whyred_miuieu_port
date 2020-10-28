@@ -143,8 +143,6 @@ sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/
 sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
 sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" $LOCALDIR/system/system/build.prop
 
-sed -i "s/ro.vendor.audio.soundtrigger.lowpower=false/ro.vendor.audio.soundtrigger.lowpower=true/g" $LOCALDIR/vendor/build.prop
-
 cat $LOCALDIR/whyred/system.prop >> $LOCALDIR/system/system/build.prop
 cat $LOCALDIR/whyred/vendor.prop >> $LOCALDIR/vendor/build.prop
 
