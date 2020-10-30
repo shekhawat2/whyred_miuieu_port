@@ -25,7 +25,8 @@ elif [ "${TYPE}" = "MMX" ]; then
 elif [ "${TYPE}" = "EU" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo $URL | cut -d / -f 10)
+    URL=https://mde1.androidfilehost.com/dl/UoTJpdNVo9xkSo-v4uPj6w/1604119059/10763459528675574154/xiaomi.eu_multi_HMNote7_20.10.29_v12-10.zip
+    ZIPNAME=$(echo $URL | cut -d / -f 8)
     NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/HMNote7/HMNote5Pro/g' <<< $ZIPNAME)))
 else
     echo "Specify TYPE"
