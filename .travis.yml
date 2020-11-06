@@ -7,7 +7,7 @@ install:
 - sudo -H apt update && sudo -H apt install aria2 brotli p7zip-full expect sshpass
 - sudo -H python3 -m pip install -r requirements.txt
 script:
-- sudo -H bash port
+- sudo -H bash port.sh
 env:
   global:
   - secure: aTPnMxRIaH85xHXq8hS1YLQ/72vY3nf3t31Jx44voY5AUxOYb6V19E9LzwZR9IcuLZNHOC/2a07b9fbhzL24MOYgbctZUIHNVbXrS/+COPpA6/a9iCfE6UPGPfG9LzUjQL0AH/0Yr7ol/9Uo/IJJBXM4duEwQkkcx0JvsUofrzrmFAEkVBN6pUQKEvgepma4mGveGaT3hXJNOVB5r5aSZUDDk2r5Xalq3rc6w8RhP1azW1GLD8vTmUz40gobEkEqLFZ0tSeAqQ8g0GPD2g6O7EtKTtDkrJSzAx1/h2iarQUVPGQl7MmCgC8n6xDqonFrbXjkdrtvjNPkOp21nzy6KJf3UzqvleN7tRT7MGgdGwhTdURjjJqVt4XIjyVY8NAcVo2wTbckRlH+utCfNaEYWWhQcTxd7BZATQxvmld2X0YODLwFW+Myg0fIXkjXqJOm8E7JZ4ZNjAPfUBUuwLYTHE/2jdBo3L6AGVaaHJULJwmUhBahFiTuBdbgWWn/X515pw8k1jZjdZR23h3/XxzQaTORpqnJKmPztkewkumRgfehXo+vxfSnu7ugQd/aANDcDmVFhvmaDy1iwWor23kFloesm7Ph8B53+NvT5ow8zx/GZyc2vpf880ymKEdktJxZSMDxVNDQeE+vTy59u1aCeldzT+x9bIwactp3BXBQdtU=
