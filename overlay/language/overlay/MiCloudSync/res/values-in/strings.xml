@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MiCloudSync</string>
+    <string name="error_title">Tidak bisa disinkronkan</string>
+    <string name="error_unauthorized">Sinkronisasi telah dinonaktifkan karena terlalu banyak upaya masuk.</string>
+    <string name="error_forbidden">Sinkronisasi telah dinonaktifkan karena masalah dengan Akun Mi Anda.</string>
+    <string name="error_not_acceptable">Sinkronisasi telah dinonaktifkan.</string>
+    <string name="error_data_in_transfer_title">Mi Cloud tidak tersedia</string>
+    <string name="error_data_in_transfer">Sinkronisasi akan selesai dalam %s jam.</string>
+    <string name="micloud_send_message_desc">Mengirim Pesan Mi</string>
+    <string name="micloud_downloading_clipboard_message_from_web">Papan klip: Menerima pesan dari komputer Anda</string>
+</resources>

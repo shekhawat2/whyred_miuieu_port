@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="config_minimumScreenOffTimeout">6000</integer>
+    <integer name="config_screenBrightnessDoze">700</integer>
+    <!-- Specify custom blanking delay of the display -->
+    <integer name="config_screen_off_delay">0</integer>
+</resources>

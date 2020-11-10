@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="round_cornor_padding">4.0dip</dimen>
+    <dimen name="navigation_side_padding">82.0dip</dimen>
+    <dimen name="incall_round_cornor_padding">4.0dip</dimen>
+</resources>

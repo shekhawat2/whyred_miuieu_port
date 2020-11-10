@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+    <bool name="config_dozeAlwaysOnEnabled">true</bool>
+    <bool name="config_dozePulsePickup">false</bool>
+    <bool name="config_dozeAfterScreenOff">true</bool>
+    <bool name="config_displayBlanksAfterDoze">true</bool>
+    <bool name="config_enableBurnInProtection">true</bool>
+    <bool name="config_allowAutoBrightnessWhileDozing">true</bool>
+    <bool name="config_setColorTransformAccelerated">true</bool>
+    <bool name="config_dozeAfterScreenOffByDefault">true</bool>
+    <bool name="config_dozeWakeLockScreenSensorAvailable">false</bool>
+    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+    <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
+    <bool name="config_dreamsSupported">false</bool>
+    <bool name="config_navBarAlwaysShowOnSideEdgeGesture">true</bool>
+    <bool name="config_disableTransitionAnimation">false</bool>
+    <bool name="config_dozeSupportsAodWallpaper">true</bool>
+    <bool name="config_enableAutoPowerModes">true</bool>
+    <bool name="config_enableNewAutoSelectNetworkUI">true</bool>
+    <bool name="config_wifi_connected_mac_randomization_supported">true</bool>
+    <bool name="config_wifi_p2p_mac_randomization_supported">true</bool>
+    <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
+    <bool name="config_wifi_background_scan_support">true</bool>
+    <bool name="config_wifi_batched_scan_supported">true</bool>
+    <bool name="config_wifi_dual_band_support">true</bool>
+    <bool name="config_wifi_dual_sap_mode_enabled">false</bool>
+    <bool name="config_wifi_softap_acs_supported">false</bool>
+    <bool name="config_wifi_softap_ieee80211ac_supported">true</bool>
+    <bool name="config_wifi_fast_bss_transition_enabled">true</bool>
+</resources>

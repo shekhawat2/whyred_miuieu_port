@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_bar_expanded_weather">#ffffffff</color>
+    <color name="status_bar_textColor">#e6ffffff</color>
+    <color name="status_bar_textColor_darkmode">#c0000000</color>
+</resources>

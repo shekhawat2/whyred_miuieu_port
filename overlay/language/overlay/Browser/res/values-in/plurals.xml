@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="mw_last_num_days">
+        <item quantity="other">%d hari terakhir</item>
+    </plurals>
+    <plurals name="mw_matches_found">
+        <item quantity="other">%1$d dari %2$d</item>
+    </plurals>
+    <plurals name="nav_screen_incognito_time">
+        <item quantity="other">Setelah %d detik, akan otomatis buat halaman baru</item>
+    </plurals>
+    <plurals name="adblock_notification">
+        <item quantity="other">%d iklan terblokir</item>
+    </plurals>
+    <plurals name="adblock_rules_number_text">
+        <item quantity="other">%d item terblokir</item>
+    </plurals>
+    <plurals name="articles_updated_amount">
+        <item quantity="other">Lihat %1$d artikel baru</item>
+    </plurals>
+    <plurals name="auto_play_next_tips">
+        <item quantity="other">Memutar video berikutnya dalam %d detik</item>
+    </plurals>
+    <plurals name="download_business_v5_edit_mode_title">
+        <item quantity="other">%1$d terpilih</item>
+    </plurals>
+    <plurals name="download_dialog_confirm_delete_downloads_message">
+        <item quantity="other">Hapus %d tugas?</item>
+    </plurals>
+    <plurals name="find_on_page_matches">
+        <item quantity="other">%d cocok</item>
+    </plurals>
+    <plurals name="le_notification_download_completed">
+        <item quantity="other">Berhasil mengunduh %d item</item>
+    </plurals>
+    <plurals name="nf_item_like">
+        <item quantity="other">%s suka</item>
+    </plurals>
+    <plurals name="pref_adblock_counts">
+        <item quantity="other">%d terblokir</item>
+    </plurals>
+    <plurals name="suggest_access_item_album_songs">
+        <item quantity="other">%d lagu</item>
+    </plurals>
+    <plurals name="suggest_access_item_singer_albums">
+        <item quantity="other">%d album</item>
+    </plurals>
+    <plurals name="suggest_access_item_singer_pop">
+        <item quantity="other">%d lagu populer</item>
+    </plurals>
+    <plurals name="videos_updated_amount">
+        <item quantity="other">Lihat %1$d video baru</item>
+    </plurals>
+    <plurals name="view_count">
+        <item quantity="other">%1$d kali dilihat</item>
+    </plurals>
+    <plurals name="view_realtime_clear">
+        <item quantity="other">Cerah</item>
+    </plurals>
+    <plurals name="vote_all_people">
+        <item quantity="other">%d orang telah memberi suara</item>
+    </plurals>
+    <plurals name="a_hour_ago">
+        <item quantity="other">1 jam yang lalu</item>
+    </plurals>
+    <plurals name="abbrev_a_hour_ago">
+        <item quantity="other">1 jam yang lalu</item>
+    </plurals>
+    <plurals name="abbrev_half_hour_ago">
+        <item quantity="other">Setengah jam yang lalu</item>
+    </plurals>
+    <plurals name="abbrev_in_a_hour">
+        <item quantity="other">Dalam 1 jam</item>
+    </plurals>
+    <plurals name="abbrev_in_half_hour">
+        <item quantity="other">Dalam setengah jam</item>
+    </plurals>
+    <plurals name="abbrev_in_less_than_one_minute">
+        <item quantity="other">Segera</item>
+    </plurals>
+    <plurals name="abbrev_in_num_minutes">
+        <item quantity="other">dalam %d mnt</item>
+        <item quantity="one">dalam 1 mnt</item>
+    </plurals>
+    <plurals name="abbrev_less_than_one_minute_ago">
+        <item quantity="other">Baru saja</item>
+    </plurals>
+    <plurals name="abbrev_num_minutes_ago">
+        <item quantity="other">%d mnt yang lalu</item>
+        <item quantity="one">1 mnt yang lalu</item>
+    </plurals>
+    <plurals name="comment_detail_title">
+        <item quantity="other">%d balasan</item>
+        <item quantity="one">%d balasan</item>
+    </plurals>
+    <plurals name="comment_hour_ago">
+        <item quantity="other">%d beberapa jam yang lalu</item>
+        <item quantity="one">%d jam yang lalu</item>
+    </plurals>
+    <plurals name="comment_look_all">
+        <item quantity="other">Lihat %d komentar</item>
+        <item quantity="one">Lihat %d komentar</item>
+    </plurals>
+    <plurals name="comment_minute_ago">
+        <item quantity="other">%d beberapa menit yang lalu</item>
+        <item quantity="one">%d menit yang lalu</item>
+    </plurals>
+    <plurals name="comment_selected">
+        <item quantity="other">Alasan %d dipilih</item>
+        <item quantity="one">Alasan %d dipilih</item>
+    </plurals>
+    <plurals name="half_hour_ago">
+        <item quantity="other">Setengah jam yang lalu</item>
+    </plurals>
+    <plurals name="hot_word_hot_count">
+        <item quantity="other">%d tampilan</item>
+        <item quantity="one">%d tampilan</item>
+    </plurals>
+    <plurals name="in_a_hour">
+        <item quantity="other">Dalam 1 jam</item>
+    </plurals>
+    <plurals name="in_half_hour">
+        <item quantity="other">Dalam setengah jam</item>
+    </plurals>
+    <plurals name="in_less_than_one_minute">
+        <item quantity="other">Segera</item>
+    </plurals>
+    <plurals name="in_num_minutes">
+        <item quantity="other">dalam %d menit</item>
+        <item quantity="one">dalam 1 menit</item>
+    </plurals>
+    <plurals name="info_flow_tips">
+        <item quantity="other">Menemukan %d item baru untuk Anda</item>
+        <item quantity="one">Menemukan %d item baru untuk Anda</item>
+    </plurals>
+    <plurals name="less_than_one_minute_ago">
+        <item quantity="other">Baru saja</item>
+    </plurals>
+    <plurals name="num_minutes_ago">
+        <item quantity="other">%d beberapa menit yang lalu</item>
+        <item quantity="one">1 menit yang lalu</item>
+    </plurals>
+    <plurals name="transfer_prompt">
+        <item quantity="other">Putar video dalam 1$d detik</item>
+        <item quantity="one">Putar video dalam 1$d detik</item>
+    </plurals>
+    <plurals name="v5_edit_mode_title">
+        <item quantity="other">%1$d dipilih</item>
+        <item quantity="one">%1$d dipilih</item>
+    </plurals>
+    <plurals name="video_download_clear_info">
+        <item quantity="other">Berhasil menghapus %1$d video.</item>
+        <item quantity="one">Berhasil menghapus %1$d video.</item>
+    </plurals>
+    <plurals name="video_download_clear_prompt">
+        <item quantity="other">Hapus %1$d video?</item>
+        <item quantity="one">Hapus %1$d video?</item>
+    </plurals>
+    <plurals name="video_history_clear_info">
+        <item quantity="other">%1$d item dihapus dari riwayat.</item>
+        <item quantity="one">%1$d item dihapus dari riwayat.</item>
+    </plurals>
+    <plurals name="video_history_clear_prompt">
+        <item quantity="other">Hapus %1$d item dari riwayat?</item>
+        <item quantity="one">Hapus %1$d item dari riwayat?</item>
+    </plurals>
+    <plurals name="video_playback_error">
+        <item quantity="other">"Tidak dapat memuat video.
+Akan memutar yang berikutnya dalam %d detik…"</item>
+        <item quantity="one">"Tidak dapat memuat video.
+Akan memutar yang berikutnya dalam %d detik…"</item>
+    </plurals>
+    <plurals name="video_subtitle_last_message">
+        <item quantity="other">%d menit tersisa</item>
+        <item quantity="one">%d menit tersisa</item>
+    </plurals>
+    <plurals name="vo_comment">
+        <item quantity="other">%s komentar</item>
+        <item quantity="one">%s komentar</item>
+    </plurals>
+    <plurals name="vo_image_mark">
+        <item quantity="other">%d gambar</item>
+        <item quantity="one">%d gambar</item>
+    </plurals>
+    <plurals name="vo_short_video_play_count">
+        <item quantity="other">%s</item>
+        <item quantity="one">%s</item>
+    </plurals>
+    <plurals name="vo_source_comment">
+        <item quantity="other">%1$s | %2$s komentar</item>
+        <item quantity="one">%1$s | %2$s komentar</item>
+    </plurals>
+    <plurals name="vo_vote_num">
+        <item quantity="other">%d orang telah memilih</item>
+        <item quantity="one">%d orang telah memilih</item>
+    </plurals>
+    <plurals name="vo_wei_bo_publish_time_hour">
+        <item quantity="other">· %s jam yang lalu</item>
+        <item quantity="one">· %s jam lalu</item>
+    </plurals>
+    <plurals name="vo_wei_bo_publish_time_minute">
+        <item quantity="other">· %s menit yang lalu</item>
+        <item quantity="one">· %s mnt lalu</item>
+    </plurals>
+    <plurals name="vo_zhi_hu_answer">
+        <item quantity="other">%d jawaban di Zhihu</item>
+        <item quantity="one">%d jawaban di Zhihu</item>
+    </plurals>
+</resources>

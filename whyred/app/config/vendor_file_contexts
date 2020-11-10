@@ -3,5 +3,3 @@
 /vendor/etc/MIUI_DualCamera_watermark_in\.png u:object_r:vendor_configs_file:s0
 /vendor/etc/MIUI_Time\.ttf u:object_r:vendor_configs_file:s0
 /vendor/etc/Miui-Light\.ttf u:object_r:vendor_configs_file:s0
-/vendor/overlay/overlay-systemui-whyred\.apk u:object_r:vendor_overlay_file:s0
-/vendor/overlay/overlay-android-whyred\.apk u:object_r:vendor_overlay_file:s0

@@ -1,0 +1,2 @@
+/(vendor|system/vendor)/overlay(/.*)? u:object_r:vendor_overlay_file:s0
+/(product|system/product)/overlay(/.*)? u:object_r:vendor_overlay_file:s0

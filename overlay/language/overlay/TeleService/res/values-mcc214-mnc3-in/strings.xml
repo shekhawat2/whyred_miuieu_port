@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preferred_wificall_title">Panggilan Wi-Fi</string>
+    <string name="vice_slot_volte_data_switch_prompt">Perangkat Anda akan terhubung ke jaringan data seluler menggunakan kartu SIM kedua selama panggilan 4G berlangsung. Hal ini dapat menyebabkan biaya data tambahan. Hubungi operator lokal Anda untuk mengetahui rincian paket data Anda.</string>
+    <string name="vice_slot_volte_data_switch_summary">Selama panggilan 4G, perangkat akan terhubung ke jaringan data seluler menggunakan kartu SIM kedua</string>
+    <string name="vice_slot_volte_data_switch_title">Gunakan data seluler selama panggilan 4G di kartu SIM kedua</string>
+    <string name="volte_switch_summary">Gunakan jaringan 4G untuk meningkatkan kualitas suara dan layanan komunikasi</string>
+    <string name="volte_switch_title">Panggilan 4G</string>
+    <string name="wificall_switch_title">Panggilan Wi-Fi</string>
+</resources>

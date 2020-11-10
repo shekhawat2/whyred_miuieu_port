@@ -121,6 +121,12 @@ rsync -ra ${LOCALDIR}/whyred/app/vendor/ ${VENDORDIR}
 rsync -ra ${LOCALDIR}/whyred/app/system/ ${LOCALDIR}/system
 rsync -ra ${LOCALDIR}/customizations/system/ ${LOCALDIR}/system
 
+# generate overlays
+${LOCALDIR}/overlay/build.sh accent product
+${LOCALDIR}/overlay/build.sh custom product
+${LOCALDIR}/overlay/build.sh language product
+${LOCALDIR}/overlay/build.sh whyred vendor
+
 #fstab
 sed -i "s/forceencrypt/encryptable/g" ${VENDORDIR}/etc/fstab.qcom
 sed -i "/\/dev\/block\/bootdevice\/by-name\/system/d" ${VENDORDIR}/etc/fstab.qcom

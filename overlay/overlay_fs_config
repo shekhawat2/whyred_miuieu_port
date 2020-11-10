@@ -1,0 +1,2 @@
+system/system/product/overlay/*.apk 0 0 0644
+vendor/overlay/*.apk 0 0 0644

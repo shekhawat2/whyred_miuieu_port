@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="round_cornor_padding">7.0dip</dimen>
+    <dimen name="recents_task_view_rounded_corners_radius">9.0dip</dimen>
+    <dimen name="navigation_side_padding">85.0dip</dimen>
+    <dimen name="drip_status_bar_safe_width">473.0px</dimen>
+    <dimen name="status_bar_expanded_weather">11.5dip</dimen>
+    <dimen name="statusbar_battery_size">12.299988dip</dimen>
+    <dimen name="statusbar_carrier_size">11.599976dip</dimen>
+    <dimen name="statusbar_padding_end">4.5dip</dimen>
+    <dimen name="statusbar_signal_size">5.799988dip</dimen>
+</resources>

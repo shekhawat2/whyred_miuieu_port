@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="round_cornor_padding">7.0dip</dimen>
+    <dimen name="navigation_side_padding">85.0dip</dimen>
+    <dimen name="incall_round_cornor_padding">7.0dip</dimen>
+    <dimen name="drip_status_bar_safe_width">482.0px</dimen>
+    <dimen name="statusbar_carrier_max_width">154.57dip</dimen>
+    <dimen name="statusbar_padding_start">4.6999817dip</dimen>
+    <dimen name="statusbar_system_icons_width">155.07dip</dimen>
+</resources>

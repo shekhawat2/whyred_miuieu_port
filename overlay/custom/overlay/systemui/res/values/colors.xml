@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="qs_tile_icon_bg_enabled_color">@android:color/accent_device_default_light</color>
+    <color name="highlight_normal_dark">@android:color/accent_device_default_light</color>
+    <color name="list_text_color_checked_light">@android:color/accent_device_default_light</color>
+    <color name="miuix_compat_list_secondary_text_color_checked_dark">@android:color/accent_device_default_light</color>
+    <color name="miuix_compat_list_secondary_text_color_checked_light">@android:color/accent_device_default_light</color>
+    <color name="miuix_compat_list_text_color_checked_dark">@android:color/accent_device_default_light</color>
+    <color name="miuix_compat_list_text_color_checked_light">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_btn_radio_arrow_color">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_connect_bg_connected_color_light">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_highlight_normal_light">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_list_secondary_text_color_checked_dark">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_list_secondary_text_color_checked_light">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_list_text_color_checked_dark">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_secondary_text_color_checked_dark">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_secondary_text_color_checked_light">@android:color/accent_device_default_light</color>
+    <color name="miuix_sbl_locked_blue">@android:color/accent_device_default_light</color>
+    <color name="miuix_sbl_locked_text_blue">@android:color/accent_device_default_light</color>
+    <color name="notification_setting_button_color">@android:color/accent_device_default_light</color>
+    <color name="remote_input_border_color">@android:color/accent_device_default_light</color>
+    <color name="remote_input_cursor_color">@android:color/accent_device_default_light</color>
+    <color name="cc_qs_tile_icon_bg_color_active">@android:color/accent_device_default_light</color>
+    <color name="color_button_background">@android:color/accent_device_default_light</color>
+    <color name="fsgesture_back_bg_color">@android:color/accent_device_default_light</color>
+    <color name="fsgesture_final_over_font_color">@android:color/accent_device_default_light</color>
+    <color name="homepage_generic_icon_background">@android:color/accent_device_default_light</color>
+    <color name="miuix_preference_connect_bg_connected_color_dark">@android:color/accent_device_default_light</color>
+    <color name="mr_cast_progressbar_progress_and_thumb_dark">@android:color/accent_device_default_light</color>
+    <color name="mr_cast_progressbar_progress_and_thumb_light">@android:color/accent_device_default_light</color>
+    <color name="notification_group_collapsed_button_color">@android:color/accent_device_default_light</color>
+    <color name="qs_detail_item_selected_color">@android:color/accent_device_default_light</color>
+    <color name="qs_control_big_tile_green_bg">@android:color/accent_device_default_light</color>
+    <color name="qs_control_big_tile_blue_bg">@android:color/accent_device_default_light</color>
+    <color name="qs_control_tile_icon_enable_color">@android:color/accent_device_default_light</color>
+    <color name="qs_control_big_tile_orange_bg">@android:color/accent_device_default_light</color>
+</resources>

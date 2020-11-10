@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_files_confirm">
+        <item quantity="other">Hapus %1$d berkas</item>
+    </plurals>
+    <plurals name="delete_folders_confirm">
+        <item quantity="other"> dan %1$d folder?</item>
+    </plurals>
+    <plurals name="directory_item_count">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="numSelectedFile">
+        <item quantity="other">%1$d terpilih</item>
+    </plurals>
+    <plurals name="items_file">
+        <item quantity="other"> (%1$d item)</item>
+    </plurals>
+    <plurals name="items_picture">
+        <item quantity="other"> (%1$d item)</item>
+    </plurals>
+    <plurals name="file_count">
+        <item quantity="other"> %1$d item</item>
+    </plurals>
+    <plurals name="search_head_hint_app">
+        <item quantity="other">Berkas terkait dengan apl \"%1$s\" (%2$d item)</item>
+    </plurals>
+    <plurals name="search_head_hint_file">
+        <item quantity="other">Berkas terkait dengan \"%1$s\" (%2$d item)</item>
+    </plurals>
+    <plurals name="search_head_hint_tag">
+        <item quantity="other">Tandai berkas terkait dengan \"%1$s\" (%2$d item)</item>
+    </plurals>
+    <plurals name="mins_ago">
+        <item quantity="other">%1$d menit lalu</item>
+    </plurals>
+    <plurals name="hours_ago">
+        <item quantity="other">%1$d jam lalu</item>
+    </plurals>
+    <plurals name="days_ago">
+        <item quantity="other">%1$d hari lalu</item>
+    </plurals>
+    <plurals name="seconds">
+        <item quantity="other">%1$d detik</item>
+    </plurals>
+    <plurals name="mins">
+        <item quantity="other">%1$d menit</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="other">%1$d jam</item>
+    </plurals>
+    <plurals name="days">
+        <item quantity="other">%1$d hari</item>
+    </plurals>
+    <plurals name="found_new_files">
+        <item quantity="other">Ditemukan %1$d berkas baru</item>
+    </plurals>
+    <plurals name="file_notify_title">
+        <item quantity="other">Menerima %1$d berkas dari %2$s</item>
+    </plurals>
+    <plurals name="file_notify_title_wechat_video">
+        <item quantity="other">Menerima %1$d berkas dari WeChat</item>
+    </plurals>
+    <plurals name="file_notify_title_wechat_video_expire">
+        <item quantity="other">%1$d video WeChat akan segera kedaluwarsa</item>
+    </plurals>
+    <plurals name="backup_message_wechat_video">
+        <item quantity="other">%1$d video di percakapan WeChat akan segera kedaluwarsa. Cadangkan ke penyimpanan internal perangkat?</item>
+    </plurals>
+    <plurals name="file_notify_title_wechat_sticker">
+        <item quantity="other">%1$d stiker WeChat baru hari ini</item>
+    </plurals>
+    <plurals name="file_notify_title_wechat_video_auto_backup">
+        <item quantity="other">%1$d video WeChat telah dicadangkan.</item>
+    </plurals>
+    <plurals name="remote_video_update">
+        <item quantity="other">Menemukan %1$s video baru</item>
+    </plurals>
+    <plurals name="video_ad_download_tip">
+        <item quantity="other">Unduhan</item>
+    </plurals>
+    <plurals name="video_play_num">
+        <item quantity="other">%1$s dilihat</item>
+    </plurals>
+    <plurals name="video_num">
+        <item quantity="other">%1$s video</item>
+    </plurals>
+    <plurals name="follower_num">
+        <item quantity="other">pengikut</item>
+    </plurals>
+    <plurals name="user_upload_items">
+        <item quantity="other">video</item>
+    </plurals>
+    <plurals name="video_count">
+        <item quantity="other">%1$s video</item>
+    </plurals>
+    <plurals name="number_of_comment_flow">
+        <item quantity="other">%1$s komentar</item>
+    </plurals>
+    <plurals name="user_sign_limt">
+        <item quantity="other">Anda bisa masukkan %d karakter</item>
+    </plurals>
+    <plurals name="video_items">
+        <item quantity="other"> %1$d video</item>
+    </plurals>
+    <plurals name="original_user_days">
+        <item quantity="other">• &lt;font color=#fc7050>%1$d&lt;/font> hari</item>
+    </plurals>
+    <plurals name="original_user_play_1">
+        <item quantity="other">• Anda telah mengunggah &lt;font color=#fc7050>%1$s&lt;/font> video.</item>
+    </plurals>
+    <plurals name="original_user_play_2">
+        <item quantity="other">Anda membuat bahagia &lt;font color=#fc7050>%1$s&lt;/font> orang</item>
+    </plurals>
+    <plurals name="original_user_fans">
+        <item quantity="other">• Anda telah diikuti &lt;font color=#fc7050>%1$s&lt;/font> pengikut</item>
+    </plurals>
+    <plurals name="video_publish_watchable_hint">
+        <item quantity="other">%1$d pengikut lagi untuk menaikkan status Anda​</item>
+    </plurals>
+    <item type="plurals" name="APKTOOL_DUMMY_27">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_28">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_29">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_2a">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_2b">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_2c">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_2d">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_2e">false</item>
+    <item type="plurals" name="APKTOOL_DUMMY_2f">false</item>
+</resources>
