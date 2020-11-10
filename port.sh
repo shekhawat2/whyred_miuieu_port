@@ -1,33 +1,40 @@
 #!/usr/bin/env bash
 export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
-echo $LOCALDIR
-export TOOLS=$LOCALDIR/tools
-DEVICE=lavender
-TYPE=eu
-VERSIONS=(beta)
-SDAT2IMG=$TOOLS/sdat2img.py
-IMG2SDAT=$TOOLS/img2sdat.py
-IMGEXTRACT=$TOOLS/imgextractor.py
-MKUSERIMG=$TOOLS/mkuserimg_mke2fs.sh
-OUTDIR=$LOCALDIR/out
-INDIR=$LOCALDIR/in
+export TOOLS=${LOCALDIR}/tools
+export DEVICE=lavender
+export TYPE=eu
+export VERSIONS=(beta)
+export SDAT2IMG=${TOOLS}/sdat2img.py
+export IMG2SDAT=${TOOLS}/img2sdat.py
+export IMGEXTRACT=${TOOLS}/imgextractor.py
+export MKUSERIMG=${TOOLS}/mkuserimg_mke2fs.sh
+export APKTOOL=${TOOLS}/apktool
+export SYSTEMDIR=${LOCALDIR}/system
+export VENDORDIR=${LOCALDIR}/vendor
+export OUTDIR=${LOCALDIR}/out
+export INDIR=${LOCALDIR}/in
+export fframeworkres="${SYSTEMDIR}/system/framework/framework-res.apk"
+export fframeworkextres="${SYSTEMDIR}/system/framework/framework-ext-res/framework-ext-res.apk"
+export fmiuisystem="${SYSTEMDIR}/system/app/miuisystem/miuisystem.apk"
+export fmiui="${SYSTEMDIR}/system/app/miui/miui.apk"
+
 date=`date +%Y%m%d%H%M%S`
 for VERSION in ${VERSIONS[@]}; do
 if [ "${TYPE}" = "global" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo $URL | cut -d / -f 5)
-    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/LAVENDER/WHYRED/g' <<< $ZIPNAME)))
+    ZIPNAME=$(echo ${URL} | cut -d / -f 5)
+    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/LAVENDER/WHYRED/g' <<< ${ZIPNAME})))
 elif [ "${TYPE}" = "mmx" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo $URL | cut -d / -f 9)
-    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/lavender/whyred/g' <<< $ZIPNAME)))
+    ZIPNAME=$(echo ${URL} | cut -d / -f 9)
+    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/lavender/whyred/g' <<< ${ZIPNAME})))
 elif [ "${TYPE}" = "eu" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo $URL | cut -d / -f 10)
-    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/HMNote7/HMNote5Pro/g' <<< $ZIPNAME)))
+    ZIPNAME=$(echo ${URL} | cut -d / -f 10)
+    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/HMNote7/HMNote5Pro/g' <<< ${ZIPNAME})))
 else
     echo "Specify TYPE"
 fi
@@ -37,141 +44,148 @@ rm -rf ${INDIR} ${OUTDIR}
 mkdir -p ${INDIR}
 mkdir -p ${OUTDIR}
 
-rm -rf $LOCALDIR/flashable/system.*
-rm -rf $LOCALDIR/flashable/vendor.*
+rm -rf ${LOCALDIR}/flashable/system.*
+rm -rf ${LOCALDIR}/flashable/vendor.*
 
 OLDZIPNAME=$(git describe)
-EUDATE=$(echo $ZIPNAME | cut -d _ -f 4)
-OLDEUDATE=$(echo $OLDZIPNAME | cut -d _ -f 4)
+EUDATE=$(echo ${ZIPNAME} | cut -d _ -f 4)
+OLDEUDATE=$(echo ${OLDZIPNAME} | cut -d _ -f 4)
 
-if [[ $(git cat-file -p $OLDZIPNAME | tail -n +6) == $COMMITHASH && $EUDATE == $OLDEUDATE ]]; then
-    echo "$ZIPNAME already done!"
+if [[ $(git cat-file -p ${OLDZIPNAME} | tail -n +6) == ${COMMITHASH} && ${EUDATE} == ${OLDEUDATE} ]]; then
+    echo "${ZIPNAME} already done!"
     exit 0
 fi
 
 git config --global user.email "anandsingh215@yahoo.com"
 git config --global user.name "Anand Shekhawat"
 
+# download and Unzip
+echo "Downloading ${ZIPNAME}"
+aria2c -x16 -j$(nproc) -q -d "${INDIR}" -o "${ZIPNAME}" ${URL}
+echo "Extracting ${ZIPNAME} to ${INDIR}"
+unzip -o -d ${INDIR} ${INDIR}/${ZIPNAME} > /dev/null
 
-# Download and Unzip
-echo "Downloading $ZIPNAME"
-aria2c -x16 -j$(nproc) -q -d "$INDIR" -o "$ZIPNAME" ${URL}
-echo "Extracting $ZIPNAME to $INDIR"
-unzip -o -d $INDIR $INDIR/$ZIPNAME > /dev/null
+brotli -df ${INDIR}/system.new.dat.br
+$SDAT2IMG ${INDIR}/system.transfer.list ${INDIR}/system.new.dat ${INDIR}/system.img > /dev/null
+python3 $IMGEXTRACT ${INDIR}/system.img .
 
-brotli -df $INDIR/system.new.dat.br
-$SDAT2IMG $INDIR/system.transfer.list $INDIR/system.new.dat $INDIR/system.img > /dev/null
-python3 $IMGEXTRACT $INDIR/system.img .
+brotli -df ${INDIR}/vendor.new.dat.br
+$SDAT2IMG ${INDIR}/vendor.transfer.list ${INDIR}/vendor.new.dat ${INDIR}/vendor.img > /dev/null
+python3 $IMGEXTRACT ${INDIR}/vendor.img .
 
-brotli -df $INDIR/vendor.new.dat.br
-$SDAT2IMG $INDIR/vendor.transfer.list $INDIR/vendor.new.dat $INDIR/vendor.img > /dev/null
-python3 $IMGEXTRACT $INDIR/vendor.img .
+# import APKTOOL frameworks
+${APKTOOL} if ${fframeworkres}
+${APKTOOL} if ${fframeworkextres}
+${APKTOOL} if ${fmiui}
+${APKTOOL} if ${fmiuisystem}
 
+patch_rom() {
 echo "Patching system and vendor"
-rm $LOCALDIR/vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
-rm $LOCALDIR/vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
+rm ${VENDORDIR}/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
+rm ${VENDORDIR}/etc/init/android.hardware.keymaster@4.0-service-qti.rc
 # app
-rm -rf $LOCALDIR/system/system/app/Email
-rm -rf $LOCALDIR/system/system/app/MiuiVideoGlobal
-rm -rf $LOCALDIR/system/system/app/MiPicks
-rm -rf $LOCALDIR/system/system/app/InMipay
-rm -rf $LOCALDIR/system/system/app/Updater
+rm -rf ${SYSTEMDIR}/system/app/Email
+rm -rf ${SYSTEMDIR}/system/app/MiuiVideoGlobal
+rm -rf ${SYSTEMDIR}/system/app/MiPicks
+rm -rf ${SYSTEMDIR}/system/app/InMipay
+rm -rf ${SYSTEMDIR}/system/app/Updater
 # priv-app
-rm -rf $LOCALDIR/system/system/priv-app/Browser
-rm -rf $LOCALDIR/system/system/priv-app/MiBrowserGlobal
-rm -rf $LOCALDIR/system/system/priv-app/MiuiBrowserGlobal
-rm -rf $LOCALDIR/system/system/priv-app/MiDrop
-rm -rf $LOCALDIR/system/system/priv-app/MiuiCamera
-rm -rf $LOCALDIR/system/system/priv-app/Updater
+rm -rf ${SYSTEMDIR}/system/priv-app/Browser
+rm -rf ${SYSTEMDIR}/system/priv-app/MiBrowserGlobal
+rm -rf ${SYSTEMDIR}/system/priv-app/MiuiBrowserGlobal
+rm -rf ${SYSTEMDIR}/system/priv-app/MiDrop
+rm -rf ${SYSTEMDIR}/system/priv-app/MiuiCamera
+rm -rf ${SYSTEMDIR}/system/priv-app/Updater
 # data-app
-rm -rf $LOCALDIR/system/system/data-app/PeelMiRemote
-rm -rf $LOCALDIR/system/system/data-app/XMRemoteController
+rm -rf ${SYSTEMDIR}/system/data-app/PeelMiRemote
+rm -rf ${SYSTEMDIR}/system/data-app/XMRemoteController
 # product/app
-rm -rf $LOCALDIR/system/system/product/app/YouTube
-rm -rf $LOCALDIR/system/system/product/app/Maps
-rm -rf $LOCALDIR/system/system/product/app/Gmail2
+rm -rf ${SYSTEMDIR}/system/product/app/YouTube
+rm -rf ${SYSTEMDIR}/system/product/app/Maps
+rm -rf ${SYSTEMDIR}/system/product/app/Gmail2
 # vendor/overlay
-rm -rf $LOCALDIR/vendor/app/NotchOverlay
-rm -rf $LOCALDIR/vendor/overlay/DevicesOverlay.apk
-rm -rf $LOCALDIR/vendor/overlay/DevicesAndroidOverlay.apk
+rm -rf ${VENDORDIR}/app/NotchOverlay
+rm -rf ${VENDORDIR}/overlay/DevicesOverlay.apk
+rm -rf ${VENDORDIR}/overlay/DevicesAndroidOverlay.apk
 
-rsync -ra $LOCALDIR/whyred/audio/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/camera/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/display/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/fingerprint/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/keymaster/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/sensors/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/thermal/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/wifi/vendor/ $LOCALDIR/vendor
-rsync -ra $LOCALDIR/whyred/app/vendor/ $LOCALDIR/vendor
+rsync -ra ${LOCALDIR}/whyred/audio/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/camera/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/display/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/fingerprint/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/keymaster/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/sensors/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/thermal/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/wifi/vendor/ ${VENDORDIR}
+rsync -ra ${LOCALDIR}/whyred/app/vendor/ ${VENDORDIR}
 
-rsync -ra $LOCALDIR/whyred/app/system/ $LOCALDIR/system
-rsync -ra $LOCALDIR/customizations/system/ $LOCALDIR/system
+rsync -ra ${LOCALDIR}/whyred/app/system/ ${LOCALDIR}/system
+rsync -ra ${LOCALDIR}/customizations/system/ ${LOCALDIR}/system
 
 #fstab
-sed -i "s/forceencrypt/encryptable/g" $LOCALDIR/vendor/etc/fstab.qcom
-sed -i "/\/dev\/block\/bootdevice\/by-name\/system/d" $LOCALDIR/vendor/etc/fstab.qcom
-sed -i "\/dev\/block\/bootdevice\/by-name\/userdata/a /dev/block/bootdevice/by-name/cust       /cust                  ext4   ro,nosuid,nodev,barrier=1                        wait,check" $LOCALDIR/vendor/etc/fstab.qcom
+sed -i "s/forceencrypt/encryptable/g" ${VENDORDIR}/etc/fstab.qcom
+sed -i "/\/dev\/block\/bootdevice\/by-name\/system/d" ${VENDORDIR}/etc/fstab.qcom
+sed -i "\/dev\/block\/bootdevice\/by-name\/userdata/a /dev/block/bootdevice/by-name/cust       /cust                  ext4   ro,nosuid,nodev,barrier=1                        wait,check" ${VENDORDIR}/etc/fstab.qcom
 
 # manifest
-sed -i "/<name>android.hardware.keymaster<\/name>/!b;n;n;c\ \ \ \ \ \ \  <version>3.0</version>" $LOCALDIR/vendor/etc/vintf/manifest.xml
-sed -i "/<fqname>@4.0::IKeymasterDevice\/default<\/fqname>/!b;c\ \ \ \ \ \ \ \ <fqname>@3.0::IKeymasterDevice/default</fqname>" $LOCALDIR/vendor/etc/vintf/manifest.xml
+sed -i "/<name>android.hardware.keymaster<\/name>/!b;n;n;c\ \ \ \ \ \ \  <version>3.0</version>" ${VENDORDIR}/etc/vintf/manifest.xml
+sed -i "/<fqname>@4.0::IKeymasterDevice\/default<\/fqname>/!b;c\ \ \ \ \ \ \ \ <fqname>@3.0::IKeymasterDevice/default</fqname>" ${VENDORDIR}/etc/vintf/manifest.xml
 
 # postboot
-sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" $LOCALDIR/vendor/bin/init.qcom.post_boot.sh
+sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" ${VENDORDIR}/bin/init.qcom.post_boot.sh
 
 # build.prop
-sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" $LOCALDIR/vendor/build.prop
-sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" $LOCALDIR/vendor/build.prop
-sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" $LOCALDIR/vendor/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/build.prop
+sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" ${VENDORDIR}/build.prop
+sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" ${VENDORDIR}/build.prop
+sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" ${VENDORDIR}/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/build.prop
 
-sed -i "s/ro.product.system.name=lavender/ro.product.system.name=whyred/g" $LOCALDIR/system/system/build.prop
-sed -i "s/ro.product.system.device=lavender/ro.product.system.device=whyred/g" $LOCALDIR/system/system/build.prop
-sed -i "s/ro.product.system.model=Redmi Note 7/ro.product.system.model=Redmi Note 5/g" $LOCALDIR/system/system/build.prop
-sed -i "s/persist.vendor.camera.model=Redmi Note 7/persist.vendor.camera.model=Redmi Note 5/g" $LOCALDIR/system/system/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/system/system/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/system/system/build.prop
+sed -i "s/ro.product.system.name=lavender/ro.product.system.name=whyred/g" ${SYSTEMDIR}/system/build.prop
+sed -i "s/ro.product.system.device=lavender/ro.product.system.device=whyred/g" ${SYSTEMDIR}/system/build.prop
+sed -i "s/ro.product.system.model=Redmi Note 7/ro.product.system.model=Redmi Note 5/g" ${SYSTEMDIR}/system/build.prop
+sed -i "s/persist.vendor.camera.model=Redmi Note 7/persist.vendor.camera.model=Redmi Note 5/g" ${SYSTEMDIR}/system/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${SYSTEMDIR}/system/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${SYSTEMDIR}/system/build.prop
 
-sed -i "s/ro.product.odm.name=lavender/ro.product.odm.name=whyred/g" $LOCALDIR/vendor/odm/etc/build.prop
-sed -i "s/ro.product.odm.device=lavender/ro.product.odm.device=whyred/g" $LOCALDIR/vendor/odm/etc/build.prop
-sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=Redmi Note 5/g" $LOCALDIR/vendor/odm/etc/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" $LOCALDIR/vendor/odm/etc/build.prop
+sed -i "s/ro.product.odm.name=lavender/ro.product.odm.name=whyred/g" ${VENDORDIR}/odm/etc/build.prop
+sed -i "s/ro.product.odm.device=lavender/ro.product.odm.device=whyred/g" ${VENDORDIR}/odm/etc/build.prop
+sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=Redmi Note 5/g" ${VENDORDIR}/odm/etc/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/odm/etc/build.prop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/odm/etc/build.prop
 
-sed -i "/ro.miui.notch=1/d" $LOCALDIR/system/system/build.prop
-sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" $LOCALDIR/system/system/build.prop
+sed -i "/ro.miui.notch=1/d" ${SYSTEMDIR}/system/build.prop
+sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" ${SYSTEMDIR}/system/build.prop
 
-cat $LOCALDIR/whyred/system.prop >> $LOCALDIR/system/system/build.prop
-cat $LOCALDIR/whyred/vendor.prop >> $LOCALDIR/vendor/build.prop
+cat ${LOCALDIR}/whyred/system.prop >> ${SYSTEMDIR}/system/build.prop
+cat ${LOCALDIR}/whyred/vendor.prop >> ${VENDORDIR}/build.prop
 
 # device_features
-rm -rf $LOCALDIR/system/system/etc/device_features/lavender.xml
-rm -rf $LOCALDIR/vendor/etc/device_features/lavender.xml
+rm -rf ${SYSTEMDIR}/system/etc/device_features/lavender.xml
+rm -rf ${VENDORDIR}/etc/device_features/lavender.xml
 
 # Patch blobs
-bash $LOCALDIR/whyred/patch/services_jar.sh
+bash ${LOCALDIR}/whyred/patch/services_jar.sh
 
 # vendor_file_contexts
 echo "Patching file_contexts"
-cat $LOCALDIR/whyred/app/config/system_file_contexts >> $LOCALDIR/config/system_file_contexts
-cat $LOCALDIR/whyred/app/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
-cat $LOCALDIR/whyred/audio/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
-cat $LOCALDIR/whyred/camera/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
-cat $LOCALDIR/whyred/display/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
-cat $LOCALDIR/whyred/fingerprint/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
-cat $LOCALDIR/whyred/keymaster/config/vendor_file_contexts >> $LOCALDIR/config/vendor_file_contexts
+cat ${LOCALDIR}/whyred/app/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
+cat ${LOCALDIR}/whyred/app/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
+cat ${LOCALDIR}/whyred/audio/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
+cat ${LOCALDIR}/whyred/camera/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
+cat ${LOCALDIR}/whyred/display/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
+cat ${LOCALDIR}/whyred/fingerprint/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
+cat ${LOCALDIR}/whyred/keymaster/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 
 # vendor_fs_config
 echo "Patching fs_config"
-cat $LOCALDIR/whyred/app/config/system_fs_config >> $LOCALDIR/config/system_fs_config
-cat $LOCALDIR/whyred/app/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
-cat $LOCALDIR/whyred/audio/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
-cat $LOCALDIR/whyred/camera/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
-cat $LOCALDIR/whyred/display/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
-cat $LOCALDIR/whyred/fingerprint/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
-cat $LOCALDIR/whyred/keymaster/config/vendor_fs_config >> $LOCALDIR/config/vendor_fs_config
+cat ${LOCALDIR}/whyred/app/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
+cat ${LOCALDIR}/whyred/app/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+cat ${LOCALDIR}/whyred/audio/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+cat ${LOCALDIR}/whyred/camera/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+cat ${LOCALDIR}/whyred/display/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+cat ${LOCALDIR}/whyred/fingerprint/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+cat ${LOCALDIR}/whyred/keymaster/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+}
 
 bytesToHuman() {
     b=${1:-0}; d=''; s=0; S=(Bytes {K,M,G,T,P,E,Z,Y}iB)
@@ -185,34 +199,32 @@ bytesToHuman() {
 
 # mk img
 mk_img() {
-vdir=$LOCALDIR/vendor
-sdir=$LOCALDIR/system
 ssize=3221225472
 vsize=2147483648
-pvsize=`du -sk $vdir | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
-pssize=`du -sk $sdir | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
-sout=$OUTDIR/system.img
-vout=$OUTDIR/vendor.img
-vfsconfig=$LOCALDIR/config/vendor_fs_config
-sfsconfig=$LOCALDIR/config/system_fs_config
-vfcontexts=$LOCALDIR/config/vendor_file_contexts
-sfcontexts=$LOCALDIR/config/system_file_contexts
+pvsize=`du -sk ${VENDORDIR} | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+pssize=`du -sk ${SYSTEMDIR} | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+sout=${OUTDIR}/system.img
+vout=${OUTDIR}/vendor.img
+vfsconfig=${LOCALDIR}/config/vendor_fs_config
+sfsconfig=${LOCALDIR}/config/system_fs_config
+vfcontexts=${LOCALDIR}/config/vendor_file_contexts
+sfcontexts=${LOCALDIR}/config/system_file_contexts
 
 echo "Creating system.img"
 echo "system.img size: $(bytesToHuman $pssize)"
-$MKUSERIMG -s "$sdir" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null || exit 1
+$MKUSERIMG -s "${SYSTEMDIR}" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null || exit 1
 
 echo "Creating vendor.img"
 echo "vendor.img size: $(bytesToHuman $pvsize)"
-$MKUSERIMG -s "$vdir" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null || exit 1
+$MKUSERIMG -s "${VENDORDIR}" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null || exit 1
 
-rm -rf $LOCALDIR/config
-rm -rf $LOCALDIR/system
-rm -rf $LOCALDIR/vendor
+rm -rf ${LOCALDIR}/config
+rm -rf ${SYSTEMDIR}
+rm -rf ${VENDORDIR}
 }
 
 mk_zip() {
-    echo "Creating $NEWZIP"
+    echo "Creating ${NEWZIP}"
     $IMG2SDAT $vout -o flashable -v 4 -p vendor > /dev/null
     $IMG2SDAT $sout -o flashable -v 4 -p system > /dev/null
     cd flashable
@@ -225,8 +237,8 @@ mk_zip() {
     rm system.new.dat || exit 1
     rm vendor.new.dat || exit 1
 
-    rm -rf ../$NEWZIP
-    zip -rv9 ../$NEWZIP *
+    rm -rf ../${NEWZIP}
+    zip -rv9 ../${NEWZIP} *
     cd ..
 }
 
@@ -245,10 +257,10 @@ tg_send() {
         return 1
     fi
 
-    BOTURL="https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
+    BOTURL="https://api.telegram.org/bot${BOT_TOKEN}/sendMessage"
     TEXT="$1"
     until [ $(echo -n "$TEXT" | wc -m) -eq 0 ]; do
-    res=$(curl -s "$BOTURL" -d "chat_id=$CHAT_ID" -d "text=$(urlencode "${TEXT:0:4096}")" -d "parse_mode=Markdown" -d "disable_web_page_preview=true")
+    res=$(curl -s "${BOTURL}" -d "chat_id=${CHAT_ID}" -d "text=$(urlencode "${TEXT:0:4096}")" -d "parse_mode=Markdown" -d "disable_web_page_preview=true")
     TEXT="${TEXT:4096}"
     done
 }
@@ -262,14 +274,15 @@ interact
 EOD
 }
 
+patch_rom
 mk_img || continue
 mk_zip
 
-rm -rf $INDIR $OUTDIR
+rm -rf ${INDIR} ${OUTDIR}
 
-if [ -f $LOCALDIR/$NEWZIP ]; then
+if [ -f ${LOCALDIR}/${NEWZIP} ]; then
     git remote add up https://${GH_TOKEN}@github.com/shekhawat2/whyred_miuieu_port.git
-    git tag $NEWZIP -m $COMMITHASH
+    git tag ${NEWZIP} -m $COMMITHASH
     git push up --tags
 
     ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
@@ -277,10 +290,10 @@ if [ -f $LOCALDIR/$NEWZIP ]; then
 #    sf_upload ${SF_PROJECT} ${NEWZIP}
     sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/${TYPE^^}/${VERSION^^}
     NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
-    zsize=`du -sk $NEWZIP | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
-    printf "[$NEWZIP]($NEWURL)\n" > "$LOCALDIR/info.txt"
-    printf "Size: $(bytesToHuman $zsize)" >> "$LOCALDIR/info.txt"
-    tg_send "$(cat $LOCALDIR/info.txt)"
+    zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+    printf "[${NEWZIP}]($NEWURL)\n" > "${LOCALDIR}/info.txt"
+    printf "Size: $(bytesToHuman $zsize)" >> "${LOCALDIR}/info.txt"
+    tg_send "$(cat ${LOCALDIR}/info.txt)"
 else
     exit 0
 fi
