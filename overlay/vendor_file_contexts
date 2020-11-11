@@ -1,0 +1,3 @@
+/vendor/overlay/whyred-overlay-android\.apk u:object_r:vendor_overlay_file:s0
+/vendor/overlay/whyred-overlay-settings\.apk u:object_r:vendor_overlay_file:s0
+/vendor/overlay/whyred-overlay-systemui\.apk u:object_r:vendor_overlay_file:s0

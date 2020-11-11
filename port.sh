@@ -122,10 +122,10 @@ rsync -ra ${LOCALDIR}/whyred/app/system/ ${LOCALDIR}/system
 rsync -ra ${LOCALDIR}/customizations/system/ ${LOCALDIR}/system
 
 # generate overlays
-${LOCALDIR}/overlay/build.sh accent product
-${LOCALDIR}/overlay/build.sh custom product
-${LOCALDIR}/overlay/build.sh language product
-${LOCALDIR}/overlay/build.sh whyred vendor
+${LOCALDIR}/overlay/build.sh accent
+${LOCALDIR}/overlay/build.sh custom
+${LOCALDIR}/overlay/build.sh language
+${LOCALDIR}/overlay/build.sh whyred
 
 #fstab
 sed -i "s/forceencrypt/encryptable/g" ${VENDORDIR}/etc/fstab.qcom
@@ -173,8 +173,9 @@ rm -rf ${VENDORDIR}/etc/device_features/lavender.xml
 bash ${LOCALDIR}/whyred/patch/services_jar.sh
 bash ${LOCALDIR}/whyred/patch/miui_apk.sh
 
-# vendor_file_contexts
+# file_contexts
 echo "Patching file_contexts"
+cat ${LOCALDIR}/overlay/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/whyred/app/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/whyred/app/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 cat ${LOCALDIR}/whyred/audio/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
@@ -182,9 +183,11 @@ cat ${LOCALDIR}/whyred/camera/config/vendor_file_contexts >> ${LOCALDIR}/config/
 cat ${LOCALDIR}/whyred/display/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 cat ${LOCALDIR}/whyred/fingerprint/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 cat ${LOCALDIR}/whyred/keymaster/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
+cat ${LOCALDIR}/overlay/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 
-# vendor_fs_config
+# fs_config
 echo "Patching fs_config"
+cat ${LOCALDIR}/overlay/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/whyred/app/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/whyred/app/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 cat ${LOCALDIR}/whyred/audio/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
@@ -192,6 +195,7 @@ cat ${LOCALDIR}/whyred/camera/config/vendor_fs_config >> ${LOCALDIR}/config/vend
 cat ${LOCALDIR}/whyred/display/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 cat ${LOCALDIR}/whyred/fingerprint/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 cat ${LOCALDIR}/whyred/keymaster/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+cat ${LOCALDIR}/overlay/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 }
 
 bytesToHuman() {
