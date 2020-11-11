@@ -294,9 +294,15 @@ if [ -f ${LOCALDIR}/${NEWZIP} ]; then
 
     ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
     SF_PROJECT=whyred-miui
+    SF_PROJECT_TEST=testing.whyred-miui.p
 #    sf_upload ${SF_PROJECT} ${NEWZIP}
+if [ "${1}" == "release" ]; then
     sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/${TYPE^^}/${VERSION^^}
     NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
+else
+    sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT_TEST}/${TYPE^^}/${VERSION^^}
+    NEWURL="https://sourceforge.net/projects/${SF_PROJECT_TEST}/files/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
+fi
     zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
     printf "[${NEWZIP}]($NEWURL)\n" > "${LOCALDIR}/info.txt"
     printf "Size: $(bytesToHuman $zsize)" >> "${LOCALDIR}/info.txt"
