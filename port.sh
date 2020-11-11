@@ -165,6 +165,7 @@ rm -rf ${VENDORDIR}/etc/device_features/lavender.xml
 
 # Patch blobs
 bash ${LOCALDIR}/whyred/patch/services_jar.sh
+bash ${LOCALDIR}/whyred/patch/miui_apk.sh
 
 # vendor_file_contexts
 echo "Patching file_contexts"
