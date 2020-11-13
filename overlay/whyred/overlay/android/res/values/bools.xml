@@ -12,7 +12,6 @@
     <bool name="config_dozeWakeLockScreenSensorAvailable">false</bool>
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
     <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
-    <bool name="config_dreamsSupported">false</bool>
     <bool name="config_navBarAlwaysShowOnSideEdgeGesture">true</bool>
     <bool name="config_disableTransitionAnimation">false</bool>
     <bool name="config_dozeSupportsAodWallpaper">true</bool>
