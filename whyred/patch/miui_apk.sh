@@ -27,10 +27,12 @@ progressbar_circle_color_light
 progressbar_circle_color_dark
 sliding_btn_slider_on_pressed_color_light
 checkbox_btn_on_background_color_light
-checkbox_btn_on_background_color_dark)
+checkbox_btn_on_background_color_dark
+accent_color_light
+accent_color_dark)
 
 for res in ${ress[@]}; do
-sed -i "/$res/d" ${TMPDIR}/res/values/colors.xml
+sed -i "/name\=\"$res\"/d" ${TMPDIR}/res/values/colors.xml
 done
 sed -i "/<\/resources>/d" ${TMPDIR}/res/values/colors.xml
 
@@ -58,6 +60,8 @@ cat >> ${TMPDIR}/res/values/colors.xml << EOF
     <color name="sliding_btn_slider_on_pressed_color_light">@android:color/accent_device_default_light</color>
     <color name="checkbox_btn_on_background_color_dark">@android:color/accent_device_default_light</color>
     <color name="checkbox_btn_on_background_color_light">@android:color/accent_device_default_light</color>
+    <color name="accent_color_light">@android:color/accent_device_default_light</color>
+    <color name="accent_color_dark">@android:color/accent_device_default_light</color>
 </resources>
 EOF
 
