@@ -126,7 +126,7 @@ rsync -ra ${LOCALDIR}/customizations/system/ ${LOCALDIR}/system
 # generate overlays
 ${LOCALDIR}/overlay/build.sh accent
 ${LOCALDIR}/overlay/build.sh custom
-${LOCALDIR}/overlay/build.sh language
+#${LOCALDIR}/overlay/build.sh language
 ${LOCALDIR}/overlay/build.sh whyred
 
 #fstab
