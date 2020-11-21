@@ -236,6 +236,8 @@ rm -rf ${VENDORDIR}
 
 mk_zip() {
     echo "Creating ${NEWZIP}"
+    rm -rf ${NEWZIP}
+    cp flashable/flashable.zip ${NEWZIP}
     $IMG2SDAT $vout -o flashable -v 4 -p vendor > /dev/null
     $IMG2SDAT $sout -o flashable -v 4 -p system > /dev/null
     cd flashable
@@ -248,8 +250,7 @@ mk_zip() {
     rm system.new.dat || exit 1
     rm vendor.new.dat || exit 1
 
-    rm -rf ../${NEWZIP}
-    zip -rv9 ../${NEWZIP} *
+    zip -rv9 ../${NEWZIP} boot.img system.new.dat.br system.patch.dat system.transfer.list vendor.new.dat.br vendor.patch.dat vendor.transfer.list
     cd ..
 }
 

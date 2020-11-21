@@ -8,3 +8,4 @@ vendor.img
 *.new.dat.br
 *.transfer.list
 *.patch.dat
+!flashable.zip

@@ -1,9 +1,0 @@
-ota-property-files=metadata:69:319         
-ota-required-cache=0
-ota-type=BLOCK
-post-build=xiaomi/whyred/whyred:8.1.0/OPM1.171019.011/V9.5.11.0.OEIMIFA:user/release-keys
-post-build-incremental=eng.shekha.20200812.085954
-post-sdk-level=29
-post-security-patch-level=2020-08-05
-post-timestamp=1597222872
-pre-device=whyred
