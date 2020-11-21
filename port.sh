@@ -214,8 +214,8 @@ bytesToHuman() {
 mk_img() {
 ssize=3221225472
 vsize=2147483648
-pvsize=`du -sk ${VENDORDIR} | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
-pssize=`du -sk ${SYSTEMDIR} | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+pvsize=`du -sk ${VENDORDIR} | awk '{$1*=1024;printf $1}'`
+pssize=`du -sk ${SYSTEMDIR} | awk '{$1*=1024;printf $1}'`
 sout=${OUTDIR}/system.img
 vout=${OUTDIR}/vendor.img
 vfsconfig=${LOCALDIR}/config/vendor_fs_config
@@ -310,7 +310,7 @@ else
     sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT_TEST}/${TYPE^^}/${VERSION^^}
     NEWURL="https://sourceforge.net/projects/${SF_PROJECT_TEST}/files/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
 fi
-    zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;$1=int($1*1.05);printf $1}'`
+    zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;printf $1}'`
     printf "[${NEWZIP}]($NEWURL)\n" > "${LOCALDIR}/info.txt"
     printf "Size: $(bytesToHuman $zsize)" >> "${LOCALDIR}/info.txt"
     tg_send "$(cat ${LOCALDIR}/info.txt)"
