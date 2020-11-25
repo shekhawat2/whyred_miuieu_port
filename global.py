@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from requests import get
 import requests
 import sys

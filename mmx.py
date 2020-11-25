@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Xiaomi.eu downloads scraper"""
 import asyncio
 import json
