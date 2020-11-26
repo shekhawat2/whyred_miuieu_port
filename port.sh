@@ -107,8 +107,6 @@ rm -rf ${SYSTEMDIR}/system/product/app/Gmail2
 rm -rf ${VENDORDIR}/app/NotchOverlay
 rm -rf ${VENDORDIR}/overlay/DevicesOverlay.apk
 rm -rf ${VENDORDIR}/overlay/DevicesAndroidOverlay.apk
-# bootanimation
-rm -rf ${SYSTEMDIR}/system/media/bootanimation.zip
 
 rsync -ra ${LOCALDIR}/whyred/audio/vendor/ ${VENDORDIR}
 rsync -ra ${LOCALDIR}/whyred/camera/vendor/ ${VENDORDIR}
