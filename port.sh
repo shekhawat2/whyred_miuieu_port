@@ -103,6 +103,8 @@ rm -rf ${SYSTEMDIR}/system/data-app/XMRemoteController
 rm -rf ${SYSTEMDIR}/system/product/app/YouTube
 rm -rf ${SYSTEMDIR}/system/product/app/Maps
 rm -rf ${SYSTEMDIR}/system/product/app/Gmail2
+# theme
+rm -rf ${SYSTEMDIR}/system/media/theme/miui_mod_icons
 # vendor/overlay
 rm -rf ${VENDORDIR}/app/NotchOverlay
 rm -rf ${VENDORDIR}/overlay/DevicesOverlay.apk
@@ -180,6 +182,7 @@ bash ${LOCALDIR}/whyred/patch/miui_apk.sh
 echo "Patching file_contexts"
 cat ${LOCALDIR}/overlay/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/whyred/app/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
+cat ${LOCALDIR}/customizations/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/whyred/app/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 cat ${LOCALDIR}/whyred/audio/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 cat ${LOCALDIR}/whyred/camera/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
@@ -192,6 +195,7 @@ cat ${LOCALDIR}/overlay/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_c
 echo "Patching fs_config"
 cat ${LOCALDIR}/overlay/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/whyred/app/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
+cat ${LOCALDIR}/customizations/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/whyred/app/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 cat ${LOCALDIR}/whyred/audio/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 cat ${LOCALDIR}/whyred/camera/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
