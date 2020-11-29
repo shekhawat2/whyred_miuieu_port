@@ -1,3 +1,5 @@
+/system/system/media/theme/default/powermenu u:object_r:system_file:s0
+/system/system/media/theme/default/powermenu_n u:object_r:system_file:s0
 /system/system/media/theme/miui_mod_icons/com\.android\.contacts\.png u:object_r:system_file:s0
 /system/system/media/theme/miui_mod_icons/status_bar_toggle_lock\.png u:object_r:system_file:s0
 /system/system/media/theme/miui_mod_icons/com\.xiaomi\.payment\.png u:object_r:system_file:s0
