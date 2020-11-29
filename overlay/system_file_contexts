@@ -36,6 +36,7 @@
 /system/system/product/overlay/custom-overlay-screenrecorder\.apk u:object_r:vendor_overlay_file:s0
 /system/system/product/overlay/custom-overlay-settings\.apk u:object_r:vendor_overlay_file:s0
 /system/system/product/overlay/custom-overlay-systemui\.apk u:object_r:vendor_overlay_file:s0
+/system/system/product/overlay/custom-overlay-systemuiplugin\.apk u:object_r:vendor_overlay_file:s0
 /system/system/product/overlay/language-overlay-AuthManager\.apk u:object_r:vendor_overlay_file:s0
 /system/system/product/overlay/language-overlay-Backup\.apk u:object_r:vendor_overlay_file:s0
 /system/system/product/overlay/language-overlay-BackupRestoreConfirmation\.apk u:object_r:vendor_overlay_file:s0

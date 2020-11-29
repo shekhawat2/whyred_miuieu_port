@@ -36,6 +36,7 @@ system/system/product/overlay/custom-overlay-miui.apk 0 0 0644
 system/system/product/overlay/custom-overlay-screenrecorder.apk 0 0 0644
 system/system/product/overlay/custom-overlay-settings.apk 0 0 0644
 system/system/product/overlay/custom-overlay-systemui.apk 0 0 0644
+system/system/product/overlay/custom-overlay-systemuiplugin.apk 0 0 0644
 system/system/product/overlay/language-overlay-AuthManager.apk 0 0 0644
 system/system/product/overlay/language-overlay-Backup.apk 0 0 0644
 system/system/product/overlay/language-overlay-BackupRestoreConfirmation.apk 0 0 0644
