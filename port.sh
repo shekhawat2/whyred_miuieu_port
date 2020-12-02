@@ -24,22 +24,20 @@ if [ "${TYPE}" = "global" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
     ZIPNAME=$(echo ${URL} | cut -d / -f 5)
-    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/LAVENDER/WHYRED/g' <<< ${ZIPNAME})))
 elif [ "${TYPE}" = "mmx" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
     ZIPNAME=$(echo ${URL} | cut -d / -f 9)
-    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/lavender/whyred/g' <<< ${ZIPNAME})))
 elif [ "${TYPE}" = "eu" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
     ZIPNAME=$(echo ${URL} | cut -d / -f 10)
-    NEWZIP=$(sed "s/.zip/-$date.zip/g" <<< $(echo $(sed 's/HMNote7/HMNote5Pro/g' <<< ${ZIPNAME})))
 else
     echo "Specify TYPE"
 fi
+
+NEWZIP=$(sed "s/lavender/whyred/g;s/LAVENDER/WHYRED/g;s/Lavender/Whyred/g;s/HMNote7/HMNote5Pro/g;s/.zip/-$date.zip/g" <<< $ZIPNAME)
 rm -rf ${LOCALDIR}/url
-COMMITHASH=$(git log -1 --pretty=%H)
 rm -rf ${INDIR} ${OUTDIR}
 mkdir -p ${INDIR}
 mkdir -p ${OUTDIR}
@@ -47,14 +45,7 @@ mkdir -p ${OUTDIR}
 rm -rf ${LOCALDIR}/flashable/system.*
 rm -rf ${LOCALDIR}/flashable/vendor.*
 
-OLDZIPNAME=$(git describe)
 EUDATE=$(echo ${ZIPNAME} | cut -d _ -f 4)
-OLDEUDATE=$(echo ${OLDZIPNAME} | cut -d _ -f 4)
-
-if [[ $(git cat-file -p ${OLDZIPNAME} | tail -n +6) == ${COMMITHASH} && ${EUDATE} == ${OLDEUDATE} ]]; then
-    echo "${ZIPNAME} already done!"
-    exit 0
-fi
 
 git config --global user.email "anandsingh215@yahoo.com"
 git config --global user.name "Anand Shekhawat"
@@ -65,13 +56,14 @@ aria2c -x16 -j$(nproc) -q -d "${INDIR}" -o "${ZIPNAME}" ${URL}
 echo "Extracting ${ZIPNAME} to ${INDIR}"
 unzip -o -d ${INDIR} ${INDIR}/${ZIPNAME} > /dev/null
 
-brotli -df ${INDIR}/system.new.dat.br
-$SDAT2IMG ${INDIR}/system.transfer.list ${INDIR}/system.new.dat ${INDIR}/system.img > /dev/null
-python3 $IMGEXTRACT ${INDIR}/system.img .
-
-brotli -df ${INDIR}/vendor.new.dat.br
-$SDAT2IMG ${INDIR}/vendor.transfer.list ${INDIR}/vendor.new.dat ${INDIR}/vendor.img > /dev/null
-python3 $IMGEXTRACT ${INDIR}/vendor.img .
+partitions=(system vendor)
+for partition in ${partitions[@]}; do
+brotli -df ${INDIR}/${partition}.new.dat.br
+$SDAT2IMG ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat ${INDIR}/${partition}.img > /dev/null
+rm -rf ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat*
+python3 $IMGEXTRACT ${INDIR}/${partition}.img .
+rm -rf ${INDIR}/${partition}.img
+done
 
 # import APKTOOL frameworks
 ${APKTOOL} if ${fframeworkres}
@@ -291,10 +283,6 @@ mk_zip
 rm -rf ${INDIR} ${OUTDIR}
 
 if [ -f ${LOCALDIR}/${NEWZIP} ]; then
-    git remote add up https://${GH_TOKEN}@github.com/shekhawat2/whyred_miuieu_port.git
-    git tag ${NEWZIP} -m $COMMITHASH
-    git push up --tags
-
     ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
     SF_PROJECT=whyred-miui
 if [ "${1}" == "release" ]; then
