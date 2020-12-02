@@ -1,0 +1,60 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Miui Port
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+#      - name: Clean Up
+#        run: |
+#          docker rmi `docker images -q`
+#          sudo -H -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
+#          sudo -H -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+#          sudo -H -E apt-get update
+#          sudo -H -E apt-get -y autoremove --purge
+#          sudo -H -E apt-get clean
+
+      - name: Add SSH KEY
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Initialization environment
+        run: |
+          sudo -H -E apt-get -qq update
+          sudo -H -E apt-get -qq install git default-jdk python3.8 python3.8 python3-setuptools python3.8-dev python3-wheel aria2 brotli p7zip-full expect sshpass aapt
+          sudo -H -E ln -sf /usr/bin/python3.8 /usr/bin/python3
+          sudo -H -E python3 -m pip install --upgrade pip
+          sudo -H -E python3 -m pip install -r requirements.txt
+          sudo -H -E python3 --version
+
+      - name: Start porting
+        run: |
+           sudo -H -E ./eu.py lavender beta
+           sudo -H -E ./port.sh test
+
+      - name: Upload GSI to WeTransfer
+        run: |
+           curl -sL https://git.io/file-transfer | sh
+           ./transfer wet final/xiaomi.eu_*.zip
