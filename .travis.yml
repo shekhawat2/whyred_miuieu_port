@@ -6,7 +6,7 @@ git:
   depth: false
 install:
 - sudo -H apt update
-- sudo -H apt install aria2 brotli p7zip-full expect sshpass aapt
+- sudo -H apt install aria2 brotli p7zip-full aapt
 - sudo -H python3 -m pip install -r requirements.txt
 script:
 - sudo -H bash port.sh test
