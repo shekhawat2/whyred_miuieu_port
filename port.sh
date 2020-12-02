@@ -284,15 +284,6 @@ tg_send() {
     done
 }
 
-sf_upload() {
-/usr/bin/expect << EOD
-spawn scp ${2} shekhawat2@frs.sourceforge.net:/home/frs/project/${1}
-expect "Password:"
-send ${SSHPASS}\n;
-interact
-EOD
-}
-
 patch_rom
 mk_img || continue
 mk_zip
@@ -306,12 +297,11 @@ if [ -f ${LOCALDIR}/${NEWZIP} ]; then
 
     ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
     SF_PROJECT=whyred-miui
-#    sf_upload ${SF_PROJECT} ${NEWZIP}
 if [ "${1}" == "release" ]; then
-    sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/${TYPE^^}/${VERSION^^}
+    scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/${TYPE^^}/${VERSION^^}
     NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
 else
-    sshpass -e scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/testing/${TYPE^^}/${VERSION^^}
+    scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/testing/${TYPE^^}/${VERSION^^}
     NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/testing/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
 fi
     zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;printf $1}'`
