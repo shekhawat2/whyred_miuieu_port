@@ -53,11 +53,11 @@ git config --global user.name "Anand Shekhawat"
 # download and Unzip
 echo "Downloading ${ZIPNAME}"
 aria2c -x16 -j$(nproc) -q -d "${INDIR}" -o "${ZIPNAME}" ${URL}
-echo "Extracting ${ZIPNAME} to ${INDIR}"
-unzip -o -d ${INDIR} ${INDIR}/${ZIPNAME} > /dev/null
 
 partitions=(system vendor)
 for partition in ${partitions[@]}; do
+echo "Extracting ${partition} to ${INDIR}"
+7z e "${INDIR}/${ZIPNAME}" ${partition}.new.dat.br ${partition}.transfer.list -o"$INDIR"
 brotli -df ${INDIR}/${partition}.new.dat.br
 $SDAT2IMG ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat ${INDIR}/${partition}.img > /dev/null
 rm -rf ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat*
@@ -288,9 +288,11 @@ if [ -f ${LOCALDIR}/${NEWZIP} ]; then
 if [ "${1}" == "release" ]; then
     scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/${TYPE^^}/${VERSION^^}
     NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
-else
+elif [ "${1}" == "test" ]; then
     scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/testing/${TYPE^^}/${VERSION^^}
     NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/testing/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
+else
+    curl "https://bashupload.com/${NEWZIP}" --data-binary "@${NEWZIP}"
 fi
     zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;printf $1}'`
     printf "[${NEWZIP}]($NEWURL)\n" > "${LOCALDIR}/info.txt"
