@@ -2,8 +2,8 @@
 export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 export TOOLS=${LOCALDIR}/tools
 export DEVICE=lavender
-export TYPE=eu
-export VERSIONS=(beta)
+export TYPE=china
+export VERSION=beta
 export SDAT2IMG=${TOOLS}/sdat2img.py
 export IMG2SDAT=${TOOLS}/img2sdat.py
 export IMGEXTRACT=${TOOLS}/imgextractor.py
@@ -19,33 +19,16 @@ export fmiuisystem="${SYSTEMDIR}/system/app/miuisystem/miuisystem.apk"
 export fmiui="${SYSTEMDIR}/system/app/miui/miui.apk"
 
 date=`date +%Y%m%d%H%M%S`
-for VERSION in ${VERSIONS[@]}; do
-if [ "${TYPE}" = "global" ]; then
-    python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
-    URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo ${URL} | cut -d / -f 5)
-elif [ "${TYPE}" = "mmx" ]; then
-    python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
-    URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo ${URL} | cut -d / -f 9)
-elif [ "${TYPE}" = "eu" ]; then
-    python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
-    URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo ${URL} | cut -d / -f 10)
-else
-    echo "Specify TYPE"
-fi
 
+URL="https://hugeota.d.miui.com/21.1.6/miui_LAVENDER_21.1.6_8ede0c913c_10.0.zip"
+ZIPNAME=$(echo ${URL} | cut -d / -f 5)
 NEWZIP=$(sed "s/lavender/whyred/g;s/LAVENDER/WHYRED/g;s/Lavender/Whyred/g;s/HMNote7/HMNote5Pro/g;s/.zip/-$date.zip/g" <<< $ZIPNAME)
-rm -rf ${LOCALDIR}/url
 rm -rf ${INDIR} ${OUTDIR}
 mkdir -p ${INDIR}
 mkdir -p ${OUTDIR}
 
 rm -rf ${LOCALDIR}/flashable/system.*
 rm -rf ${LOCALDIR}/flashable/vendor.*
-
-EUDATE=$(echo ${ZIPNAME} | cut -d _ -f 4)
 
 git config --global user.email "anandsingh215@yahoo.com"
 git config --global user.name "Anand Shekhawat"
@@ -57,7 +40,7 @@ aria2c -x16 -j$(nproc) -q -d "${INDIR}" -o "${ZIPNAME}" ${URL}
 partitions=(system vendor)
 for partition in ${partitions[@]}; do
 echo "Extracting ${partition} to ${INDIR}"
-7z e "${INDIR}/${ZIPNAME}" ${partition}.new.dat.br ${partition}.transfer.list -o"$INDIR"
+7z e "${INDIR}/${ZIPNAME}" ${partition}.new.dat.br ${partition}.transfer.list -o"$INDIR" > /dev/null
 brotli -df ${INDIR}/${partition}.new.dat.br
 $SDAT2IMG ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat ${INDIR}/${partition}.img > /dev/null
 rm -rf ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat*
@@ -71,30 +54,32 @@ ${APKTOOL} if ${fframeworkextres}
 ${APKTOOL} if ${fmiui}
 ${APKTOOL} if ${fmiuisystem}
 
+# fetch gapps
+ssh-keyscan -t ecdsa -p 22 -H git.rip 2>&1 | tee -a /root/.ssh/known_hosts
+if [ ! -d "${LOCALDIR}/gapps" ]; then
+git clone git@git.rip:shekhawat2/miui_gapps -b main ${LOCALDIR}/gapps
+fi
+
 patch_rom() {
 echo "Patching system and vendor"
 rm ${VENDORDIR}/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
 rm ${VENDORDIR}/etc/init/android.hardware.keymaster@4.0-service-qti.rc
-# app
-rm -rf ${SYSTEMDIR}/system/app/Email
-rm -rf ${SYSTEMDIR}/system/app/MiuiVideoGlobal
-rm -rf ${SYSTEMDIR}/system/app/MiPicks
-rm -rf ${SYSTEMDIR}/system/app/InMipay
-rm -rf ${SYSTEMDIR}/system/app/Updater
-# priv-app
-rm -rf ${SYSTEMDIR}/system/priv-app/Browser
-rm -rf ${SYSTEMDIR}/system/priv-app/MiBrowserGlobal
-rm -rf ${SYSTEMDIR}/system/priv-app/MiuiBrowserGlobal
-rm -rf ${SYSTEMDIR}/system/priv-app/MiDrop
-rm -rf ${SYSTEMDIR}/system/priv-app/MiuiCamera
-rm -rf ${SYSTEMDIR}/system/priv-app/Updater
+# recovery-from-boot.p
+rm -rf ${SYSTEMDIR}/system/recovery-from-boot.p
+
 # data-app
-rm -rf ${SYSTEMDIR}/system/data-app/PeelMiRemote
-rm -rf ${SYSTEMDIR}/system/data-app/XMRemoteController
-# product/app
-rm -rf ${SYSTEMDIR}/system/product/app/YouTube
-rm -rf ${SYSTEMDIR}/system/product/app/Maps
-rm -rf ${SYSTEMDIR}/system/product/app/Gmail2
+rm -rf ${SYSTEMDIR}/system/data-app
+# app
+apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput \
+    Browser MiuiVideo MiuiCamera \
+    TrichromeLibrary WebViewGoogle aiasst_service ModuleMetadata)
+for app in ${apps[@]}; do
+rm -rf ${SYSTEMDIR}/system/app/${app}
+rm -rf ${SYSTEMDIR}/system/priv-app/${app}
+rm -rf ${SYSTEMDIR}/system/product/app/${app}
+rm -rf ${SYSTEMDIR}/system/product/priv-app/${app}
+done
+
 # theme
 rm -rf ${SYSTEMDIR}/system/media/theme/miui_mod_icons
 # vendor/overlay
@@ -112,13 +97,14 @@ rsync -ra ${LOCALDIR}/whyred/thermal/vendor/ ${VENDORDIR}
 rsync -ra ${LOCALDIR}/whyred/wifi/vendor/ ${VENDORDIR}
 rsync -ra ${LOCALDIR}/whyred/app/vendor/ ${VENDORDIR}
 
+rsync -ra ${LOCALDIR}/gapps/system/ ${LOCALDIR}/system
+rsync -ra ${LOCALDIR}/xapps/system/ ${LOCALDIR}/system
 rsync -ra ${LOCALDIR}/whyred/app/system/ ${LOCALDIR}/system
 rsync -ra ${LOCALDIR}/customizations/system/ ${LOCALDIR}/system
 
 # generate overlays
 ${LOCALDIR}/overlay/build.sh accent
 ${LOCALDIR}/overlay/build.sh custom
-#${LOCALDIR}/overlay/build.sh language
 ${LOCALDIR}/overlay/build.sh whyred
 
 #fstab
@@ -134,42 +120,47 @@ sed -i "/<fqname>@4.0::IKeymasterDevice\/default<\/fqname>/!b;c\ \ \ \ \ \ \ \ <
 sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" ${VENDORDIR}/bin/init.qcom.post_boot.sh
 
 # build.prop
-sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" ${VENDORDIR}/build.prop
-sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" ${VENDORDIR}/build.prop
-sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" ${VENDORDIR}/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/build.prop
+sprop="${SYSTEMDIR}/system/build.prop"
+vprop="${VENDORDIR}/build.prop"
+oprop="${VENDORDIR}/odm/etc/build.prop"
+pprop="${SYSTEMDIR}/system/product/build.prop"
 
-sed -i "s/ro.product.system.name=lavender/ro.product.system.name=whyred/g" ${SYSTEMDIR}/system/build.prop
-sed -i "s/ro.product.system.device=lavender/ro.product.system.device=whyred/g" ${SYSTEMDIR}/system/build.prop
-sed -i "s/ro.product.system.model=Redmi Note 7/ro.product.system.model=Redmi Note 5/g" ${SYSTEMDIR}/system/build.prop
-sed -i "s/persist.vendor.camera.model=Redmi Note 7/persist.vendor.camera.model=Redmi Note 5/g" ${SYSTEMDIR}/system/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${SYSTEMDIR}/system/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${SYSTEMDIR}/system/build.prop
+fp="xiaomi/lavender/lavender:10/QKQ1.190910.002/V12.0.2.0.QFGINXM:user/release-keys"
+sp="2020-12-01"
+sed -i "s|lavender|whyred|g;s|Redmi Note 7|Redmi Note 5|g;s|build.fingerprint|build.fingerprint_real|g;s|ro.build.version.security_patch|ro.build.version.security_patch_real|g" ${sprop}
+sed -i "s|lavender|whyred|g;s|Redmi Note 7|Redmi Note 5|g;s|build.fingerprint|build.fingerprint_real|g;s|ro.vendor.build.security_patch|ro.vendor.build.security_patch_real|g" ${vprop}
+sed -i "s|lavender|whyred|g;s|Redmi Note 7|Redmi Note 5|g;s|build.fingerprint|build.fingerprint_real|g" ${oprop}
+sed -i "/ro.system.build.fingerprint_real/i ro.build.fingerprint=$fp" ${sprop}
+sed -i "/ro.system.build.fingerprint_real/i ro.system.build.fingerprint=$fp|g" ${sprop}
+sed -i "/ro.vendor.build.fingerprint_real/i ro.vendor.build.fingerprint=$fp" ${vprop}
+sed -i "/ro.odm.build.fingerprint_real/i ro.odm.build.fingerprint=$fp" ${oprop}
+sed -i "/ro.build.version.security_patch_real/i ro.build.version.security_patch=$sp" ${sprop}
+sed -i "/ro.vendor.build.security_patch_real/i ro.vendor.build.security_patch=$sp" ${vprop}
 
-sed -i "s/ro.product.odm.name=lavender/ro.product.odm.name=whyred/g" ${VENDORDIR}/odm/etc/build.prop
-sed -i "s/ro.product.odm.device=lavender/ro.product.odm.device=whyred/g" ${VENDORDIR}/odm/etc/build.prop
-sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=Redmi Note 5/g" ${VENDORDIR}/odm/etc/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/odm/etc/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/odm/etc/build.prop
+sed -i "s|ro.product.locale=.*|ro.product.locale=en|g" ${sprop}
+sed -i "s|persist.sys.timezone=.*|persist.sys.timezone=Asia/Calcutta|g" ${sprop}
 
-sed -i "/ro.miui.notch=1/d" ${SYSTEMDIR}/system/build.prop
-sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" ${SYSTEMDIR}/system/build.prop
+sed -i "s/ro.control_privapp_permissions=enforce/ro.control_privapp_permissions=log/g" ${vprop}
+sed -i "/ro.miui.notch=1/d" ${sprop}
+sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" ${sprop}
 
-cat ${LOCALDIR}/whyred/system.prop >> ${SYSTEMDIR}/system/build.prop
-cat ${LOCALDIR}/whyred/vendor.prop >> ${VENDORDIR}/build.prop
+cat ${LOCALDIR}/whyred/system.prop >> ${sprop}
+cat ${LOCALDIR}/whyred/vendor.prop >> ${vprop}
+cat ${LOCALDIR}/whyred/product.prop >> ${pprop}
 
 # device_features
 rm -rf ${SYSTEMDIR}/system/etc/device_features/lavender.xml
 rm -rf ${VENDORDIR}/etc/device_features/lavender.xml
 
 # Patch blobs
-bash ${LOCALDIR}/whyred/patch/services_jar.sh
-bash ${LOCALDIR}/whyred/patch/miui_apk.sh
+#bash ${LOCALDIR}/whyred/patch/services_jar.sh
+#bash ${LOCALDIR}/whyred/patch/miui_apk.sh
 
 # file_contexts
 echo "Patching file_contexts"
-cat ${LOCALDIR}/overlay/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
+cat ${LOCALDIR}/gapps/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
+cat ${LOCALDIR}/xapps/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
+cat ${LOCALDIR}/overlay/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/whyred/app/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/customizations/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/whyred/app/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
@@ -178,11 +169,13 @@ cat ${LOCALDIR}/whyred/camera/config/vendor_file_contexts >> ${LOCALDIR}/config/
 cat ${LOCALDIR}/whyred/display/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 cat ${LOCALDIR}/whyred/fingerprint/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 cat ${LOCALDIR}/whyred/keymaster/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
-cat ${LOCALDIR}/overlay/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
+cat ${LOCALDIR}/overlay/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor_file_contexts
 
 # fs_config
 echo "Patching fs_config"
-cat ${LOCALDIR}/overlay/system_fs_config >> ${LOCALDIR}/config/system_fs_config
+cat ${LOCALDIR}/gapps/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
+cat ${LOCALDIR}/xapps/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
+cat ${LOCALDIR}/overlay/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/whyred/app/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/customizations/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/whyred/app/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
@@ -191,7 +184,7 @@ cat ${LOCALDIR}/whyred/camera/config/vendor_fs_config >> ${LOCALDIR}/config/vend
 cat ${LOCALDIR}/whyred/display/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 cat ${LOCALDIR}/whyred/fingerprint/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 cat ${LOCALDIR}/whyred/keymaster/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
-cat ${LOCALDIR}/overlay/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
+cat ${LOCALDIR}/overlay/config/vendor_fs_config >> ${LOCALDIR}/config/vendor_fs_config
 }
 
 bytesToHuman() {
@@ -298,4 +291,3 @@ fi
 else
     exit 0
 fi
-done
