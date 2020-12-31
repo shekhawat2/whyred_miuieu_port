@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="super_wallpaper_res_scale_075_devices">
+        <item>andromeda</item>
+        <item>cepheus</item>
+        <item>crux</item>
+        <item>raphaelin</item>
+        <item>raphael</item>
+        <item>polaris</item>
+        <item>dipper</item>
+        <item>equuleus</item>
+        <item>perseus</item>
+        <item>ursa</item>
+        <item>beryllium</item>
+        <item>sagit</item>
+        <item>chiron</item>
+        <item>monetin</item>
+        <item>monet</item>
+        <item>vangogh</item>
+        <item>atom</item>
+        <item>bomb</item>
+    </string-array>
+    <string-array name="super_wallpaper_res_scale_080_devices">
+        <item>cmi</item>
+        <item>umi</item>
+        <item>lmiin</item>
+        <item>lmi</item>
+        <item>lmipro</item>
+        <item>cas</item>
+        <item>venus</item>
+    </string-array>
+    <array name="super_wallpaper_res_scale_100_devices" />
+    <string-array name="super_wallpaper_res_scale_10_devices">
+        <item>davinci</item>
+        <item>lavender</item>
+        <item>whyred</item>
+        <item>tulip</item>
+    </string-array>
+    <string-array name="support_super_wallpaper_devices">
+        <item>cmi</item>
+        <item>umi</item>
+        <item>lmiin</item>
+        <item>lmi</item>
+        <item>lmipro</item>
+        <item>cepheus</item>
+        <item>crux</item>
+        <item>raphaelin</item>
+        <item>raphael</item>
+        <item>polaris</item>
+        <item>dipper</item>
+        <item>equuleus</item>
+        <item>perseus</item>
+        <item>ursa</item>
+        <item>beryllium</item>
+        <item>sagit</item>
+        <item>chiron</item>
+        <item>monetin</item>
+        <item>monet</item>
+        <item>vangogh</item>
+        <item>atom</item>
+        <item>bomb</item>
+        <item>cas</item>
+        <item>surya</item>
+        <item>apollo</item>
+        <item>klein</item>
+        <item>cezanne</item>
+        <item>venus</item>
+        <item>lavender</item>
+        <item>whyred</item>
+        <item>tulip</item>
+    </string-array>
+</resources>
