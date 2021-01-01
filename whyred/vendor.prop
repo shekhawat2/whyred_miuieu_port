@@ -1,3 +1,6 @@
+
+# Additions By Shekhawat2
+# Flash
 persist.vendor.flash.low.lux=390
 persist.vendor.flash.light.lux=340
 persist.vendor.imx376_ofilm.low.lux=310
@@ -9,8 +12,4 @@ persist.vendor.ov13855_sunny.light.lux=370
 persist.vendor.s5k3l8_ofilm.low.lux=379
 persist.vendor.s5k3l8_ofilm.light.lux=367
 persist.vendor.camera.ltm.overlap=13
-
 sys.haptic.dynamiceffect=true
-
-#persist.sys.sf.color_saturation=1.0
-#persist.sys.sf.color_mode=0

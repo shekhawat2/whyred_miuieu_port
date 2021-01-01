@@ -1,3 +1,5 @@
+
+# Additions By Shekhawat2
 # add for reading mode
 sys.tianma_td4310_offset=5
 sys.tianma_td4310_length=55
@@ -7,10 +9,18 @@ sys.tianma_nt36672_offset=2
 sys.tianma_nt36672_length=45
 sys.huaxing_nt36672_offset=2
 sys.huaxing_nt36672_length=44
-
-ro.miui.fpstool_enabled=true
+# Misc
 ro.media.recorder-max-base-layer-fps=60
 debug.sf.latch_unsignaled=1
 debug.sf.disable_backpressure=1
-
 persist.sys.allow_sys_app_update=true
+# dex2oat
+dalvik.vm.dex2oat64.enabled=true
+dalvik.vm.image-dex2oat-filter=quicken
+dalvik.vm.image-dex2oat-threads=8
+dalvik.vm.image-dex2oat-cpu-set=0,1,2,3,4,5,6,7
+dalvik.vm.dex2oat-filter=quicken
+dalvik.vm.dex2oat-threads=8
+dalvik.vm.dex2oat-cpu-set=0,1,2,3,4,5,6,7
+dalvik.vm.boot-dex2oat-threads=8
+dalvik.vm.boot-dex2oat-cpu-set=0,1,2,3,4,5,6,7
