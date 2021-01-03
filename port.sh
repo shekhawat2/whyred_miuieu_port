@@ -156,9 +156,6 @@ sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/odm/etc/buil
 sed -i "/ro.miui.notch=1/d" ${SYSTEMDIR}/system/build.prop
 sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" ${SYSTEMDIR}/system/build.prop
 
-# Enable fluence
-sed -i "s/ro.vendor.audio.sdk.fluencetype=none/ro.vendor.audio.sdk.fluencetype=fluence/g" ${VENDORDIR}/build.prop
-
 cat ${LOCALDIR}/whyred/system.prop >> ${SYSTEMDIR}/system/build.prop
 cat ${LOCALDIR}/whyred/vendor.prop >> ${VENDORDIR}/build.prop
 
