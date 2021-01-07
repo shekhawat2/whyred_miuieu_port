@@ -36,7 +36,7 @@ else
     echo "Specify TYPE"
 fi
 
-URL=https://cv.sajid.workers.dev/v20.12.10/MiuiPro_lavender_20.12.10_10.0.zip
+URL=https://cv.sajid.workers.dev/miuipro_v10.0_lavender_20.12.10_f1a2524551.zip
 ZIPNAME=$(echo ${URL} | cut -d / -f 5)
 NEWZIP=$(sed "s/lavender/whyred/g;s/LAVENDER/WHYRED/g;s/Lavender/Whyred/g;s/HMNote7/HMNote5Pro/g;s/.zip/-$date.zip/g" <<< $ZIPNAME)
 rm -rf ${LOCALDIR}/url
