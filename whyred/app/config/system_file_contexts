@@ -3,7 +3,10 @@
 /system/system/etc/dualcamera_in\.png u:object_r:system_file:s0
 /system/system/priv-app/MiuiAod/MiuiAod\.apk u:object_r:system_file:s0
 /system/system/priv-app/MiuiAod u:object_r:system_file:s0
+/system/system/product/app/Chrome u:object_r:system_file:s0
 /system/system/product/app/Chrome/Chrome\.apk u:object_r:system_file:s0
 /system/system/product/app/Chrome/split_config\.en\.apk u:object_r:system_file:s0
 /system/system/product/app/Chrome/split_extra_icu\.apk u:object_r:system_file:s0
 /system/system/product/app/WebViewGoogle/split_config\.en\.apk u:object_r:system_file:s0
+/system/system/product/app/TrichromeLibrary u:object_r:system_file:s0
+/system/system/product/app/TrichromeLibrary/TrichromeLibrary\.apk u:object_r:system_file:s0

@@ -8,3 +8,5 @@ system/system/product/app/Chrome/Chrome.apk 0 0 0644
 system/system/product/app/Chrome/split_config.en.apk 0 0 0644
 system/system/product/app/Chrome/split_extra_icu.apk 0 0 0644
 system/system/product/app/WebViewGoogle/split_config.en.apk 0 0 0644
+system/system/product/app/TrichromeLibrary 0 0 0755
+system/system/product/app/TrichromeLibrary/TrichromeLibrary.apk 0 0 0644
