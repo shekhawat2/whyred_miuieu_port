@@ -2,7 +2,7 @@
 export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 export TOOLS=${LOCALDIR}/tools
 export DEVICE=lavender
-export TYPE=eu
+export TYPE=miuipro
 export VERSIONS=(beta)
 export SDAT2IMG=${TOOLS}/sdat2img.py
 export IMG2SDAT=${TOOLS}/img2sdat.py
@@ -36,6 +36,8 @@ else
     echo "Specify TYPE"
 fi
 
+URL=https://cv.sajid.workers.dev/v20.12.10/MiuiPro_lavender_20.12.10_10.0.zip
+ZIPNAME=$(echo ${URL} | cut -d / -f 5)
 NEWZIP=$(sed "s/lavender/whyred/g;s/LAVENDER/WHYRED/g;s/Lavender/Whyred/g;s/HMNote7/HMNote5Pro/g;s/.zip/-$date.zip/g" <<< $ZIPNAME)
 rm -rf ${LOCALDIR}/url
 rm -rf ${INDIR} ${OUTDIR}
