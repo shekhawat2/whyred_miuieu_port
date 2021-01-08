@@ -59,6 +59,9 @@ ssh-keyscan -t ecdsa -p 22 -H git.rip 2>&1 | tee -a /root/.ssh/known_hosts
 if [ ! -d "${LOCALDIR}/gapps" ]; then
 git clone git@git.rip:shekhawat2/miui_gapps -b main ${LOCALDIR}/gapps
 fi
+if [ ! -d "${LOCALDIR}/xapps" ]; then
+git clone git@git.rip:shekhawat2/miui_xapps -b main ${LOCALDIR}/xapps
+fi
 
 patch_rom() {
 echo "Patching system and vendor"
@@ -69,10 +72,11 @@ rm -rf ${SYSTEMDIR}/system/recovery-from-boot.p
 
 # data-app
 rm -rf ${SYSTEMDIR}/system/data-app
+rm -rf ${VENDORDIR}/data-app
 # app
-apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput \
-    Browser MiuiVideo MiuiCamera \
-    TrichromeLibrary WebViewGoogle aiasst_service ModuleMetadata)
+apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput mab \
+    Browser MiuiVideo MiuiCamera NewHome Music QuickSearchBox PersonalAssistant\
+    TrichromeLibrary WebViewGoogle aiasst_service)
 for app in ${apps[@]}; do
 rm -rf ${SYSTEMDIR}/system/app/${app}
 rm -rf ${SYSTEMDIR}/system/priv-app/${app}
