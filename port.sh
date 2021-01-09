@@ -50,10 +50,11 @@ rm -rf ${INDIR}/${partition}.img
 done
 
 # import APKTOOL frameworks
-${APKTOOL} if ${fframeworkres}
-${APKTOOL} if ${fframeworkextres}
-${APKTOOL} if ${fmiui}
-${APKTOOL} if ${fmiuisystem}
+echo "Importing APKTOOL Frameworks"
+${APKTOOL} if ${fframeworkres} > /dev/null
+${APKTOOL} if ${fframeworkextres} > /dev/null
+${APKTOOL} if ${fmiui} > /dev/null
+${APKTOOL} if ${fmiuisystem} > /dev/null
 
 # fetch gapps
 ssh-keyscan -t ecdsa -p 22 -H git.rip 2>&1 | tee -a /root/.ssh/known_hosts
@@ -78,8 +79,10 @@ bash ${PATCHDIR}/services_jar.sh
 rm -rf ${SYSTEMDIR}/system/data-app
 rm -rf ${VENDORDIR}/data-app
 # app
-apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput mab UPTsmService Updater MiuiSuperMarket \
-    Browser MiuiVideo MiuiCamera NewHome Music QuickSearchBox PersonalAssistant \
+apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput MiuiAccessibility greenguard mab UPTsmService Updater \
+    MiuiSuperMarket AnalyticsCore HybridAccessory HybridPlatform MiuiAudioMonitor MSA PrintRecommendationService \
+    KSICibaEngine TranslationService TSMClient WMService XMCloudEngine YouDaoEngine \
+    Browser MiuiVideo MiuiCamera NewHome Music QuickSearchBox PersonalAssistant YellowPage ContentExtension \
     TrichromeLibrary WebViewGoogle aiasst_service)
 for app in ${apps[@]}; do
 rm -rf ${SYSTEMDIR}/system/app/${app}
