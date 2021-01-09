@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 export TOOLS=${LOCALDIR}/tools
+export PATCHDIR=${LOCALDIR}/patch
 export DEVICE=lavender
 export TYPE=china
 export VERSION=beta
@@ -70,12 +71,15 @@ rm ${VENDORDIR}/etc/init/android.hardware.keymaster@4.0-service-qti.rc
 # recovery-from-boot.p
 rm -rf ${SYSTEMDIR}/system/recovery-from-boot.p
 
+# apply patch
+bash ${PATCHDIR}/services_jar.sh
+
 # data-app
 rm -rf ${SYSTEMDIR}/system/data-app
 rm -rf ${VENDORDIR}/data-app
 # app
-apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput mab \
-    Browser MiuiVideo MiuiCamera NewHome Music QuickSearchBox PersonalAssistant\
+apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput mab UPTsmService Updater MiuiSuperMarket \
+    Browser MiuiVideo MiuiCamera NewHome Music QuickSearchBox PersonalAssistant \
     TrichromeLibrary WebViewGoogle aiasst_service)
 for app in ${apps[@]}; do
 rm -rf ${SYSTEMDIR}/system/app/${app}

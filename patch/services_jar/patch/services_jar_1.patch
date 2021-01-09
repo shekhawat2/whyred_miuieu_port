@@ -1,0 +1,307 @@
+diff --git a/dexout2/com/miui/server/SecurityManagerService$2.smali b/dexout2/com/miui/server/SecurityManagerService$2.smali
+index 99c00b4..658571e 100644
+--- a/dexout2/com/miui/server/SecurityManagerService$2.smali
++++ b/dexout2/com/miui/server/SecurityManagerService$2.smali
+@@ -44,11 +44,11 @@
+ 
+     sget-boolean v0, Lmiui/os/Build;->IS_TABLET:Z
+ 
+-    if-nez v0, :cond_109
++    if-nez v0, :cond_d5
+ 
+     iget-boolean v0, p0, Lcom/miui/server/SecurityManagerService$2;->val$onlyCore:Z
+ 
+-    if-nez v0, :cond_109
++    if-nez v0, :cond_d5
+ 
+     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+ 
+@@ -76,7 +76,7 @@
+ 
+     move-result-object v4
+     :try_end_24
+-    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_1c .. :try_end_24} :catch_fd
++    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_1c .. :try_end_24} :catch_c9
+ 
+     move-object v3, v4
+ 
+@@ -107,10 +107,6 @@
+ 
+     invoke-virtual {v5, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+ 
+-    const-string v6, "com.android.updater"
+-
+-    invoke-virtual {v5, v6}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+-
+     const-string v7, "com.miui.securitycenter"
+ 
+     invoke-virtual {v5, v7}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+@@ -131,41 +127,18 @@
+ 
+     invoke-virtual {v5, v9}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+ 
+-    sget-boolean v9, Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z
+-
+     const-string v10, "com.xiaomi.market"
+ 
+-    if-nez v9, :cond_78
+-
+-    sget-boolean v9, Lmiui/os/Build;->IS_CM_CUSTOMIZATION:Z
+-
+-    if-nez v9, :cond_78
+-
+-    sget-boolean v9, Lmiui/os/Build;->IS_CM_CUSTOMIZATION_TEST:Z
+-
+-    if-nez v9, :cond_78
+-
+-    const-string v9, "com.miui.player"
+-
+-    invoke-virtual {v5, v9}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+-
+-    const-string v9, "com.android.browser"
+-
+-    invoke-virtual {v5, v9}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+-
+-    invoke-virtual {v5, v10}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+-
+-    :cond_78
+     invoke-virtual {v5}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
+ 
+     move-result-object v9
+ 
+-    :goto_7c
++    :goto_5e
+     invoke-interface {v9}, Ljava/util/Iterator;->hasNext()Z
+ 
+     move-result v11
+ 
+-    if-eqz v11, :cond_8e
++    if-eqz v11, :cond_70
+ 
+     invoke-interface {v9}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+ 
+@@ -178,16 +151,9 @@
+     # invokes: Lcom/miui/server/SecurityManagerService;->checkEnabled(Landroid/content/pm/PackageManager;Ljava/lang/String;)V
+     invoke-static {v12, v2, v11}, Lcom/miui/server/SecurityManagerService;->access$1800(Lcom/miui/server/SecurityManagerService;Landroid/content/pm/PackageManager;Ljava/lang/String;)V
+ 
+-    goto :goto_7c
+-
+-    :cond_8e
+-    iget-object v9, p0, Lcom/miui/server/SecurityManagerService$2;->this$0:Lcom/miui/server/SecurityManagerService;
+-
+-    const/4 v11, 0x1
+-
+-    # invokes: Lcom/miui/server/SecurityManagerService;->enforceAppSignature([Landroid/content/pm/Signature;Ljava/lang/String;Z)V
+-    invoke-static {v9, v4, v6, v11}, Lcom/miui/server/SecurityManagerService;->access$1900(Lcom/miui/server/SecurityManagerService;[Landroid/content/pm/Signature;Ljava/lang/String;Z)V
++    goto :goto_5e
+ 
++    :cond_70
+     iget-object v6, p0, Lcom/miui/server/SecurityManagerService$2;->this$0:Lcom/miui/server/SecurityManagerService;
+ 
+     const/4 v9, 0x0
+@@ -197,27 +163,11 @@
+ 
+     iget-object v6, p0, Lcom/miui/server/SecurityManagerService$2;->this$0:Lcom/miui/server/SecurityManagerService;
+ 
+-    # invokes: Lcom/miui/server/SecurityManagerService;->enforceAppSignature([Landroid/content/pm/Signature;Ljava/lang/String;Z)V
+-    invoke-static {v6, v4, v8, v11}, Lcom/miui/server/SecurityManagerService;->access$1900(Lcom/miui/server/SecurityManagerService;[Landroid/content/pm/Signature;Ljava/lang/String;Z)V
+-
+-    sget-boolean v6, Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z
+-
+-    if-nez v6, :cond_b0
+-
+-    sget-boolean v6, Lmiui/os/Build;->IS_CM_CUSTOMIZATION:Z
+-
+-    if-nez v6, :cond_b0
+-
+-    sget-boolean v6, Lmiui/os/Build;->IS_CM_CUSTOMIZATION_TEST:Z
+-
+-    if-nez v6, :cond_b0
+-
+-    iget-object v6, p0, Lcom/miui/server/SecurityManagerService$2;->this$0:Lcom/miui/server/SecurityManagerService;
++    const/4 v11, 0x1
+ 
+     # invokes: Lcom/miui/server/SecurityManagerService;->enforceAppSignature([Landroid/content/pm/Signature;Ljava/lang/String;Z)V
+-    invoke-static {v6, v4, v10, v9}, Lcom/miui/server/SecurityManagerService;->access$1900(Lcom/miui/server/SecurityManagerService;[Landroid/content/pm/Signature;Ljava/lang/String;Z)V
++    invoke-static {v6, v4, v8, v11}, Lcom/miui/server/SecurityManagerService;->access$1900(Lcom/miui/server/SecurityManagerService;[Landroid/content/pm/Signature;Ljava/lang/String;Z)V
+ 
+-    :cond_b0
+     iget-object v6, p0, Lcom/miui/server/SecurityManagerService$2;->this$0:Lcom/miui/server/SecurityManagerService;
+ 
+     # invokes: Lcom/miui/server/SecurityManagerService;->isOldmanMode()Z
+@@ -234,9 +184,9 @@
+ 
+     const-string v8, "SecurityManagerService"
+ 
+-    if-eqz v7, :cond_e5
++    if-eqz v7, :cond_b1
+ 
+-    if-nez v6, :cond_e5
++    if-nez v6, :cond_b1
+ 
+     new-instance v7, Ljava/lang/StringBuilder;
+ 
+@@ -261,22 +211,22 @@
+ 
+     move-result v8
+ 
+-    if-eqz v8, :cond_e0
++    if-eqz v8, :cond_ac
+ 
+     move v9, v11
+ 
+-    goto :goto_e1
++    goto :goto_ad
+ 
+-    :cond_e0
++    :cond_ac
+     nop
+ 
+-    :goto_e1
++    :goto_ad
+     # setter for: Lcom/miui/server/SecurityManagerService;->mSysAppCracked:I
+     invoke-static {v7, v9}, Lcom/miui/server/SecurityManagerService;->access$2102(Lcom/miui/server/SecurityManagerService;I)I
+ 
+-    goto :goto_f9
++    goto :goto_c5
+ 
+-    :cond_e5
++    :cond_b1
+     new-instance v7, Ljava/lang/StringBuilder;
+ 
+     invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+@@ -293,12 +243,12 @@
+ 
+     invoke-static {v8, v7}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+ 
+-    :goto_f9
++    :goto_c5
+     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+ 
+-    goto :goto_109
++    goto :goto_d5
+ 
+-    :catch_fd
++    :catch_c9
+     move-exception v4
+ 
+     invoke-virtual {v4}, Landroid/content/pm/PackageManager$NameNotFoundException;->printStackTrace()V
+@@ -311,7 +261,7 @@
+ 
+     throw v5
+ 
+-    :cond_109
+-    :goto_109
++    :cond_d5
++    :goto_d5
+     return-void
+ .end method
+diff --git a/dexout2/com/miui/server/SecurityManagerService.smali b/dexout2/com/miui/server/SecurityManagerService.smali
+index c5820c9..30aeed4 100644
+--- a/dexout2/com/miui/server/SecurityManagerService.smali
++++ b/dexout2/com/miui/server/SecurityManagerService.smali
+@@ -164,18 +164,8 @@
+ .method static constructor <clinit>()V
+     .registers 1
+ 
+-    sget-boolean v0, Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z
+-
+-    if-eqz v0, :cond_7
+-
+-    const-string v0, "com.mi.globalbrowser"
+-
+-    goto :goto_9
+-
+-    :cond_7
+     const-string v0, "com.android.browser"
+ 
+-    :goto_9
+     sput-object v0, Lcom/miui/server/SecurityManagerService;->PKG_BROWSER:Ljava/lang/String;
+ 
+     const-string v0, "miui_security"
+@@ -2003,55 +1993,18 @@
+ 
+     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+ 
+-    sget-boolean v1, Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z
+-
+-    if-nez v1, :cond_46
+-
+-    sget-boolean v1, Lmiui/os/Build;->IS_CM_CUSTOMIZATION:Z
+-
+-    if-nez v1, :cond_46
+-
+-    sget-boolean v1, Lmiui/os/Build;->IS_CM_CUSTOMIZATION_TEST:Z
+-
+-    if-nez v1, :cond_46
+-
+-    new-instance v1, Lcom/miui/server/SecurityManagerService$AppItem;
+-
+-    const-string v4, "com.miui.player"
+-
+-    invoke-direct {v1, v4, v2, v3}, Lcom/miui/server/SecurityManagerService$AppItem;-><init>(Ljava/lang/String;Ljava/lang/String;Z)V
+-
+-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+-
+-    new-instance v1, Lcom/miui/server/SecurityManagerService$AppItem;
+-
+-    const-string v4, "com.android.browser"
+-
+-    invoke-direct {v1, v4, v2, v3}, Lcom/miui/server/SecurityManagerService$AppItem;-><init>(Ljava/lang/String;Ljava/lang/String;Z)V
+-
+-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+-
+-    new-instance v1, Lcom/miui/server/SecurityManagerService$AppItem;
+-
+-    const-string v4, "com.miui.video"
+-
+-    invoke-direct {v1, v4, v2, v3}, Lcom/miui/server/SecurityManagerService$AppItem;-><init>(Ljava/lang/String;Ljava/lang/String;Z)V
+-
+-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+-
+-    :cond_46
+     const/4 v1, 0x0
+ 
+     invoke-virtual {v0}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
+ 
+     move-result-object v2
+ 
+-    :goto_4b
++    :goto_21
+     invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+ 
+     move-result v4
+ 
+-    if-eqz v4, :cond_88
++    if-eqz v4, :cond_5e
+ 
+     invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+ 
+@@ -2079,7 +2032,7 @@
+ 
+     move-result v6
+ 
+-    if-nez v6, :cond_87
++    if-nez v6, :cond_5d
+ 
+     new-instance v2, Ljava/lang/StringBuilder;
+ 
+@@ -2103,13 +2056,13 @@
+ 
+     const/4 v1, 0x1
+ 
+-    goto :goto_88
++    goto :goto_5e
+ 
+-    :cond_87
+-    goto :goto_4b
++    :cond_5d
++    goto :goto_21
+ 
+-    :cond_88
+-    :goto_88
++    :cond_5e
++    :goto_5e
+     return v1
+ .end method
+ 
