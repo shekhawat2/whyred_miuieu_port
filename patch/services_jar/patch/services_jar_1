@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+TMPDIR=${PATCHDIR}/temp/services_jar
+REPSTR=${TOOLS}/repStr.py
+
+# FILE1
+SMALI_FILE="$TMPDIR/dexout2/com/miui/server/SecurityManagerService.smali"
+FILE_END='.end method'
+
+
+FIND_START='.method private checkAppSignature(\[Landroid\/content\/pm\/Signature;Ljava\/lang\/String;Z)Z'
+REPLACE_CODE='.method private checkAppSignature([Landroid/content/pm/Signature;Ljava/lang/String;Z)Z
+    .registers 4
+
+    const/4 v0, 0x1
+
+    return v0
+.end method'
+
+oldStr=`sed -n "/$FIND_START/,/$FILE_END/p" $SMALI_FILE`
+${REPSTR} "$SMALI_FILE" "$oldStr" "$REPLACE_CODE"
+
+
+FIND_START='.method private checkSysAppCrack()Z'
+REPLACE_CODE='.method private checkSysAppCrack()Z
+    .registers 2
+
+    const/4 v0, 0x1
+
+    return v0
+.end method'
+
+oldStr=`sed -n "/$FIND_START/,/$FILE_END/p" $SMALI_FILE`
+${REPSTR} "$SMALI_FILE" "$oldStr" "$REPLACE_CODE"
+
+
+FIND_START='.method private static compareSignatures(\[Landroid\/content\/pm\/Signature;\[Landroid\/content\/pm\/Signature;)I'
+REPLACE_CODE='.method private static compareSignatures([Landroid/content/pm/Signature;[Landroid/content/pm/Signature;)I
+    .registers 2
+
+    const v0, 0x0
+
+    return v0
+.end method'
+
+oldStr=`sed -n "/$FIND_START/,/$FILE_END/p" $SMALI_FILE`
+${REPSTR} "$SMALI_FILE" "$oldStr" "$REPLACE_CODE"
+
+
+FIND_START='.method private enforceAppSignature(\[Landroid\/content\/pm\/Signature;Ljava\/lang\/String;Z)V'
+REPLACE_CODE='.method private enforceAppSignature([Landroid/content/pm/Signature;Ljava/lang/String;Z)V
+    .registers 4
+
+    return-void
+.end method'
+
+oldStr=`sed -n "/$FIND_START/,/$FILE_END/p" $SMALI_FILE`
+${REPSTR} "$SMALI_FILE" "$oldStr" "$REPLACE_CODE"
+
+
+FIND_START='.method private enforcePlatformSignature(\[Landroid\/content\/pm\/Signature;)V'
+REPLACE_CODE='.method private enforcePlatformSignature([Landroid/content/pm/Signature;)V
+    .registers 2
+
+    return-void
+.end method'
+
+oldStr=`sed -n "/$FIND_START/,/$FILE_END/p" $SMALI_FILE`
+${REPSTR} "$SMALI_FILE" "$oldStr" "$REPLACE_CODE"
+
+
+# FILE2
+SMALI_FILE="$TMPDIR/dexout2/com/miui/server/SecurityManagerService\$2.smali"
+
+FIND_START='.method public run()V'
+REPLACE_CODE='.method public run()V
+    .registers 1
+
+    return-void
+.end method'
+
+oldStr=`sed -n "/$FIND_START/,/$FILE_END/p" $SMALI_FILE`
+${REPSTR} "$SMALI_FILE" "$oldStr" "$REPLACE_CODE"

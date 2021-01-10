@@ -11,7 +11,7 @@ java -jar "$BAKSMALIJAR" disassemble --debug-info false "$TMPDIR/original_dex/cl
 java -jar "$BAKSMALIJAR" disassemble --debug-info false "$TMPDIR/original_dex/classes2.dex" -o "$TMPDIR/dexout2"
 
 rsync -ra ${PATCHDIR}/services_jar/replace/ $TMPDIR
-patch -p1 -N -r - -d $TMPDIR < ${PATCHDIR}/services_jar/patch/services_jar_1.patch > /dev/null
+bash ${PATCHDIR}/services_jar/patch/services_jar_1
 
 java -jar "$SMALIJAR" assemble "$TMPDIR/dexout1" -o "$TMPDIR/classes.dex"
 java -jar "$SMALIJAR" assemble "$TMPDIR/dexout2" -o "$TMPDIR/classes2.dex"
