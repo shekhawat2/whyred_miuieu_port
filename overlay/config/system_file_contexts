@@ -33,3 +33,8 @@
 /system/system/product/overlay/accent-overlay-Yellow\.apk u:object_r:vendor_overlay_file:s0
 /system/system/product/overlay/custom-overlay-miwallpaper\.apk u:object_r:vendor_overlay_file:s0
 /system/system/product/overlay/custom-overlay-screenrecorder\.apk u:object_r:vendor_overlay_file:s0
+/system/system/product/overlay/google-overlay-GmsConfigOverlay\.apk u:object_r:vendor_overlay_file:s0
+/system/system/product/overlay/google-overlay-GmsGsaConfigOverlay\.apk u:object_r:vendor_overlay_file:s0
+/system/system/product/overlay/google-overlay-GoogleExtServicesConfigOverlay\.apk u:object_r:vendor_overlay_file:s0
+/system/system/product/overlay/google-overlay-GooglePermissionControllerFrameworkOverlay\.apk u:object_r:vendor_overlay_file:s0
+/system/system/product/overlay/google-overlay-GooglePermissionControllerOverlay\.apk u:object_r:vendor_overlay_file:s0
