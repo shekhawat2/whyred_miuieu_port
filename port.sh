@@ -223,11 +223,12 @@ sfcontexts=${LOCALDIR}/config/system_file_contexts
 
 echo "Creating system.img"
 echo "system.img size: $(bytesToHuman $pssize)"
-$MKUSERIMG -s "${SYSTEMDIR}" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system > /dev/null || exit 1
+$MKUSERIMG -s "${SYSTEMDIR}" "$sout" ext4 system $ssize -C $sfsconfig $sfcontexts -T 0  -L system& > /dev/null || exit 1
 
 echo "Creating vendor.img"
 echo "vendor.img size: $(bytesToHuman $pvsize)"
-$MKUSERIMG -s "${VENDORDIR}" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor > /dev/null || exit 1
+$MKUSERIMG -s "${VENDORDIR}" "$vout" ext4 vendor $vsize -C $vfsconfig $vfcontexts -T 0  -L vendor& > /dev/null || exit 1
+wait
 
 rm -rf ${LOCALDIR}/config
 rm -rf ${SYSTEMDIR}
@@ -238,14 +239,16 @@ mk_zip() {
     echo "Creating ${NEWZIP}"
     rm -rf ${NEWZIP}
     cp flashable/flashable.zip ${NEWZIP}
-    $IMG2SDAT $vout -o flashable -v 4 -p vendor > /dev/null
-    $IMG2SDAT $sout -o flashable -v 4 -p system > /dev/null
+    $IMG2SDAT $vout -o flashable -v 4 -p vendor& > /dev/null
+    $IMG2SDAT $sout -o flashable -v 4 -p system& > /dev/null
+    wait
     cd flashable
 
     echo "Compressing system.new.dat"
-    brotli -7 system.new.dat
+    brotli -7 system.new.dat&
     echo "Conpressing vendor.new.dat"
-    brotli -7 vendor.new.dat
+    brotli -7 vendor.new.dat&
+    wait
 
     rm system.new.dat || exit 1
     rm vendor.new.dat || exit 1
