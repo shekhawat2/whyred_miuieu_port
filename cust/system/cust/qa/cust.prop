@@ -1,0 +1,7 @@
+persist.sys.timezone=Asia/Qatar
+ro.product.locale.language=en
+ro.product.locale.region=QA
+ro.miui.region=QA
+ro.miui.cust_variant=qa
+ro.vendor.miui.region=QA
+ro.vendor.miui.cust_variant=qa

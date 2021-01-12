@@ -1,0 +1,7 @@
+persist.sys.timezone=America/Tegucigalpa
+ro.product.locale.language=es
+ro.product.locale.region=HN
+ro.miui.region=HN
+ro.miui.cust_variant=hn
+ro.vendor.miui.region=HN
+ro.vendor.miui.cust_variant=hn

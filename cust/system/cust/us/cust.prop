@@ -1,0 +1,7 @@
+persist.sys.timezone=America/New_York
+ro.product.locale.language=en
+ro.product.locale.region=US
+ro.miui.region=US
+ro.miui.cust_variant=us
+ro.vendor.miui.region=US
+ro.vendor.miui.cust_variant=us

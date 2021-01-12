@@ -1,0 +1,7 @@
+persist.sys.timezone=Australia/Sydney
+ro.product.locale.language=en
+ro.product.locale.region=AU
+ro.miui.region=AU
+ro.miui.cust_variant=au
+ro.vendor.miui.region=AU
+ro.vendor.miui.cust_variant=au

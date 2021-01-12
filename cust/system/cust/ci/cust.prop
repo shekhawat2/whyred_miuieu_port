@@ -1,0 +1,7 @@
+persist.sys.timezone=Africa/Abidjan
+ro.product.locale.language=fr
+ro.product.locale.region=CI
+ro.miui.region=CI
+ro.miui.cust_variant=ci
+ro.vendor.miui.region=CI
+ro.vendor.miui.cust_variant=ci

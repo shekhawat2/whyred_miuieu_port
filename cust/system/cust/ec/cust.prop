@@ -1,0 +1,7 @@
+persist.sys.timezone=America/Guayaquil
+ro.product.locale.language=es
+ro.product.locale.region=EC
+ro.miui.region=EC
+ro.miui.cust_variant=ec
+ro.vendor.miui.region=EC
+ro.vendor.miui.cust_variant=ec

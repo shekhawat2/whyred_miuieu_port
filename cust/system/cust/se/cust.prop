@@ -1,0 +1,7 @@
+persist.sys.timezone=Europe/Stockholm
+ro.product.locale.language=en
+ro.product.locale.region=SE
+ro.miui.region=SE
+ro.miui.cust_variant=se
+ro.vendor.miui.region=SE
+ro.vendor.miui.cust_variant=se

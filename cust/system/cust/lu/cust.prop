@@ -1,0 +1,7 @@
+persist.sys.timezone=Europe/Luxembourg
+ro.product.locale.language=en
+ro.product.locale.region=LU
+ro.miui.region=LU
+ro.miui.cust_variant=lu
+ro.vendor.miui.region=LU
+ro.vendor.miui.cust_variant=lu

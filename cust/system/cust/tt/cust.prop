@@ -1,0 +1,7 @@
+persist.sys.timezone=America/Port_of_Spain
+ro.product.locale.language=en
+ro.product.locale.region=TT
+ro.miui.region=TT
+ro.miui.cust_variant=tt
+ro.vendor.miui.region=TT
+ro.vendor.miui.cust_variant=tt

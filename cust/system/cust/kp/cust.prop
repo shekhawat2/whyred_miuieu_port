@@ -1,0 +1,7 @@
+persist.sys.timezone=Asia/Pyongyang
+ro.product.locale.language=ko
+ro.product.locale.region=KP
+ro.miui.region=KP
+ro.miui.cust_variant=kp
+ro.vendor.miui.region=KP
+ro.vendor.miui.cust_variant=kp

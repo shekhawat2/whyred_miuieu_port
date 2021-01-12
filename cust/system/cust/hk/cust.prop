@@ -1,0 +1,7 @@
+persist.sys.timezone=Asia/Hong_Kong
+ro.product.locale.language=zh
+ro.product.locale.region=TW
+ro.miui.region=HK
+ro.miui.cust_variant=hk
+ro.vendor.miui.region=HK
+ro.vendor.miui.cust_variant=hk

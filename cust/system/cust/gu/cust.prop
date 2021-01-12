@@ -1,0 +1,7 @@
+persist.sys.timezone=Pacific/Guam
+ro.product.locale.language=en
+ro.product.locale.region=GU
+ro.miui.region=GU
+ro.miui.cust_variant=gu
+ro.vendor.miui.region=GU
+ro.vendor.miui.cust_variant=gu

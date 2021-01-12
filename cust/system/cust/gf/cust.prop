@@ -1,0 +1,7 @@
+persist.sys.timezone=America/Cayenne
+ro.product.locale.language=es
+ro.product.locale.region=GF
+ro.miui.region=GF
+ro.miui.cust_variant=gf
+ro.vendor.miui.region=GF
+ro.vendor.miui.cust_variant=gf

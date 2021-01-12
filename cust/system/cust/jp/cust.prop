@@ -1,0 +1,7 @@
+persist.sys.timezone=Asia/Tokyo
+ro.product.locale.language=ja
+ro.product.locale.region=JP
+ro.miui.region=JP
+ro.miui.cust_variant=jp
+ro.vendor.miui.region=JP
+ro.vendor.miui.cust_variant=jp

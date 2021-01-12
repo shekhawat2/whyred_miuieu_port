@@ -1,0 +1,7 @@
+persist.sys.timezone=Pacific/Norfolk
+ro.product.locale.language=en
+ro.product.locale.region=NF
+ro.miui.region=NF
+ro.miui.cust_variant=nf
+ro.vendor.miui.region=NF
+ro.vendor.miui.cust_variant=nf

@@ -1,0 +1,7 @@
+persist.sys.timezone=Europe/Zurich
+ro.product.locale.language=de
+ro.product.locale.region=CH
+ro.miui.region=CH
+ro.miui.cust_variant=ch
+ro.vendor.miui.region=CH
+ro.vendor.miui.cust_variant=ch

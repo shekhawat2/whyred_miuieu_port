@@ -77,7 +77,9 @@ bash ${PATCHDIR}/services_jar.sh
 
 # data-app
 rm -rf ${SYSTEMDIR}/system/data-app
+rm -rf ${SYSTEMDIR}/cust
 rm -rf ${VENDORDIR}/data-app
+
 # app
 apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput MiuiAccessibility greenguard mab UPTsmService Updater \
     MiuiSuperMarket AnalyticsCore HybridAccessory HybridPlatform MiuiAudioMonitor MSA PrintRecommendationService \
@@ -110,6 +112,7 @@ rsync -ra ${LOCALDIR}/whyred/app/vendor/ ${VENDORDIR}
 
 rsync -ra ${LOCALDIR}/gapps/system/ ${LOCALDIR}/system
 rsync -ra ${LOCALDIR}/xapps/system/ ${LOCALDIR}/system
+rsync -ra ${LOCALDIR}/cust/system/ ${LOCALDIR}/system
 rsync -ra ${LOCALDIR}/whyred/app/system/ ${LOCALDIR}/system
 rsync -ra ${LOCALDIR}/customizations/system/ ${LOCALDIR}/system
 
@@ -171,6 +174,7 @@ rm -rf ${VENDORDIR}/etc/device_features/lavender.xml
 echo "Patching file_contexts"
 cat ${LOCALDIR}/gapps/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/xapps/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
+cat ${LOCALDIR}/cust/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/overlay/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/whyred/app/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
 cat ${LOCALDIR}/customizations/config/system_file_contexts >> ${LOCALDIR}/config/system_file_contexts
@@ -186,6 +190,7 @@ cat ${LOCALDIR}/overlay/config/vendor_file_contexts >> ${LOCALDIR}/config/vendor
 echo "Patching fs_config"
 cat ${LOCALDIR}/gapps/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/xapps/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
+cat ${LOCALDIR}/cust/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/overlay/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/whyred/app/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config
 cat ${LOCALDIR}/customizations/config/system_fs_config >> ${LOCALDIR}/config/system_fs_config

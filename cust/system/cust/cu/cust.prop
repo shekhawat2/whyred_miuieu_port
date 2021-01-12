@@ -1,0 +1,7 @@
+persist.sys.timezone=America/Havana
+ro.product.locale.language=es
+ro.product.locale.region=CU
+ro.miui.region=CU
+ro.miui.cust_variant=cu
+ro.vendor.miui.region=CU
+ro.vendor.miui.cust_variant=cu

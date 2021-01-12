@@ -1,0 +1,7 @@
+persist.sys.timezone=Africa/Dar_es_Salaam
+ro.product.locale.language=en
+ro.product.locale.region=TZ
+ro.miui.region=TZ
+ro.miui.cust_variant=tz
+ro.vendor.miui.region=TZ
+ro.vendor.miui.cust_variant=tz
