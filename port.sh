@@ -117,7 +117,7 @@ rsync -ra ${LOCALDIR}/customizations/system/ ${LOCALDIR}/system
 ${LOCALDIR}/overlay/build.sh accent
 ${LOCALDIR}/overlay/build.sh custom
 ${LOCALDIR}/overlay/build.sh whyred
-${LOCALDIR}/overlay/build.sh google
+
 #fstab
 sed -i "s/forceencrypt/encryptable/g" ${VENDORDIR}/etc/fstab.qcom
 sed -i "/\/dev\/block\/bootdevice\/by-name\/system/d" ${VENDORDIR}/etc/fstab.qcom
