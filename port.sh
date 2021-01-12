@@ -21,7 +21,7 @@ export fmiui="${SYSTEMDIR}/system/app/miui/miui.apk"
 
 date=`date +%Y%m%d%H%M%S`
 
-URL="https://hugeota.d.miui.com/21.1.6/miui_LAVENDER_21.1.6_8ede0c913c_10.0.zip"
+URL="https://hugeota.d.miui.com/21.1.11/miui_LAVENDER_21.1.11_d2d4c2d772_10.0.zip"
 ZIPNAME=$(echo ${URL} | cut -d / -f 5)
 NEWZIP=$(sed "s/lavender/whyred/g;s/LAVENDER/WHYRED/g;s/Lavender/Whyred/g;s/HMNote7/HMNote5Pro/g;s/.zip/-$date.zip/g" <<< $ZIPNAME)
 rm -rf ${INDIR} ${OUTDIR}
