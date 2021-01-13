@@ -2,7 +2,7 @@
 export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 export TOOLS=${LOCALDIR}/tools
 export DEVICE=lavender
-export TYPE=eu
+export TYPE=miuiplus
 export VERSIONS=(beta)
 export SDAT2IMG=${TOOLS}/sdat2img.py
 export IMG2SDAT=${TOOLS}/img2sdat.py
@@ -36,6 +36,8 @@ else
     echo "Specify TYPE"
 fi
 
+URL="https://mpl1.androidfilehost.com/dl/a60uBOYmkSkp9XJeXZDLIw/1610636060/17248734326145713785/MIUIPLUS.NOTE+7_Lavender.21.1.6_v12.5-10.zip"
+ZIPNAME=$(echo ${URL} | cut -d / -f 8)
 NEWZIP=$(sed "s/lavender/whyred/g;s/LAVENDER/WHYRED/g;s/Lavender/Whyred/g;s/HMNote7/HMNote5Pro/g;s/.zip/-$date.zip/g" <<< $ZIPNAME)
 rm -rf ${LOCALDIR}/url
 rm -rf ${INDIR} ${OUTDIR}
