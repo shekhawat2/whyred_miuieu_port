@@ -84,7 +84,7 @@ rm -rf ${VENDORDIR}/data-app
 apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput MiuiAccessibility greenguard mab UPTsmService Updater \
     MiuiSuperMarket AnalyticsCore HybridAccessory HybridPlatform MiuiAudioMonitor MSA PrintRecommendationService \
     KSICibaEngine TranslationService TSMClient WMService XMCloudEngine YouDaoEngine \
-    Browser MiuiVideo MiuiCamera NewHome Music QuickSearchBox PersonalAssistant YellowPage ContentExtension \
+    BackupAndRestore Browser MiuiVideo MiuiCamera NewHome Music QuickSearchBox PersonalAssistant YellowPage ContentExtension \
     TrichromeLibrary WebViewGoogle aiasst_service)
 for app in ${apps[@]}; do
 rm -rf ${SYSTEMDIR}/system/app/${app}
