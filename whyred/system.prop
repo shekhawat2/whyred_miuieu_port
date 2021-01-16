@@ -1,4 +1,5 @@
 # Additions By Shekhawat2
+ro.product.mod_device=whyred_global
 ro.product.locale.language=en
 ro.product.locale.region=US
 ro.miui.region=IN
