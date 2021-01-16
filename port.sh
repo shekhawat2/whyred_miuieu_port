@@ -74,6 +74,7 @@ rm -rf ${SYSTEMDIR}/system/recovery-from-boot.p
 
 # apply patch
 bash ${PATCHDIR}/services_jar.sh
+bash ${PATCHDIR}/miuisystemui_apk.sh
 
 # data-app
 rm -rf ${SYSTEMDIR}/system/data-app

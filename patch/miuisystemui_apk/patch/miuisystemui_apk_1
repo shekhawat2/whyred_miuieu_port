@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+TMPDIR=${PATCHDIR}/temp/miuisystemui_apk
+REPSTR=${TOOLS}/repStr.py
+
+# FILE1
+SMALI_FILE="$TMPDIR/dexout1/com/android/systemui/statusbar/phone/NavigationBarView.smali"
+
+oldStr="
+    sget-boolean p2, Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z
+
+    iput-boolean p2, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mOpaEnable:Z
+"
+
+${REPSTR} "$SMALI_FILE" "$oldStr" ""
