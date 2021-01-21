@@ -77,6 +77,12 @@ bash ${PATCHDIR}/services_jar.sh
 bash ${PATCHDIR}/miuisystemui_apk.sh
 
 # data-app
+mv ${VENDORDIR}/data-app/Health ${SYSTEMDIR}/system/app
+mv ${VENDORDIR}/data-app/wps-lite ${SYSTEMDIR}/system/app
+mv ${SYSTEMDIR}/system/data-app/MiRadio ${SYSTEMDIR}/system/app
+mv ${SYSTEMDIR}/system/data-app/MiDrive ${SYSTEMDIR}/system/app
+mv ${SYSTEMDIR}/system/data-app/SoundRecorder ${SYSTEMDIR}/system/priv-app
+
 rm -rf ${SYSTEMDIR}/system/data-app
 rm -rf ${SYSTEMDIR}/cust
 rm -rf ${VENDORDIR}/data-app

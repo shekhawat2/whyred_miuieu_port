@@ -111,3 +111,13 @@ system/system/media/theme/miui_mod_icons/icon_background.png 0 0 0644
 system/system/media/theme/miui_mod_icons/com.android.contacts.activities.TwelveKeyDialer.png 0 0 0644
 system/system/media/theme/miui_mod_icons/com.android.documentsui.png 0 0 0644
 system/system/media/theme/miui_mod_icons/com.miui.virtualsim.png 0 0 0644
+system/system/priv-app/SoundRecorder 0 0 0755
+system/system/priv-app/SoundRecorder/SoundRecorder.apk 0 0 0644
+system/system/app/MiRadio 0 0 0755
+system/system/app/MiRadio/MiRadio.apk 0 0 0644
+system/system/app/Health 0 0 0755
+system/system/app/Health/Health.apk 0 0 0644
+system/system/app/MiDrive 0 0 0755
+system/system/app/MiDrive/MiDrive.apk 0 0 0644
+system/system/app/wps-lite 0 0 0755
+system/system/app/wps-lite/wps-lite.apk 0 0 0644
