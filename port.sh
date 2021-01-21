@@ -21,7 +21,10 @@ export fmiui="${SYSTEMDIR}/system/app/miui/miui.apk"
 
 date=`date +%Y%m%d%H%M%S`
 
-URL="https://hugeota.d.miui.com/21.1.19/miui_LAVENDER_21.1.19_cadcddc0d1_10.0.zip"
+URL="https://raw.githubusercontent.com/mooseIre/update_miui_ota/master/Develop/Redmi%20Note7.md"
+WEB=$(curl -s https://raw.githubusercontent.com/mooseIre/update_miui_ota/master/Develop/Redmi%20Note7.md)
+LINKS=$(awk '{print $2}' <<< $WEB | grep -Eo '(http|https)://[^"]+zip')
+URL=$(echo $LINKS | cut -d " " -f 1)
 ZIPNAME=$(echo ${URL} | cut -d / -f 5)
 NEWZIP=$(sed "s/lavender/whyred/g;s/LAVENDER/WHYRED/g;s/Lavender/Whyred/g;s/HMNote7/HMNote5Pro/g;s/.zip/-$date.zip/g" <<< $ZIPNAME)
 rm -rf ${INDIR} ${OUTDIR}
