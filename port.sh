@@ -135,6 +135,11 @@ sed -i "/<fqname>@4.0::IKeymasterDevice\/default<\/fqname>/!b;c\ \ \ \ \ \ \ \ <
 sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" ${VENDORDIR}/bin/init.qcom.post_boot.sh
 
 # build.prop
+sprop=${SYSTEMDIR}/system/build.prop
+phingerprint="$(grep ro.system.build.fingerprint=.* ${SYSTEMDIR}/system/build.prop | cut -d = -f 2)"
+
+grep -q "ro.build.fingerprint=.*" $sprop || sed -i "/ro.system.build.fingerprint/i ro.build.fingerprint=$phingerprint" $sprop
+
 sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" ${VENDORDIR}/build.prop
 sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" ${VENDORDIR}/build.prop
 sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" ${VENDORDIR}/build.prop
