@@ -146,7 +146,7 @@ sed -i "s|lavender|whyred|g;s|Redmi Note 7|Redmi Note 5|g;s|build.fingerprint|bu
 sed -i "s|lavender|whyred|g;s|Redmi Note 7|Redmi Note 5|g;s|build.fingerprint|build.fingerprint_real|g;s|ro.vendor.build.security_patch|ro.vendor.build.security_patch_real|g" ${vprop}
 sed -i "s|lavender|whyred|g;s|Redmi Note 7|Redmi Note 5|g;s|build.fingerprint|build.fingerprint_real|g" ${oprop}
 sed -i "/ro.system.build.fingerprint_real/i ro.build.fingerprint=$fp" ${sprop}
-sed -i "/ro.system.build.fingerprint_real/i ro.system.build.fingerprint=$fp|g" ${sprop}
+sed -i "/ro.system.build.fingerprint_real/i ro.system.build.fingerprint=$fp" ${sprop}
 sed -i "/ro.vendor.build.fingerprint_real/i ro.vendor.build.fingerprint=$fp" ${vprop}
 sed -i "/ro.odm.build.fingerprint_real/i ro.odm.build.fingerprint=$fp" ${oprop}
 sed -i "/ro.build.version.security_patch_real/i ro.build.version.security_patch=$sp" ${sprop}
