@@ -87,7 +87,7 @@ mv ${SYSTEMDIR}/system/data-app/MiDrive ${SYSTEMDIR}/system/app
 mv ${SYSTEMDIR}/system/data-app/SoundRecorder ${SYSTEMDIR}/system/priv-app
 
 rm -rf ${SYSTEMDIR}/system/data-app
-rm -rf ${SYSTEMDIR}/cust
+rm -rf ${SYSTEMDIR}/system/cust
 rm -rf ${VENDORDIR}/data-app
 
 # app
