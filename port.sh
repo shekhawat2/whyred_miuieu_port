@@ -97,7 +97,7 @@ apps=(AiAsstVision Mipay VoiceAssist VoiceTrigger SogouInput MiuiAccessibility \
     TranslationService TSMClient WMService XMCloudEngine YouDaoEngine \
     BackupAndRestore Browser MiuiVideo MiuiCamera Music NewHome QuickSearchBox \
     OriginalInstaller PersonalAssistant ThemeManager YellowPage ContentExtension \
-    TrichromeLibrary WebViewGoogle aiasst_service)
+    TrichromeLibrary WebViewGoogle aiasst_service OneTimeInitializer)
 for app in ${apps[@]}; do
 rm -rf ${SYSTEMDIR}/system/app/${app}
 rm -rf ${SYSTEMDIR}/system/priv-app/${app}
