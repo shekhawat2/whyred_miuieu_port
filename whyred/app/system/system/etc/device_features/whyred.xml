@@ -3,7 +3,7 @@
     <!--whether the device is pad-->
     <bool name="is_pad">false</bool>
     <!--whether the device is xiaomi-->
-    <bool name="is_xiaomi">false</bool>
+    <bool name="is_xiaomi">true</bool>
     <!--whether the device is hongmi-->
     <bool name="is_hongmi">true</bool>
     <!--whether the device is redmi-->
@@ -33,7 +33,7 @@
     <!--whether the device supports stereo record-->
     <bool name="support_stereo_record">true</bool>
     <!--whether the device supports screenrecorder inner-sound recorder mode-->
-    <integer name="support_inner_record">0</integer>
+    <integer name="support_inner_record">1</integer>
     <!--whether the device supports screen paper mode-->
     <bool name="support_screen_paper_mode">true</bool>
     <!--whether the device supports button light-->
@@ -81,11 +81,11 @@
     <!--whether the device supports feedback level-->
     <bool name="support_feedback_level">true</bool>
     <!--whether the device supports miui lite-->
-    <bool name="enable_miui_lite">false</bool>
+    <bool name="enable_miui_lite">true</bool>
     <!--whether the device supports steps_provider-->
     <bool name="support_steps_provider">true</bool>
     <!--whether the device supports hifi-->
-    <bool name="support_hifi">false</bool>
+    <bool name="support_hifi">true</bool>
     <!--whether the device supports agps parameters-->
     <bool name="support_agps_paras">true</bool>
     <!--whether the device supports agps roaming-->
@@ -95,7 +95,7 @@
     <!-- whether the device supports app hiding-->
     <bool name="support_app_hiding">true</bool>
     <!--whether the device can read cpu4 freq-->
-    <bool name="is_read_cpu4_freq">false</bool>
+    <bool name="is_read_cpu4_freq">true</bool>
     <!--whether the device supports cit-->
     <bool name="support_cit">true</bool>
     <!--whether the device is xiaomi-->
@@ -131,13 +131,13 @@
     <!--whether taking lower size effect image in camera-->
     <bool name="is_lower_size_effect">false</bool>
     <!--whether support aohdr in camera-->
-    <bool name="support_camera_aohdr">false</bool>
+    <bool name="support_camera_aohdr">true</bool>
     <!--whether support high frame recording in camera-->
     <bool name="support_camera_hfr">true</bool>
     <!--whether support chroma flash in camera-->
     <bool name="support_chroma_flash">false</bool>
     <!--whether support object tracking in camera-->
-    <bool name="support_object_track">false</bool>
+    <bool name="support_object_track">true</bool>
     <!--whether support 4k recording in camera-->
     <bool name="support_camera_4k_quality">true</bool>
     <!--whether support audio focus recording in camera-->
@@ -161,7 +161,7 @@
     <!--whether hold blured background for effects preview in camera-->
     <bool name="is_camera_hold_blur_background">true</bool>
     <!--whether support peaking mf in camera-->
-    <bool name="support_camera_peaking_mf">false</bool>
+    <bool name="support_camera_peaking_mf">true</bool>
     <!--whether support gradienter in camera-->
     <bool name="support_camera_gradienter">true</bool>
     <!--whether scan qrcode with lower frequency in camera-->
@@ -286,7 +286,7 @@
     <bool name="enable_flash_global">true</bool>
     <bool name="support_new_silentmode">true</bool>
     <!--whether taking 18x9 ratio screen in camera-->
-    <bool name="is_18x9_ratio_screen">false</bool>
+    <bool name="is_18x9_ratio_screen">true</bool>
     <!--whether support portrait in camera-->
     <bool name="is_support_portrait">true</bool>
     <!--whether camera support screen light-->
@@ -383,7 +383,9 @@
     <bool name="support_parallel_process">true</bool>
     <bool name="support_camera_filter_in_back_portrait_mode">true</bool>
     <!-- whether camera support India special filter -->
-    <bool name="camera_support_india_filter">true</bool>
+    <bool name="camera_support_india_filter">false</bool>
+    <!--whether use the lgacy filter in camera-->
+    <bool name="use_legacy_normal_filter">false</bool>
     <!--whether support new style time watermark in camera-->
     <bool name="support_camera_new_style_time_water_mark">true</bool>
     <!--whether support fisheye mode  in camera-->
