@@ -75,10 +75,6 @@ rm ${VENDORDIR}/etc/init/android.hardware.keymaster@4.0-service-qti.rc
 # recovery-from-boot.p
 rm -rf ${SYSTEMDIR}/system/recovery-from-boot.p
 
-# apply patch
-bash ${PATCHDIR}/services_jar.sh
-bash ${PATCHDIR}/miuisystemui_apk.sh
-
 # data-app
 mv ${VENDORDIR}/data-app/Health ${SYSTEMDIR}/system/app
 mv ${VENDORDIR}/data-app/wps-lite ${SYSTEMDIR}/system/app
@@ -178,9 +174,10 @@ cat ${LOCALDIR}/whyred/product.prop >> ${pprop}
 rm -rf ${SYSTEMDIR}/system/etc/device_features/lavender.xml
 rm -rf ${VENDORDIR}/etc/device_features/lavender.xml
 
-# Patch blobs
-#bash ${LOCALDIR}/whyred/patch/services_jar.sh
-#bash ${LOCALDIR}/whyred/patch/miui_apk.sh
+# apply patch
+bash ${PATCHDIR}/services_jar.sh
+bash ${PATCHDIR}/miuisystemui_apk.sh
+bash ${LOCALDIR}/whyred/patch/miui_apk.sh
 
 # file_contexts
 echo "Patching file_contexts"
