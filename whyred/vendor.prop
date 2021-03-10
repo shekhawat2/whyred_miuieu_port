@@ -13,3 +13,12 @@ persist.vendor.s5k3l8_ofilm.low.lux=379
 persist.vendor.s5k3l8_ofilm.light.lux=367
 persist.vendor.camera.ltm.overlap=13
 sys.haptic.dynamiceffect=true
+# AudioFixes
+#ro.vendor.audio.sdk.fluencetype=fluence
+vendor.display.enable_default_color_mode=0
+vendor.audio.adm.buffering.ms=12
+vendor.audio_hal.period_size=240
+vendor.audio.offload.track.enable=true
+vendor.audio.feature.incall_music.enable=false
+ro.vendor.audio.voice.change.support=true
+ro.vendor.audio.game.effect=true
