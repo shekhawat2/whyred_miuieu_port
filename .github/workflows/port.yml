@@ -46,4 +46,4 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
           sudo -H -E ./eu.py lavender beta
-          sudo -H -E ./port.sh test
+          sudo -H -E ./port.sh release
