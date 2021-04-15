@@ -3,7 +3,7 @@ export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 export TOOLS=${LOCALDIR}/tools
 export DEVICE=lavender
 export TYPE=eu
-export VERSIONS=(beta)
+export VERSIONS=(stable)
 export SDAT2IMG=${TOOLS}/sdat2img.py
 export IMG2SDAT=${TOOLS}/img2sdat.py
 export IMGEXTRACT=${TOOLS}/imgextractor.py
@@ -31,7 +31,6 @@ elif [ "${TYPE}" = "mmx" ]; then
 elif [ "${TYPE}" = "eu" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
-    URL="https://gdmbd.sasohan.workers.dev/xiaomi.eu_multi_HMNote7_21.4.7_v12-10.zip"
     ZIPNAME=$(echo ${URL} | cut -d / -f 4)
 else
     echo "Specify TYPE"
