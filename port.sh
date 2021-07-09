@@ -13,6 +13,10 @@ export SYSTEMDIR=${LOCALDIR}/system
 export VENDORDIR=${LOCALDIR}/vendor
 export OUTDIR=${LOCALDIR}/out
 export INDIR=${LOCALDIR}/in
+export INFOFILE=${LOCALDIR}/info.txt
+export MIUIPIC=${LOCALDIR}/miui.jpg
+export GENINFO=${TOOLS}/geninfo.sh
+export SENDMESSAGE=${TOOLS}/sendmessage.py
 export fframeworkres="${SYSTEMDIR}/system/framework/framework-res.apk"
 export fframeworkextres="${SYSTEMDIR}/system/framework/framework-ext-res/framework-ext-res.apk"
 export fmiuisystem="${SYSTEMDIR}/system/app/miuisystem/miuisystem.apk"
@@ -31,7 +35,6 @@ elif [ "${TYPE}" = "mmx" ]; then
 elif [ "${TYPE}" = "eu" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
-    URL="https://drive.tuntunidl.workers.dev/xiaomi.eu_multi_HMNote7_21.4.22_v12-10.zip"
     ZIPNAME=$(echo ${URL} | cut -d / -f 4)
 else
     echo "Specify TYPE"
@@ -46,7 +49,7 @@ mkdir -p ${OUTDIR}
 rm -rf ${LOCALDIR}/flashable/system.*
 rm -rf ${LOCALDIR}/flashable/vendor.*
 
-EUDATE=$(echo ${ZIPNAME} | cut -d _ -f 4)
+export EUDATE=$(echo ${ZIPNAME} | cut -d _ -f 4)
 
 git config --global user.email "anandsingh215@yahoo.com"
 git config --global user.name "Anand Shekhawat"
@@ -58,7 +61,7 @@ aria2c -x16 -j$(nproc) -q -d "${INDIR}" -o "${ZIPNAME}" ${URL}
 partitions=(system vendor)
 for partition in ${partitions[@]}; do
 echo "Extracting ${partition} to ${INDIR}"
-7z e "${INDIR}/${ZIPNAME}" ${partition}.new.dat.br ${partition}.transfer.list -o"$INDIR"
+7z e "${INDIR}/${ZIPNAME}" ${partition}.new.dat.br ${partition}.transfer.list -o"$INDIR" > /dev/null
 brotli -df ${INDIR}/${partition}.new.dat.br
 $SDAT2IMG ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat ${INDIR}/${partition}.img > /dev/null
 rm -rf ${INDIR}/${partition}.transfer.list ${INDIR}/${partition}.new.dat*
@@ -236,38 +239,15 @@ mk_zip() {
     cd flashable
 
     echo "Compressing system.new.dat"
-    brotli -7 system.new.dat
+    brotli -6 system.new.dat
     echo "Conpressing vendor.new.dat"
-    brotli -7 vendor.new.dat
+    brotli -6 vendor.new.dat
 
     rm system.new.dat || exit 1
     rm vendor.new.dat || exit 1
 
-    zip -rv9 ../${NEWZIP} boot.img system.new.dat.br system.patch.dat system.transfer.list vendor.new.dat.br vendor.patch.dat vendor.transfer.list
+    zip -rv9 ../${NEWZIP} boot.img system.new.dat.br system.patch.dat system.transfer.list vendor.new.dat.br vendor.patch.dat vendor.transfer.list > /dev/null
     cd ..
-}
-
-urlencode() {
-    echo "$*" | sed 's:%:%25:g;s: :%20:g;s:<:%3C:g;s:>:%3E:g;s:#:%23:g;s:{:%7B:g;s:}:%7D:g;s:|:%7C:g;s:\\:%5C:g;s:\^:%5E:g;s:~:%7E:g;s:\[:%5B:g;s:\]:%5D:g;s:`:%60:g;s:;:%3B:g;s:/:%2F:g;s:?:%3F:g;s^:^%3A^g;s:@:%40:g;s:=:%3D:g;s:&:%26:g;s:\$:%24:g;s:\!:%21:g;s:\*:%2A:g'
-}
-
-tg_send() {
-    if [[ -z ${BOT_TOKEN} ]]; then
-        echo "tg_msg() was called but there was no token!"
-        return 1
-    fi
-
-    if [[ -z ${CHAT_ID} ]]; then
-        echo "tg_msg() was called but there was no chat ID!"
-        return 1
-    fi
-
-    BOTURL="https://api.telegram.org/bot${BOT_TOKEN}/sendMessage"
-    TEXT="$1"
-    until [ $(echo -n "$TEXT" | wc -m) -eq 0 ]; do
-    res=$(curl -s "${BOTURL}" -d "chat_id=${CHAT_ID}" -d "text=$(urlencode "${TEXT:0:4096}")" -d "parse_mode=Markdown" -d "disable_web_page_preview=true")
-    TEXT="${TEXT:4096}"
-    done
 }
 
 patch_rom
@@ -277,22 +257,15 @@ mk_zip
 rm -rf ${INDIR} ${OUTDIR}
 
 if [ -f ${LOCALDIR}/${NEWZIP} ]; then
-    ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
-    SF_PROJECT=whyred-miui
-if [ "${1}" == "release" ]; then
-    scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/${TYPE^^}/${VERSION^^}
-    NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
-elif [ "${1}" == "test" ]; then
-    scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/testing/${TYPE^^}/${VERSION^^}
-    NEWURL="https://sourceforge.net/projects/${SF_PROJECT}/files/testing/${TYPE^^}/${VERSION^^}/${NEWZIP}/download"
+ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known_hosts
+SF_PROJECT=whyred-miui
+scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/note7
+export DOWNLOADLINK="https://sourceforge.net/projects/${SF_PROJECT}/files/note7/${NEWZIP}"
+curl "https://bashupload.com/${NEWZIP}" --data-binary "@${NEWZIP}"
+export zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;printf $1}'`
+$GENINFO > $INFOFILE
+$SENDMESSAGE
 else
-    curl "https://bashupload.com/${NEWZIP}" --data-binary "@${NEWZIP}"
-fi
-    zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;printf $1}'`
-    printf "[${NEWZIP}]($NEWURL)\n" > "${LOCALDIR}/info.txt"
-    printf "Size: $(bytesToHuman $zsize)" >> "${LOCALDIR}/info.txt"
-    tg_send "$(cat ${LOCALDIR}/info.txt)"
-else
-    exit 0
+exit 0
 fi
 done

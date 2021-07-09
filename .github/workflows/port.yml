@@ -35,15 +35,16 @@ jobs:
       - name: Initialization environment
         run: |
           sudo -H -E apt-get -qq update
-          sudo -H -E apt-get -qq install git default-jdk python3.8 python3.8 python3-setuptools python3.8-dev python3-wheel aria2 brotli p7zip-full aapt
+          sudo -H -E apt-get -qq install git default-jdk python3.9 python3.9 python3-setuptools python3.9-dev python3-wheel aria2 brotli p7zip-full aapt
           sudo -H -E ln -sf /usr/bin/python3.8 /usr/bin/python3
           sudo -H -E python3 -m pip install --upgrade pip
           sudo -H -E python3 -m pip install -r requirements.txt
 
       - name: Start porting
         env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
+          APPID: ${{ secrets.APPID }}
+          APIHASH: ${{ secrets.APIHASH }}
+          SESSIONSTRING: ${{ secrets.SESSIONSTRING }}
         run: |
           sudo -H -E ./eu.py lavender beta
           sudo -H -E ./port.sh release

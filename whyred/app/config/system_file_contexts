@@ -4,10 +4,10 @@
 /system/system/product/app/Chrome u:object_r:system_file:s0
 /system/system/product/app/Chrome-Stub u:object_r:system_file:s0
 /system/system/product/app/Chrome/Chrome\.apk\.gz u:object_r:system_file:s0
-/system/system/product/app/Chrome/Chrome-Stub\.apk u:object_r:system_file:s0
+/system/system/product/app/Chrome-Stub/Chrome-Stub\.apk u:object_r:system_file:s0
 /system/system/product/app/TrichromeLibrary-Stub u:object_r:system_file:s0
 /system/system/product/app/TrichromLibrary/TrichromeLibrary\.apk\.gz u:object_r:system_file:s0
-/system/system/product/app/TrichromeLibrary-stub/TrichromLibrary-Stub\.apk u:object_r:system_file:s0
+/system/system/product/app/TrichromeLibrary-Stub/TrichromLibrary-Stub\.apk u:object_r:system_file:s0
 /system/system/product/app/WebViewGoogle-Stub u:object_r:system_file:s0
 /system/system/product/app/WebViewGoogle/WebViewGoogle\.apk\.gz u:object_r:system_file:s0
-/system/system/product/app/WebViewGoogle-stub/WebViewGoogle-Stub\.apk u:object_r:system_file:s0
+/system/system/product/app/WebViewGoogle-Stub/WebViewGoogle-Stub\.apk u:object_r:system_file:s0
