@@ -4,7 +4,13 @@ system/system/etc/dualcamera_in.png 0 0 0644
 system/system/priv-app/MiuiAod 0 0 0755
 system/system/priv-app/MiuiAod/MiuiAod.apk 0 0 0644
 system/system/product/app/Chrome 0 0 0755
-system/system/product/app/Chrome/Chrome.apk 0 0 0644
-system/system/product/app/Chrome/split_config.en.apk 0 0 0644
-system/system/product/app/Chrome/split_extra_icu.apk 0 0 0644
-system/system/product/app/WebViewGoogle/split_config.en.apk 0 0 0644
+system/system/product/app/Chrome-stub 0 0 0755
+system/system/product/app/Chrome/Chrome.apk.gz 0 0 0644
+system/system/product/app/Chrome-stub.apk 0 0 0644
+system/system/product/app/TrichromeLibrary 0 0 0755
+system/system/product/app/TrichromeLibrary-stub 0 0 0755
+system/system/product/app/TrichromeLibrary/TrichromeLibrary.apk.gz 0 0 0755
+system/system/product/app/TrichromeLibrary-stub/TrichromeLibrary-stub.apk 0 0 0755
+system/system/product/app/WebViewGoogle-stub 0 0 0755
+system/system/product/app/WebViewGoogle/WebViewGoogle.apk.gz 0 0 0644
+system/system/product/app/WebViewGoogle-stub/WebViewGoogle-stub.apk 0 0 0644
