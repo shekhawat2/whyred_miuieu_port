@@ -1,5 +1,4 @@
-Telethon==1.11.3
+Telethon
 aiohttp[speedups]
 requests
 pyyaml
-xattr

@@ -3,7 +3,7 @@ export LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 export TOOLS=${LOCALDIR}/tools
 export DEVICE=lavender
 export TYPE=eu
-export VERSIONS=(beta)
+export VERSIONS=(stable)
 export SDAT2IMG=${TOOLS}/sdat2img.py
 export IMG2SDAT=${TOOLS}/img2sdat.py
 export IMGEXTRACT=${TOOLS}/imgextractor.py
@@ -135,24 +135,21 @@ sed -i "/<fqname>@4.0::IKeymasterDevice\/default<\/fqname>/!b;c\ \ \ \ \ \ \ \ <
 sed -i "s/start vendor.cdsprpcd/\# start vendor.cdsprpcd/g" ${VENDORDIR}/bin/init.qcom.post_boot.sh
 
 # build.prop
-sed -i "s/ro.product.vendor.name=lavender/ro.product.vendor.name=whyred/g" ${VENDORDIR}/build.prop
-sed -i "s/ro.product.vendor.device=lavender/ro.product.vendor.device=whyred/g" ${VENDORDIR}/build.prop
-sed -i "s/ro.product.vendor.model=Redmi Note 7/ro.product.vendor.model=Redmi Note 5/g" ${VENDORDIR}/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/build.prop
+sprop=${SYSTEMDIR}/system/build.prop
+oprop=${VENDORDIR}/odm/etc/build.prop
+vprop=${VENDORDIR}/build.prop
+phingerprint="$(grep ro.system.build.fingerprint=.* ${SYSTEMDIR}/system/build.prop | cut -d = -f 2)"
+grep -q "ro.build.fingerprint=.*" $sprop || sed -i "/ro.system.build.fingerprint/i ro.build.fingerprint=$phingerprint" $sprop
 
-sed -i "s/ro.product.system.name=lavender/ro.product.system.name=whyred/g" ${SYSTEMDIR}/system/build.prop
-sed -i "s/ro.product.system.device=lavender/ro.product.system.device=whyred/g" ${SYSTEMDIR}/system/build.prop
-sed -i "s/ro.product.system.model=Redmi Note 7/ro.product.system.model=Redmi Note 5/g" ${SYSTEMDIR}/system/build.prop
+poops=($sprop $vprop $oprop)
+for poop in ${poops[@]}; do
+sed -i "/ro.product.*\.name=.*/s|=.*|=whyred|g" $poop
+sed -i "/ro.product.*\.device=.*/s|=.*|=whyred|g" $poop
+sed -i "/ro.product.*\.model=.*/s|=.*|=Redmi Note 5|g" $poop
+sed -i -e "/build.fingerprint_real/s/lavender/whyred/g" $poop
+done
+
 sed -i "s/persist.vendor.camera.model=Redmi Note 7/persist.vendor.camera.model=Redmi Note 5/g" ${SYSTEMDIR}/system/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${SYSTEMDIR}/system/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${SYSTEMDIR}/system/build.prop
-
-sed -i "s/ro.product.odm.name=lavender/ro.product.odm.name=whyred/g" ${VENDORDIR}/odm/etc/build.prop
-sed -i "s/ro.product.odm.device=lavender/ro.product.odm.device=whyred/g" ${VENDORDIR}/odm/etc/build.prop
-sed -i "s/ro.product.odm.model=Redmi Note 7/ro.product.odm.model=Redmi Note 5/g" ${VENDORDIR}/odm/etc/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/odm/etc/build.prop
-sed -i -e "/build.fingerprint_real/s/lavender/whyred/" ${VENDORDIR}/odm/etc/build.prop
 
 sed -i "/ro.miui.notch=1/d" ${SYSTEMDIR}/system/build.prop
 sed -i "s/sys.paper_mode_max_level=255/sys.paper_mode_max_level=400/g" ${SYSTEMDIR}/system/build.prop
