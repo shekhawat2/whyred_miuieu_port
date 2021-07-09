@@ -35,7 +35,7 @@ elif [ "${TYPE}" = "mmx" ]; then
 elif [ "${TYPE}" = "eu" ]; then
     python3 ${LOCALDIR}/${TYPE}.py ${DEVICE} ${VERSION}
     URL=$(cat ${LOCALDIR}/url)
-    ZIPNAME=$(echo ${URL} | cut -d / -f 4)
+    ZIPNAME=$(echo ${URL} | cut -d / -f 10)
 else
     echo "Specify TYPE"
 fi
@@ -261,11 +261,10 @@ ssh-keyscan -t ecdsa -p 22 -H frs.sourceforge.net 2>&1 | tee -a /root/.ssh/known
 SF_PROJECT=whyred-miui
 scp ${NEWZIP} shekhawat2@frs.sourceforge.net:/home/frs/project/${SF_PROJECT}/note7
 export DOWNLOADLINK="https://sourceforge.net/projects/${SF_PROJECT}/files/note7/${NEWZIP}"
-curl "https://bashupload.com/${NEWZIP}" --data-binary "@${NEWZIP}"
-export zsize=`du -sk ${NEWZIP} | awk '{$1*=1024;printf $1}'`
+export ZIPSIZE=`du -sk ${NEWZIP} | awk '{$1*=1024;printf $1}'`
 $GENINFO > $INFOFILE
 $SENDMESSAGE
 else
-exit 0
+exit 1
 fi
 done
